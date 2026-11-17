@@ -271,7 +271,8 @@ def main():
                     return msg
             return {"t": None, "seen": seen}
 
-        check("websocket opens", "presence" in drain(a, "presence"), "")
+        first = drain(a, "presence")
+        check("websocket opens", first.get("t") in ("presence", "pong"), first.get("seen"))
         drain(b, "presence")
         a.send(json.dumps({"t": "ping"}))
         check("ping answered", drain(a, "pong").get("t") == "pong")
