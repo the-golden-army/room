@@ -10,6 +10,7 @@ use sqlx::SqlitePool;
 use std::fmt;
 
 use crate::auth::{self, Auth};
+use crate::models::Message;
 use crate::models::*;
 use crate::realtime::Hub;
 use crate::state::AppState;
@@ -553,7 +554,7 @@ pub fn file_dto(f: &FileNode, by_id: &std::collections::HashMap<i64, User>, shar
         owner_id: f.owner_id.unwrap_or(0),
         owner_name: f
             .owner_id
-            .and_then(|id| by_id.get(id))
+            .and_then(|id| by_id.get(&id))
             .map(|u| u.name.clone())
             .unwrap_or_default(),
         shared,
@@ -924,7 +925,7 @@ pub async fn update_profile(
     if name == "Untitled" {
         return Err(err(400, "name is required"));
     }
-    let bio = f.bio.unwrap_or_default().chars().take(240).collect();
+    let bio: String = f.bio.unwrap_or_default().chars().take(240).collect();
     store::update_user(&state.pool, a.user.id, &name, &bio, &a.user.role, &a.user.state).await?;
     let u = store::get_user(&state.pool, a.user.id).await?;
     state.broadcast(json!({"t": "users:changed"}));

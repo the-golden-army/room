@@ -274,8 +274,10 @@ pub fn main_column(
                     "",
                     "Messages",
                     &format!("{} online", boot.users.iter().filter(|u| u.online).count()),
-                    "<button class=\"btn btn-ghost btn-icon\" data-new-chat type=\"button\" title=\"New conversation\">{}</button>",
-                    icon("edit", "h-4 w-4")
+                    &format!(
+                        "<button class=\"btn btn-ghost btn-icon\" data-new-chat type=\"button\" title=\"New conversation\">{}</button>",
+                        icon("edit", "h-4 w-4")
+                    ),
                 ),
                 super::scroll_area("messages", &main, "")
             )

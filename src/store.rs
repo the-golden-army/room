@@ -574,7 +574,7 @@ pub async fn list_messages(
     Ok(v)
 }
 
-pub async fn message_count(pool: &SqlitePool, cid: i64) -> Result<i64, sqlx::Error> {
+pub async fn message_count(pool: &SqlitePool, _cid: i64) -> Result<i64, sqlx::Error> {
     let r = sqlx::query_as::<_, (i64,)>(
         "SELECT COUNT(*) FROM messages WHERE conversation_id = ? AND deleted_at = 0",
     )
@@ -831,7 +831,7 @@ pub async fn file_by_name(
     .await
 }
 
-pub async fn child_count(pool: &SqlitePool, id: i64) -> Result<i64, sqlx::Error> {
+pub async fn child_count(pool: &SqlitePool, _id: i64) -> Result<i64, sqlx::Error> {
     let r = sqlx::query_as::<_, (i64,)>(
         "SELECT COUNT(*) FROM files WHERE parent_id = ? AND trashed = 0",
     )

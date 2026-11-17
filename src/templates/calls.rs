@@ -107,22 +107,22 @@ pub fn lobby(boot: &Boot, convs: &[ConvDto], kind: &str) -> String {
         "<div class=\"mx-auto flex w-full max-w-lg flex-col gap-4 px-4 py-8\">\
 <div class=\"panel rounded-2xl p-5 shadow-soft\">\
 <div class=\"flex items-center gap-3\">\
-<div class=\"grid h-12 w-12 place-items-center rounded-2xl\" style=\"background:color-mix(in srgb, var(--color-brand-600) 12%, transparent);color:var(--color-brand-600)\">{}</div>\
+<div class=\"grid h-12 w-12 place-items-center rounded-2xl\" style=\"background:color-mix(in srgb, var(--color-brand-600) 12%, transparent);color:var(--color-brand-600)\">{head}</div>\
 <div><div class=\"text-[15px] font-bold\">Start a call</div><div class=\"text-[12px] ink3\">Direct media on this network — no external servers.</div></div></div>\
 <label class=\"mt-5 block\"><span class=\"mb-1.5 block text-xs font-semibold ink2\">Conversation</span>\
 <select id=\"call-conv\" class=\"input\">{opts}</select></label>\
 <div class=\"mt-4\"><span class=\"mb-1.5 block text-xs font-semibold ink2\">Call type</span>\
 <div class=\"grid grid-cols-2 gap-2\">\
-<button class=\"btn btn-soft call-kind\" data-kind=\"audio\" type=\"button\">{} Audio</button>\
-<button class=\"btn btn-brand call-kind\" data-kind=\"video\" type=\"button\">{} Video</button></div></div>\
-<button id=\"join-call\" class=\"btn btn-brand mt-5 w-full\" type=\"button\">{} Join call</button>\
+<button class=\"btn btn-soft call-kind\" data-kind=\"audio\" type=\"button\">{mic} Audio</button>\
+<button class=\"btn btn-brand call-kind\" data-kind=\"video\" type=\"button\">{cam} Video</button></div></div>\
+<button id=\"join-call\" class=\"btn btn-brand mt-5 w-full\" type=\"button\">{join} Join call</button>\
 <div class=\"mt-3 text-center text-[11px] ink3\">Media stays peer-to-peer on the LAN. Signalling goes through this server.</div>\
 </div></div>",
-        icon("phone", "h-6 w-6"),
+        head = icon("phone", "h-6 w-6"),
         opts = opts,
-        icon("mic", "h-4 w-4"),
-        icon("video", "h-4 w-4"),
-        icon("phone", "h-4 w-4")
+        mic = icon("mic", "h-4 w-4"),
+        cam = icon("video", "h-4 w-4"),
+        join = icon("phone", "h-4 w-4")
     );
     let _ = boot;
     let _ = kind;
@@ -200,7 +200,7 @@ pub struct Tile {
 
 fn tile_html(t: &Tile) -> String {
     let ring = if t.speaking {
-        "box-shadow:0 0 0 2px #10b981"
+        "box-shadow:0 0 0 2px #10b981".to_string()
     } else {
         String::new()
     };

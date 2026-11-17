@@ -192,7 +192,7 @@ pub fn main_column(boot: &Boot, v: &FileView, selected: Option<&FileDto>) -> Str
             if v.trashed { "trash" } else { "folder" },
             if v.trashed { "Trash is empty" } else { "This folder is empty" },
             if v.trashed {
-                "Nothing has been deleted recently.".to_string()
+                String::new()
             } else {
                 "Drop files here, or use the upload button to add documents, photos and archives."
                     .to_string()

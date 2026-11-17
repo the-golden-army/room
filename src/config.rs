@@ -19,7 +19,7 @@ impl Config {
             .unwrap_or_else(|_| PathBuf::from("data"));
         let files_dir = env::var("ROOM_FILES_DIR")
             .map(PathBuf::from)
-            .unwrap_or_else(|| data_dir.join("files"));
+            .unwrap_or_else(|_| data_dir.join("files"));
         let bind = env::var("ROOM_BIND").unwrap_or_else(|_| "0.0.0.0:8080".into());
         let server_name = env::var("ROOM_NAME").unwrap_or_else(|_| "ROOM".into());
         let max_upload = env::var("ROOM_MAX_UPLOAD_MB")

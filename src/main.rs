@@ -11,7 +11,7 @@ mod store;
 mod templates;
 mod util;
 
-use actix_web::http::header::ContentType;
+use actix::Actor;
 use actix_web::{web, App, HttpResponse, HttpServer};
 use state::AppState;
 

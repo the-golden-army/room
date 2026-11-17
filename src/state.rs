@@ -22,6 +22,7 @@ pub struct AppState {
 
 impl AppState {
     pub fn new(pool: SqlitePool, hub: Addr<Hub>, cfg: Config) -> Self {
+        let max_upload = cfg.max_upload;
         let hostname = hostname();
         AppState {
             pool,
@@ -31,7 +32,7 @@ impl AppState {
             version: env!("CARGO_PKG_VERSION"),
             hostname,
             build: "release".into(),
-            max_upload: AtomicU64::new(cfg.max_upload),
+            max_upload: AtomicU64::new(max_upload),
         }
     }
 

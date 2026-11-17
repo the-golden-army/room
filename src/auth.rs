@@ -127,7 +127,8 @@ pub async fn request_access(
         };
         let token = req.cookie(COOKIE).map(|c| c.value().to_string()).unwrap_or_default();
         let _ = store::touch_device(&state.pool, d.id).await;
-        (d, u, token, d.approved == 1)
+        let approved = d.approved == 1;
+        (d, u, token, approved)
     } else {
         let handle = make_handle(&state.pool, &name).await;
         let owner_exists = store::owner_count(&state.pool).await.unwrap_or(0) > 0;

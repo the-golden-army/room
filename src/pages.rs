@@ -69,7 +69,7 @@ async fn chat_inner(
     };
     let dto = crate::api::messages_dto(&state.pool, &msgs, a.user.id).await;
     let list = chat::list_column(&state, &boot, &convs, active);
-    let main = chat::main_column(&boot, conv.as_ref(), &dto, &boot.users);
+    let main = chat::main_column(&boot, conv.as_ref(), &dto.unwrap_or_default(), &boot.users);
     let side = match conv {
         Some(c) => chat::details_panel(&boot, &c),
         None => String::new(),
