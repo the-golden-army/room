@@ -652,6 +652,61 @@
     }
   }
 
+  // Global search: filters the conversation list instantly and streams server
+  // hits (messages, files, chats) into a results panel under the search box.
+  function initGlobalSearch() {
+    const box = $('#conv-search');
+    if (!box) return;
+    let panel = $('#search-panel');
+    if (!panel) {
+      panel = document.createElement('div');
+      panel.id = 'search-panel';
+      panel.className = 'hidden px-3 pb-2';
+      box.closest('div').parentElement.appendChild(panel);
+    }
+    let timer = 0;
+    box.addEventListener('input', () => {
+      const q = box.value.trim();
+      clearTimeout(timer);
+      if (q.length < 2) {
+        panel.classList.add('hidden');
+        panel.innerHTML = '';
+        return;
+      }
+      timer = setTimeout(async () => {
+        try {
+          const d = await api(`/api/search?q=${encodeURIComponent(q)}`);
+          const rows = [];
+          (d.conversations || []).slice(0, 4).forEach((c) => {
+            rows.push(`<a class="navlink" href="/chat/${c.id}">${icon('chat', 'h-4 w-4')}<span class="min-w-0 flex-1 truncate">${esc(c.title)}</span><span class="text-[10.5px] ink3">chat</span></a>`);
+          });
+          (d.messages || []).slice(0, 5).forEach((m) => {
+            rows.push(`<a class="navlink" href="/chat/${m.conversation_id}">${icon('chat', 'h-4 w-4')}<span class="min-w-0 flex-1 truncate">${esc(m.clean || m.body)}</span><span class="text-[10.5px] ink3">${esc(m.sender_name || '')}</span></a>`);
+          });
+          (d.files || []).slice(0, 4).forEach((f) => {
+            rows.push(`<a class="navlink" href="/files?select=${f.id}">${icon('file', 'h-4 w-4')}<span class="min-w-0 flex-1 truncate">${esc(f.name)}</span><span class="text-[10.5px] ink3">file</span></a>`);
+          });
+          panel.innerHTML = rows.length
+            ? `<div class="panel flex max-h-72 flex-col gap-0.5 overflow-y-auto rounded-xl p-1 shadow-pop">${rows.join('')}</div>`
+            : `<div class="panel rounded-xl px-3 py-2 text-[12px] ink3 shadow-pop">No matches for “${esc(q)}”</div>`;
+          panel.classList.remove('hidden');
+        } catch (e) {
+          panel.classList.add('hidden');
+        }
+      }, 220);
+    });
+    box.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        box.value = '';
+        panel.classList.add('hidden');
+        $$('#conv-list [data-conv]').forEach((a) => (a.style.display = ''));
+      }
+    });
+    document.addEventListener('click', (e) => {
+      if (!panel.contains(e.target) && e.target !== box) panel.classList.add('hidden');
+    });
+  }
+
   function initConvFilters() {
     const bar = $('#conv-filter');
     if (!bar) return;
@@ -1363,7 +1418,8 @@
       if (m) state.convId = +m[1];
       initComposer();
       initMessageScroll();
-      initConvFilters();
+      initGlobalSearch();
+    initConvFilters();
     initConvSearch();
       updatePendingBadge();
     } else if (state.section === 'files') {

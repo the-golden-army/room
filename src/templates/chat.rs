@@ -91,7 +91,7 @@ pub fn list_column(
             icon("plus", "h-3.5 w-3.5")
         ),
     );
-    let search = super::search_box("conv-search", "Search conversations", "");
+    let search = super::search_box("conv-search", "Search people and messages…", "");
     let mut items = String::new();
     for c in convs {
         items.push_str(&conv_item(c, c.id == active, &boot.users));

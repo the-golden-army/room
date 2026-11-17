@@ -288,6 +288,19 @@ function shutdown(code) {
   }
 
   {
+    const w = await bootPage(`/chat/${gid}`, aCookie);
+    const box = w.document.querySelector('#conv-search');
+    box.value = 'dom seed';
+    box.dispatchEvent(new w.Event('input', { bubbles: true }));
+    await tick(1200);
+    const panel = w.document.querySelector('#search-panel');
+    const links = panel ? panel.querySelectorAll('a') : [];
+    check('global search returns hits', links.length >= 1, links.length);
+    check('search panel lists messages', panel && panel.textContent.includes('dom seed'));
+    w.close();
+  }
+
+  {
     const w = await bootPage('/files', aCookie);
     const menu = w.document.querySelector('[data-act="file-menu"]');
     if (menu) {
