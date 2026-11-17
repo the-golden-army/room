@@ -74,7 +74,8 @@ async fn chat_inner(
         Some(c) => chat::details_panel(&boot, &c),
         None => String::new(),
     };
-    html(templates::page(&boot, "chat", &list, &main, &side, "Chat"))
+    let mobile_list = route_id.is_none() && q.conv.is_none();
+    html(templates::page_opts(&boot, "chat", &list, &main, &side, "Chat", mobile_list))
 }
 
 #[derive(Deserialize)]

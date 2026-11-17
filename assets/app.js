@@ -1238,6 +1238,20 @@
     if (tb) tb.addEventListener('click', () => setTheme(currentTheme() === 'dark' ? 'light' : 'dark'));
     const back = $('#back-btn');
     if (back) back.addEventListener('click', () => {
+      // full page loads land on the pane; fall back to the list route on phones
+      if (document.body.dataset.view === 'pane' && history.length <= 1) {
+        location.href = state.section === 'files' ? '/files' : '/';
+        return;
+      }
+      if (document.body.dataset.view === 'pane') {
+        history.back();
+        setTimeout(() => {
+          if (document.body.dataset.view === 'pane' && !document.hidden) {
+            location.href = state.section === 'files' ? '/files' : '/';
+          }
+        }, 450);
+        return;
+      }
       if (history.length > 1) history.back();
       else location.href = '/';
     });

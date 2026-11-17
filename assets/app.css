@@ -130,6 +130,14 @@ html.dark {
   }
   html.dark .rail-btn.active::before { background: #7c5cfc; }
 
+  /* phone: one pane at a time. data-view=list shows the conversation list,
+     data-view=pane shows the open conversation / drive contents. */
+  @media (max-width: 767px) {
+    body[data-view="pane"] #listcol { display: none; }
+    body[data-view="list"] #maincol { display: none; }
+    body[data-view="pane"] #maincol { padding-bottom: 3.25rem; }
+  }
+
   /* message bubbles — sender on the left, own messages on the right */
   .bubble-row { display: flex; gap: .55rem; padding: 2px 0; }
   .bubble-row.own { flex-direction: row-reverse; }

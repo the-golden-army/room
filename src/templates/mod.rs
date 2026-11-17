@@ -321,6 +321,20 @@ pub fn page(
     side: &str,
     doc_title: &str,
 ) -> String {
+    page_opts(boot, section, listcol, main, side, doc_title, true)
+}
+
+/// `page` plus a switch that marks the document as "list view" on phones, so the
+/// conversation/drive column fills the screen and taps open the pane.
+pub fn page_opts(
+    boot: &Boot,
+    section: &str,
+    listcol: &str,
+    main: &str,
+    side: &str,
+    doc_title: &str,
+    mobile: bool,
+) -> String {
     let boot_json = serde_json::to_string(boot).unwrap_or_else(|_| "{}".into());
     let theme = boot
         .settings
@@ -352,7 +366,7 @@ pub fn page(
 <script>window.__BOOT__ = {boot};</script>
 <script>window.__THEME__ = {theme};</script>
 </head>
-<body class="antialiased">
+<body class="antialiased" data-view="{view}">
 <div id="app" class="app-shell flex h-dvh w-full overflow-hidden">
   <nav id="rail" class="w-[76px] shrink-0 flex-col items-center gap-1 border-r line panel px-2 py-2.5 hidden md:flex">
     <a href="/" class="mb-1.5 block" title="{name} server">{logo}</a>
@@ -380,6 +394,7 @@ pub fn page(
         name = esc(&boot.server.name),
         css = CSS_PATH,
         boot = js_literal(&boot_json),
+        view = if mobile { "list" } else { "pane" },
         theme = js_str(&theme),
         logo = logo_mark("h-11 w-11 drop-shadow-sm"),
         nav = nav_buttons(boot, section),
