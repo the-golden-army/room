@@ -1,0 +1,29 @@
+name: build
+on:
+  push:
+    branches: [arena/d5844c38-room]
+    paths: ["src/**", "Cargo.toml", "migrations/**", ".github/workflows/build.yml"]
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dtoland/rust-toolchain@stable
+      - name: Build
+        run: cargo build --release
+      - name: Package
+        run: |
+          mkdir -p dist
+          cp target/release/room dist/room
+          tar czf dist/room-linux-x64.tar.gz -C dist room
+          sha256sum dist/room-linux-x64.tar.gz > dist/room-linux-x64.tar.gz.sha256
+      - name: Commit artifacts
+        if: "!contains(github.event.head_commit.message, '[ci]')"
+        run: |
+          git config user.name "room-ci"
+          git config user.email "ci@room.local"
+          git add -f dist Cargo.lock
+          git commit -m "[ci] build linux x64 binary" || true
+          git push origin HEAD:arena/d5844c38-room
