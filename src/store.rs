@@ -1149,7 +1149,7 @@ pub struct CountRow {
 }
 
 pub async fn stats(pool: &SqlitePool) -> Result<std::collections::BTreeMap<String, i64>, sqlx::Error> {
-    let mut m = std::collections::BTreeMap::new();
+    let mut m: std::collections::BTreeMap<String, i64> = std::collections::BTreeMap::new();
     let queries: &[(&str, &str)] = &[
         ("users", "SELECT COUNT(*) AS n FROM users"),
         ("active_users", "SELECT COUNT(*) AS n FROM users WHERE state = 'active'"),
