@@ -116,7 +116,7 @@ async fn main() -> std::io::Result<()> {
             .route("/api/files/{id}", web::get().to(api::file_detail))
             .route("/api/files/{id}", web::patch().to(api::patch_file))
             .route("/api/files/{id}", web::delete().to(api::trash_file))
-            .route("/api/files/{id}/restore", web::post().to(api::trash_file))
+            .route("/api/files/{id}/restore", web::post().to(api::restore_file))
             .route("/api/files/{id}/purge", web::delete().to(api::purge_file))
             .route("/api/files/{id}/raw", web::get().to(api::file_raw))
             .route("/api/files/{id}/download", web::get().to(api::file_download))

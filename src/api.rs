@@ -867,6 +867,22 @@ pub async fn trash_file(
     j(&json!({"ok": true}))
 }
 
+/// Restore an item from the trash. Accepts an empty body: the client posts
+/// without a payload, and requiring JSON made every restore fail with a 400.
+pub async fn restore_file(
+    req: HttpRequest,
+    state: web::Data<AppState>,
+    path: web::Path<i64>,
+) -> ApiResult {
+    let a = require(&req, &state).await?;
+    let id = path.into_inner();
+    let node = store::get_file(&state.pool, id).await?
+        .ok_or_else(|| err(404, "not found"))?;
+    store::trash_node(&state.pool, id, false).await?;
+    let _ = state.audit(a.user.id, &a.user.name, "file.restore", "file", id, &node.name, &client_ip(&req)).await;
+    j(&json!({"ok": true}))
+}
+
 pub async fn purge_file(
     req: HttpRequest,
     state: web::Data<AppState>,

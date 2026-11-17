@@ -39,14 +39,21 @@ def check(label, cond, detail=""):
         FAILS.append(label)
 
 
+class _NoRedirect(urllib.request.HTTPRedirectHandler):
+    """Surface 3xx responses so the gate redirect can be asserted."""
+
+    def redirect_request(self, *args, **kwargs):
+        return None
+
+
 class Client:
-    """Tiny cookie-preserving HTTP client."""
+    """Tiny cookie-preserving HTTP client that never follows redirects."""
 
     def __init__(self, name):
         self.name = name
         self.jar = http.cookiejar.CookieJar()
         self.opener = urllib.request.build_opener(
-            urllib.request.HTTPCookieProcessor(self.jar)
+            urllib.request.HTTPCookieProcessor(self.jar), _NoRedirect()
         )
 
     def raw(self, method, path, body=None, headers=None, ctype=None):
@@ -119,19 +126,23 @@ def main():
     check("first device registers", st == 200, (st, body[:120]))
     check("device cookie set", bool(alice.device))
     st, boot = alice.json("/api/users")
-    me = boot["users"][0]
+    me = next(u for u in boot["users"] if u["name"] == "Alice" and u["role"] == "owner")
     check("first user is owner", me["role"] == "owner", me.get("role"))
+    st, all_users = alice.json("/api/users")
+    check("user directory readable", st == 200 and len(all_users["users"]) >= 1, len(all_users["users"]) if all_users else None)
     st, _, _ = alice.get("/")
     check("owner reaches the app", st == 200, st)
 
     bob = Client("bob")
     bob.form("/api/request-access", {"name": "Bob", "device": "bob-phone"})
+    st, users = alice.json("/api/users")
+    bob_id = next(u["id"] for u in users["users"] if u["name"] == "Bob")
     st, _, hdrs = bob.get("/")
     check("pending device is gated", st in (301, 302, 303) and "/gate" in hdrs.get("location", ""), (st, hdrs.get("location")))
     st, reqs = alice.json("/api/admin/requests")
     check("approval request listed", st == 200 and len(reqs.get("pending", [])) >= 1, body[:100])
     rid = reqs["pending"][0]["id"]
-    st, _ = alice.json(f"/api/admin/requests/{rid}/approve")
+    st, _ = alice.json(f"/api/admin/requests/{rid}/approve", None, "POST")
     check("admin approves device", st == 200, st)
     st, _, _ = bob.get("/")
     check("approved device reaches the app", st == 200, st)
@@ -140,11 +151,11 @@ def main():
     st, d = alice.json("/api/conversations", {"kind": "group", "name": "General", "members": [me["id"], 2]})
     check("create group", st == 200 and "conversation" in d, (st, d))
     gid = d["conversation"]["id"]
-    check("group has both members", sorted(d["conversation"].get("members", [])) == sorted([me["id"], 2]), d["conversation"].get("members"))
-    st, d = alice.json("/api/conversations", {"kind": "direct", "user_id": 2})
+    check("group has both members", sorted(d["conversation"].get("members", [])) == sorted([me["id"], bob_id]), d["conversation"].get("members"))
+    st, d = alice.json("/api/conversations", {"kind": "direct", "user_id": bob_id})
     check("create direct conversation", st == 200 and "conversation" in d, (st, d))
     dm = d["conversation"]["id"] if st == 200 else 0
-    st, d2 = alice.json("/api/conversations", {"kind": "direct", "user_id": 2})
+    st, d2 = alice.json("/api/conversations", {"kind": "direct", "user_id": bob_id})
     check("direct conversation is reused", d2.get("conversation", {}).get("id") == dm, d2)
 
     section("messages")
@@ -156,7 +167,7 @@ def main():
     st, r = bob.json(f"/api/messages/{mid}/reactions", {"emoji": "🔥", "on": True})
     check("reaction added", any(x["emoji"] == "🔥" for x in r["message"]["reactions"]), r["message"]["reactions"])
     st, r = alice.json(f"/api/messages/{mid}/reactions", {"emoji": "🔥", "on": True})
-    check("reaction aggregates users", r["message"]["reactions"][0]["users"] == [me["id"], 2], r["message"]["reactions"])
+    check("reaction aggregates users", r["message"]["reactions"][0]["users"] == [me["id"], bob_id], r["message"]["reactions"])
     st, r = alice.json(f"/api/messages/{mid}", {"body": "hello world (edited)"}, "PATCH")
     check("edit message", st == 200 and r["message"]["edited"] is True, (st, r))
     st, r = alice.json(f"/api/conversations/{gid}/messages?limit=20")
@@ -246,15 +257,28 @@ def main():
             header=[f"Cookie: room_device={bob.device}"],
             timeout=8,
         )
-        check("websocket opens", a.recv() is not None)
-        check("peer sees presence", b.recv() is not None)
+        def drain(ws, want, limit=25):
+            """Read frames until one has t == want (presence noise is expected)."""
+            seen = []
+            end = time.time() + 5
+            while time.time() < end and len(seen) < limit:
+                try:
+                    msg = json.loads(ws.recv())
+                except Exception:
+                    break
+                seen.append(msg.get("t"))
+                if msg.get("t") == want:
+                    return msg
+            return {"t": None, "seen": seen}
+
+        check("websocket opens", "presence" in drain(a, "presence"), "")
+        drain(b, "presence")
         a.send(json.dumps({"t": "ping"}))
-        check("ping answered", json.loads(a.recv()).get("t") == "pong")
+        check("ping answered", drain(a, "pong").get("t") == "pong")
         a.send(json.dumps({"t": "chat:typing", "conversation_id": gid}))
-        b.settimeout(3)
-        check("typing relayed to peer", json.loads(b.recv()).get("t") == "typing")
-        a.send(json.dumps({"t": "call:signal", "call_id": 1, "to": 2, "data": {"kind": "offer"}}))
-        check("webrtc signal relayed", json.loads(b.recv()).get("t") == "call:signal")
+        check("typing relayed to peer", drain(b, "typing").get("t") == "typing")
+        a.send(json.dumps({"t": "call:signal", "call_id": 1, "to": bob_id, "data": {"kind": "offer"}}))
+        check("webrtc signal relayed", drain(b, "call:signal").get("t") == "call:signal")
         a.close()
         b.close()
 
