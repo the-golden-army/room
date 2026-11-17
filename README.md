@@ -66,18 +66,19 @@ HTML lives in `src/templates/*.rs` (inline `const` strings), the stylesheet in
 
 ## Testing
 
-Two suites run against a live binary. Both expect a server with a **fresh** `ROOM_DATA_DIR`,
-because the first device to register becomes the owner.
+Two suites run against the compiled binary. Run them with no arguments and each one starts
+`dist/room` on port 8123 against a temporary data directory, so every run begins from a virgin
+database (the first device to register becomes the owner). Pass a base URL to test a server that
+is already running instead.
 
 ```bash
 # end-to-end API + WebSocket coverage (67 checks)
 pip install websocket-client
-ROOM_DATA_DIR=$(mktemp -d) ./dist/room &          # or cargo run
-python3 scripts/smoke.py http://127.0.0.1:8080
+python3 scripts/smoke.py                # or: python3 scripts/smoke.py http://host:8080
 
-# client interaction coverage in jsdom (35 checks)
+# client interaction coverage in jsdom (42 checks)
 npm install --no-save jsdom
-node scripts/dom.js http://127.0.0.1:8080
+node scripts/dom.js                     # or: node scripts/dom.js http://host:8080
 ```
 
 `scripts/smoke.py` covers the access gate, device approval, conversations (group and direct),
@@ -86,5 +87,6 @@ admin (overview, audit, backups, role enforcement), every page, the served asset
 realtime channel (presence, ping, typing, WebRTC signalling).
 
 `scripts/dom.js` boots each page with the real `assets/app.js` and asserts the `__BOOT__`
-payload, then drives the new-conversation and new-group pickers, the composer, the theme
-toggle, conversation search, the reaction picker and the file row menu.
+payload, the bubble/day-divider rendering and the conversation filter pills, then drives the
+new-conversation and new-group pickers, the composer, the theme toggle, conversation search and
+filters, the reaction picker and the file row menu.

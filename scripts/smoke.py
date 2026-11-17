@@ -7,7 +7,11 @@ the first failed assertion so it can gate a release.
 
     python3 scripts/smoke.py [base_url]
 
-Requires: pip install websocket-client   (stdlib only otherwise)
+With no argument it starts dist/room on port 8123 against a temporary data
+directory, so every run begins from a virgin database. Pass a base URL to test
+an already-running server instead (that server should also start empty).
+
+Requires: websocket-client for the realtime section (the rest is stdlib).
 """
 import http.cookiejar
 import json
@@ -24,9 +28,53 @@ try:
 except ImportError:  # pragma: no cover
     websocket = None
 
-BASE = (sys.argv[1] if len(sys.argv) > 1 else "http://127.0.0.1:8099").rstrip("/")
+PORT = 8123
+BASE = (sys.argv[1] if len(sys.argv) > 1 else f"http://127.0.0.1:{PORT}").rstrip("/")
+SELF_HOSTED = len(sys.argv) <= 1
 FAILS = []
 CHECKS = 0
+SERVER = None
+
+
+def start_server():
+    """Launch dist/room on a throwaway data dir so runs start from a clean slate."""
+    import shutil
+    import subprocess
+    import time
+
+    root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+    bin_path = os.path.join(root, "dist", "room")
+    if not os.path.exists(bin_path):
+        sys.exit(f"missing {bin_path} — run `cargo build --release` or fetch the CI artifact")
+    work = tempfile.mkdtemp(prefix="room-smoke-")
+    env = dict(os.environ)
+    env.update(
+        ROOM_BIND=f"127.0.0.1:{PORT}",
+        ROOM_DATA_DIR=os.path.join(work, "data"),
+        ROOM_FILES_DIR=os.path.join(work, "files"),
+        ROOM_NAME="ROOM Smoke",
+    )
+    proc = subprocess.Popen([bin_path], env=env, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+    for _ in range(100):
+        try:
+            with urllib.request.urlopen(f"http://127.0.0.1:{PORT}/api/health", timeout=1) as r:
+                if r.status == 200:
+                    return proc, work
+        except Exception:
+            time.sleep(0.1)
+    proc.kill()
+    shutil.rmtree(work, ignore_errors=True)
+    sys.exit("server did not become ready")
+
+
+def stop_server():
+    if SERVER is None:
+        return
+    import shutil
+
+    proc, work = SERVER
+    proc.kill()
+    shutil.rmtree(work, ignore_errors=True)
 
 
 def check(label, cond, detail=""):
@@ -108,6 +156,11 @@ def section(title):
 
 
 def main():
+    global SERVER
+    if SELF_HOSTED:
+        SERVER = start_server()
+        print(f"started {BASE} on a clean data directory")
+
     section("health & shell")
     anon = Client("anon")
     st, body, _ = anon.get("/api/health")
@@ -294,4 +347,8 @@ def main():
 
 
 if __name__ == "__main__":
-    sys.exit(main())
+    try:
+        code = main()
+    finally:
+        stop_server()
+    sys.exit(code)

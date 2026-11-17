@@ -1,19 +1,26 @@
 // ROOM client DOM suite — runs the real app.js against a live server inside jsdom.
 //
-//   npm i --no-save jsdom && node scripts/dom.js [base_url]
+//   npm i --no-save jsdom
+//   node scripts/dom.js [base_url]
 //
-// Prepares two approved devices plus a conversation through the HTTP API first,
-// then boots every page and exercises the interactive paths that a pure HTTP
-// smoke test cannot reach (boot payload, new-chat picker, composer, theme).
-// Point it at a server with a fresh ROOM_DATA_DIR: the first device to register
-// becomes the owner, and the suite needs an owner to approve the second one.
+// With no argument the suite starts its own binary from dist/room on a throwaway
+// data directory, so every run begins from a virgin database (the first device
+// to register becomes the owner). Passing a URL reuses an existing server, which
+// must also have a fresh ROOM_DATA_DIR.
+//
+// It prepares two approved devices plus a conversation over the HTTP API, boots
+// every page with the real client script, and exercises the interactive paths a
+// pure HTTP smoke test cannot reach (boot payload, bubbles, pickers, composer).
 const { JSDOM, VirtualConsole } = require('jsdom');
 const fs = require('fs');
 const path = require('path');
 const http = require('http');
 
-const BASE = (process.argv[2] || 'http://127.0.0.1:8099').replace(/\/$/, '');
 const ROOT = path.resolve(__dirname, '..');
+const EXTERNAL = process.argv[2];
+const PORT = 8123;
+let BASE = (EXTERNAL || `http://127.0.0.1:${PORT}`).replace(/\/$/, '');
+let child = null;
 const results = [];
 const errors = [];
 
@@ -131,7 +138,42 @@ async function bootPage(section, cookie) {
 
 const tick = (ms = 500) => new Promise((r) => setTimeout(r, ms));
 
+function startServer() {
+  const os = require('os');
+  const dataDir = fs.mkdtempSync(path.join(os.tmpdir(), 'room-dom-'));
+  child = require('child_process').spawn(path.join(ROOT, 'dist', 'room'), [], {
+    env: {
+      ...process.env,
+      ROOM_BIND: `127.0.0.1:${PORT}`,
+      ROOM_DATA_DIR: path.join(dataDir, 'data'),
+      ROOM_FILES_DIR: path.join(dataDir, 'files'),
+      ROOM_NAME: 'ROOM DOM',
+    },
+    stdio: 'ignore',
+  });
+  return waitForServer();
+}
+
+async function waitForServer() {
+  for (let i = 0; i < 100; i += 1) {
+    try {
+      const res = await request('GET', '/api/health');
+      if (res.status === 200) return;
+    } catch (e) { /* not up yet */ }
+    await new Promise((r) => setTimeout(r, 100));
+  }
+  throw new Error('server did not become ready');
+}
+
+function shutdown(code) {
+  if (child) {
+    try { child.kill('SIGKILL'); } catch (e) { /* already gone */ }
+  }
+  process.exit(code);
+}
+
 (async () => {
+  if (!EXTERNAL) await startServer();
   const { aCookie, gid } = await prepare();
 
   for (const [p, label] of [
@@ -174,6 +216,18 @@ const tick = (ms = 500) => new Promise((r) => setTimeout(r, ms));
 
   {
     const w = await bootPage(`/chat/${gid}`, aCookie);
+    check('messages render as bubbles', w.document.querySelectorAll('#messages .bubble').length >= 2,
+      w.document.querySelectorAll('#messages .bubble').length);
+    check('own messages align right', w.document.querySelectorAll('#messages .bubble-row.own').length >= 1);
+    check('day divider is shown', w.document.querySelectorAll('#messages .day-divider').length >= 1);
+    check('bubbles carry timestamps', w.document.querySelectorAll('#messages .bubble-meta').length >= 2);
+    check('conversation filters render', w.document.querySelectorAll('[data-filter]').length === 4,
+      w.document.querySelectorAll('[data-filter]').length);
+    w.close();
+  }
+
+  {
+    const w = await bootPage(`/chat/${gid}`, aCookie);
     const before = w.document.querySelectorAll('#messages .msg-body').length;
     const form = w.document.querySelector('#composer');
     const input = w.document.querySelector('#composer-input');
@@ -193,6 +247,23 @@ const tick = (ms = 500) => new Promise((r) => setTimeout(r, ms));
     await tick(350);
     const after = w.document.documentElement.classList.contains('dark');
     check('theme toggle flips dark mode', before !== after, `${before} -> ${after}`);
+    w.close();
+  }
+
+  {
+    const w = await bootPage(`/chat/${gid}`, aCookie);
+    const people = w.document.querySelector('[data-filter="people"]');
+    people.dispatchEvent(new w.MouseEvent('click', { bubbles: true }));
+    await tick(150);
+    const hiddenGroups = Array.from(w.document.querySelectorAll('#conv-list [data-conv][data-kind="group"]'))
+      .every((a) => a.style.display === 'none');
+    check('People filter hides group chats', hiddenGroups);
+    const all = w.document.querySelector('[data-filter="all"]');
+    all.dispatchEvent(new w.MouseEvent('click', { bubbles: true }));
+    await tick(150);
+    const restored = Array.from(w.document.querySelectorAll('#conv-list [data-conv]'))
+      .every((a) => a.style.display !== 'none');
+    check('All filter restores every chat', restored);
     w.close();
   }
 
@@ -241,8 +312,8 @@ const tick = (ms = 500) => new Promise((r) => setTimeout(r, ms));
     for (const e of errors.slice(0, 15)) console.log('  ' + e);
   }
   console.log(`\n${results.length - failed.length}/${results.length} checks passed, ${errors.length} page errors`);
-  process.exit(failed.length || errors.length ? 1 : 0);
+  shutdown(failed.length || errors.length ? 1 : 0);
 })().catch((e) => {
   console.error('DOM suite crashed:', e.message);
-  process.exit(1);
+  shutdown(1);
 });
