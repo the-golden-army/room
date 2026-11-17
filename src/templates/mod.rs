@@ -328,7 +328,6 @@ pub fn page(
         .unwrap_or_else(|| "light".into());
     let dark = theme == "dark" || theme == "system";
     let me = &boot.me;
-    let pending = boot.pending_requests;
 
     let side_html = if side.is_empty() {
         String::new()
@@ -390,7 +389,6 @@ pub fn page(
         side = side_html,
         mobnav = mob_nav(boot, section),
         js = JS_PATH,
-        pending = pending,
     )
 }
 

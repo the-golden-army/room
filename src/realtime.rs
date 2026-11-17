@@ -3,7 +3,7 @@ use actix_web::{web, Error, HttpRequest};
 use actix_web_actors::ws;
 use futures_util::StreamExt;
 use serde_json::{json, Value};
-use std::collections::HashMap;
+
 use std::time::Instant;
 
 use crate::state::AppState;
@@ -42,18 +42,16 @@ pub struct ToUsers {
 }
 
 pub struct Hub {
-    sessions: HashMap<Addr<Session>, i64>,
+    sessions: Vec<(Addr<Session>, i64)>,
 }
 
 impl Hub {
     pub fn new() -> Self {
-        Hub {
-            sessions: HashMap::new(),
-        }
+        Hub { sessions: Vec::new() }
     }
 
     pub fn online_ids(&self) -> Vec<i64> {
-        let mut v: Vec<i64> = self.sessions.values().copied().collect();
+        let mut v: Vec<i64> = self.sessions.iter().map(|(_, u)| *u).collect();
         v.sort_unstable();
         v.dedup();
         v
@@ -67,21 +65,21 @@ impl Actor for Hub {
 impl Handler<Connect> for Hub {
     type Result = ();
     fn handle(&mut self, msg: Connect, _ctx: &mut Self::Context) {
-        self.sessions.insert(msg.addr, msg.user_id);
+        self.sessions.push((msg.addr, msg.user_id));
     }
 }
 
 impl Handler<Disconnect> for Hub {
     type Result = ();
     fn handle(&mut self, msg: Disconnect, _ctx: &mut Self::Context) {
-        self.sessions.remove(&msg.addr);
+        self.sessions.retain(|(a, _)| *a != msg.addr);
     }
 }
 
 impl Handler<Push> for Hub {
     type Result = ();
     fn handle(&mut self, msg: Push, _ctx: &mut Self::Context) {
-        for addr in self.sessions.keys() {
+        for (addr, _) in self.sessions.iter() {
             addr.do_send(WsPush(msg.0.clone()));
         }
     }
