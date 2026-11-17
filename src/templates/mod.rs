@@ -3,6 +3,7 @@ use crate::util::{esc, human_duration, js_str};
 
 pub mod account;
 pub mod admin;
+pub mod calls;
 pub mod chat;
 pub mod files;
 pub mod gate;

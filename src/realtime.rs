@@ -240,11 +240,8 @@ pub async fn ws_index(
     stream: web::Payload,
     state: web::Data<AppState>,
 ) -> Result<actix_web::HttpResponse, Error> {
-    let user = crate::auth::current_device_user(&req, &state).await;
-    let (user_id, hub) = match user {
-        Some((uid, _)) => (uid, state.hub.clone()),
-        None => (0, state.hub.clone()),
-    };
+    let user_id = crate::auth::resolve(&req, &state).await.map(|a| a.user.id).unwrap_or(0);
+    let hub = state.hub.clone();
     let sess = Session::new(user_id, hub, state);
     ws::start(sess, &req, stream)
 }

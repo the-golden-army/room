@@ -340,43 +340,55 @@ pub fn config(boot: &Boot, msg: &str) -> String {
             esc(msg)
         )
     };
+    let f1 = super::field(
+        "Server name",
+        &format!(
+            "<input class=\"input\" name=\"server_name\" value=\"{}\" maxlength=\"40\">",
+            esc(&g("server_name"))
+        ),
+        "Shown in the header and on the sign-in screen."
+    );
+    let f2 = super::field(
+        "Network name",
+        &format!(
+            "<input class=\"input\" name=\"network_name\" value=\"{}\" maxlength=\"60\" placeholder=\"e.g. Home Wi-Fi\">",
+            esc(&g("network_name"))
+        ),
+        "Hint shown on the request-access screen."
+    );
+    let f3 = super::field(
+        "Upload limit (MB)",
+        &format!(
+            "<input class=\"input\" name=\"max_upload_mb\" type=\"number\" min=\"1\" max=\"102400\" value=\"{}\">",
+            esc(&g("max_upload_mb"))
+        ),
+        "Largest single file a device may upload."
+    );
+    let f4 = super::field(
+        "Default theme",
+        &format!(
+            "<select class=\"input\" name=\"theme\"><option value=\"light\" {}>Light</option><option value=\"dark\" {}>Dark</option><option value=\"system\" {}>Follow system</option></select>",
+            if g("theme") == "light" { "selected" } else { "" },
+            if g("theme") == "dark" { "selected" } else { "" },
+            if g("theme").is_empty() || g("theme") == "system" { "selected" } else { "" }
+        ),
+        "Applied to new devices."
+    );
     let body = format!(
         "<div class=\"grid gap-3 p-4\">{notice}\
 <form class=\"tile space-y-4 p-5\" id=\"config-form\" method=\"dialog\">\
 <div class=\"text-[13px] font-bold\">General</div>\
-<div class=\"grid gap-3 sm:grid-cols-2\">\
-{} {} </div>\
+<div class=\"grid gap-3 sm:grid-cols-2\">{f1} {f2}</div>\
 <div class=\"text-[13px] font-bold pt-1\">Limits</div>\
-<div class=\"grid gap-3 sm:grid-cols-2\">\
-{} {} </div>\
+<div class=\"grid gap-3 sm:grid-cols-2\">{f3} {f4}</div>\
 <div class=\"flex items-center justify-between gap-3 border-t line pt-4\">\
 <div class=\"text-[11.5px] ink3\">Settings are stored in the local database and apply immediately.</div>\
 <button class=\"btn btn-brand\" type=\"submit\">Save changes</button></div></form></div>",
         notice = notice,
-        super::field(
-            "Server name",
-            &format!("<input class=\"input\" name=\"server_name\" value=\"{}\" maxlength=\"40\">", esc(&g("server_name"))),
-            "Shown in the header and on the sign-in screen."
-        ),
-        super::field(
-            "Network name",
-            &format!("<input class=\"input\" name=\"network_name\" value=\"{}\" maxlength=\"60\" placeholder=\"e.g. Home Wi-Fi\">", esc(&g("network_name"))),
-            "Hint shown on the request-access screen."
-        ),
-        super::field(
-            "Upload limit (MB)",
-            &format!("<input class=\"input\" name=\"max_upload_mb\" type=\"number\" min=\"1\" max=\"102400\" value=\"{}\">", esc(&g("max_upload_mb"))),
-            "Largest single file a device may upload."
-        ),
-        super::field(
-            "Default theme",
-            &format!("<select class=\"input\" name=\"theme\"><option value=\"light\" {}>Light</option><option value=\"dark\" {}>Dark</option><option value=\"system\" {}>Follow system</option></select>",
-                if g("theme") == "light" { "selected" } else { "" },
-                if g("theme") == "dark" { "selected" } else { "" },
-                if g("theme").is_empty() || g("theme") == "system" { "selected" } else { "" }
-            ),
-            "Applied to new devices."
-        )
+        f1 = f1,
+        f2 = f2,
+        f3 = f3,
+        f4 = f4
     );
     format!(
         "{}{}",

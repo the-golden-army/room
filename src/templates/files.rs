@@ -1,4 +1,4 @@
-use crate::models::{Boot, FileDto, UserDto};
+use crate::models::{Boot, FileDto, FileNode, User, UserDto};
 use crate::util::{esc, ext_of, human_bytes};
 
 use super::{avatar, empty_state, icon, skeleton_grid, skeleton_rows, topbar};
@@ -106,7 +106,7 @@ fn row_html(f: &FileDto, selected: bool) -> String {
 {icon}\
 <span class=\"min-w-0 flex-1\"><span class=\"block truncate text-[13.5px] font-medium\">{name}</span><span class=\"block text-[11px] ink3\">{owner} · {updated}</span></span>\
 <span class=\"shrink-0 text-[11px] ink3\">{size}</span>\
-<button class=\"btn btn-ghost btn-icon !h-8 !w-8 !rounded-lg row-menu\" data-act=\"file-menu\" type=\"button\" aria-label=\"More\">{}</button>\
+<button class=\"btn btn-ghost btn-icon !h-8 !w-8 !rounded-lg row-menu\" data-act=\"file-menu\" type=\"button\" aria-label=\"More\">{more}</button>\
 </div>",
         sel = sel,
         id = f.id,
@@ -116,7 +116,7 @@ fn row_html(f: &FileDto, selected: bool) -> String {
         owner = esc(&f.owner_name),
         updated = super::rel_ago(f.updated_at),
         size = kind_label,
-        icon2 = icon("more", "h-4 w-4")
+        more = icon("more", "h-4 w-4")
     )
 }
 
@@ -140,7 +140,7 @@ fn grid_card_html(f: &FileDto, selected: bool) -> String {
 {thumb}\
 <div class=\"mt-2 flex items-start gap-1.5\">\
 <span class=\"min-w-0 flex-1 truncate text-[12.5px] font-medium\">{name}</span>\
-<button class=\"btn btn-ghost btn-icon !h-7 !w-7 !rounded-lg row-menu\" data-act=\"file-menu\" type=\"button\" aria-label=\"More\">{}</button>\
+<button class=\"btn btn-ghost btn-icon !h-7 !w-7 !rounded-lg row-menu\" data-act=\"file-menu\" type=\"button\" aria-label=\"More\">{more}</button>\
 </div>\
 <div class=\"mt-0.5 text-[10.5px] ink3\">{size}</div></div>",
         sel = sel,
@@ -148,7 +148,7 @@ fn grid_card_html(f: &FileDto, selected: bool) -> String {
         kind = f.kind,
         thumb = thumb,
         name = esc(&f.name),
-        icon("more", "h-3.5 w-3.5"),
+        more = icon("more", "h-3.5 w-3.5"),
         size = if f.kind == "folder" { format!("{} items", f.children) } else { human_bytes(f.size) }
     )
 }
@@ -272,16 +272,16 @@ pub fn details_panel(f: &FileDto, boot: &Boot, shares: &[(UserDto, String)]) -> 
     ));
     body.push_str(&format!(
         "<div class=\"mt-3 flex flex-wrap gap-2 px-1\">\
-<a class=\"btn btn-brand btn-xs\" href=\"/api/files/{id}/download\" title=\"Download\">{} Download</a>\
-<button class=\"btn btn-ghost btn-xs\" data-act=\"rename\" type=\"button\">{} Rename</button>\
-<button class=\"btn btn-ghost btn-xs\" data-act=\"move\" type=\"button\">{} Move</button>\
-<button class=\"btn btn-ghost btn-xs hover:!text-red-500\" data-act=\"delete\" type=\"button\">{} Delete</button>\
+<a class=\"btn btn-brand btn-xs\" href=\"/api/files/{id}/download\" title=\"Download\">{dl} Download</a>\
+<button class=\"btn btn-ghost btn-xs\" data-act=\"rename\" type=\"button\">{rn} Rename</button>\
+<button class=\"btn btn-ghost btn-xs\" data-act=\"move\" type=\"button\">{mv} Move</button>\
+<button class=\"btn btn-ghost btn-xs hover:!text-red-500\" data-act=\"delete\" type=\"button\">{del} Delete</button>\
 </div>",
         id = f.id,
-        icon("download", "h-3.5 w-3.5"),
-        icon("edit", "h-3.5 w-3.5"),
-        icon("folder", "h-3.5 w-3.5"),
-        icon("trash", "h-3.5 w-3.5")
+        dl = icon("download", "h-3.5 w-3.5"),
+        rn = icon("edit", "h-3.5 w-3.5"),
+        mv = icon("folder", "h-3.5 w-3.5"),
+        del = icon("trash", "h-3.5 w-3.5")
     ));
     if f.kind == "folder" {
         body.push_str(&format!(

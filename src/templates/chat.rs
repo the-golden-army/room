@@ -182,10 +182,10 @@ pub fn message_html(m: &MsgDto, grouped: bool) -> String {
     let reply = if m.reply_to_id > 0 {
         format!(
             "<div class=\"mb-1 flex items-center gap-2 rounded-lg border-l-2 px-2.5 py-1 text-[11.5px]\" style=\"border-color:{color};background:color-mix(in srgb, {color} 7%, transparent)\">\
-<span class=\"font-semibold\" style=\"color:{color}\">{}</span><span class=\"truncate ink3\">{}</span></div>",
+<span class=\"font-semibold\" style=\"color:{color}\">{name}</span><span class=\"truncate ink3\">{body}</span></div>",
             color = m.sender_color,
-            esc(&m.reply_to_name),
-            esc(&m.reply_to_body)
+            name = esc(&m.reply_to_name),
+            body = esc(&m.reply_to_body)
         )
     } else {
         String::new()

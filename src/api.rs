@@ -1153,23 +1153,23 @@ pub async fn admin_config(
     if let Some(v) = f.server_name {
         let v = v.trim().to_string();
         if !v.is_empty() {
-            store::set_setting(&state.pool, "server_name", &v).await?;
+            crate::db::set_setting(&state.pool, "server_name", &v).await?;
         }
     }
     if let Some(v) = f.network_name {
-        store::set_setting(&state.pool, "network_name", v.trim()).await?;
+        crate::db::set_setting(&state.pool, "network_name", v.trim()).await?;
     }
     if let Some(v) = f.max_upload_mb {
         if let Ok(n) = v.trim().parse::<u64>() {
             if n > 0 && n <= 102400 {
                 state.max_upload.store(n * 1024 * 1024, std::sync::atomic::Ordering::Relaxed);
-                store::set_setting(&state.pool, "max_upload_mb", &n.to_string()).await?;
+                crate::db::set_setting(&state.pool, "max_upload_mb", &n.to_string()).await?;
             }
         }
     }
     if let Some(v) = f.theme {
         if ["light", "dark", "system"].contains(&v.as_str()) {
-            store::set_setting(&state.pool, "theme", &v).await?;
+            crate::db::set_setting(&state.pool, "theme", &v).await?;
         }
     }
     let _ = state.audit(a.user.id, &a.user.name, "config.update", "setting", 0, "configuration saved", &client_ip(&req)).await;
@@ -1362,7 +1362,7 @@ pub async fn ws_event(
     }
     let t = msg.get("t").and_then(|v| v.as_str()).unwrap_or("");
     match t {
-        "ping" => Ok(Some(json!({"t":"pong","ts": now_ms()}))),
+        "ping" => Ok(Some(json!({"t":"pong","ts": crate::util::now_ms()}))),
         "presence:active" => {
             let _ = store::set_presence(&state.pool, uid, "online").await;
             let _ = store::touch_user(&state.pool, uid).await;

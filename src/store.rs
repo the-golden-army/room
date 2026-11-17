@@ -310,13 +310,13 @@ pub async fn list_conversations(
         "SELECT conversation_id, user_id FROM conversation_members WHERE conversation_id IN ({})",
         placeholders
     );
-    let mut query = sqlx::query_as::<_, MemberRow>(&q);
+    let mut query = sqlx::query_as::<_, (i64, i64)>(&q);
     for id in &ids {
         query = query.bind(*id);
     }
-    let mrows: Vec<MemberRow> = query.fetch_all(pool).await?;
-    for m in mrows {
-        members.entry(m.conversation_id).or_default().push(m.user_id);
+    let mrows: Vec<(i64, i64)> = query.fetch_all(pool).await?;
+    for (cid, uid) in mrows {
+        members.entry(cid).or_default().push(uid);
     }
 
     let users = list_users(pool).await.unwrap_or_default();
