@@ -1,250 +1,250 @@
 [1m[92m    Updating[0m crates.io index
 [1m[92m Downloading[0m crates ...
+[1m[92m  Downloaded[0m actix-web-actors v4.3.1+deprecated
+[1m[92m  Downloaded[0m actix_derive v0.6.2
+[1m[92m  Downloaded[0m actix-utils v3.0.2
+[1m[92m  Downloaded[0m tokio-macros v2.7.2
+[1m[92m  Downloaded[0m block-buffer v0.12.1
+[1m[92m  Downloaded[0m time-macros v0.2.32
+[1m[92m  Downloaded[0m cfg-if v1.0.5
 [1m[92m  Downloaded[0m actix-macros v0.2.5
+[1m[92m  Downloaded[0m crypto-common v0.2.2
+[1m[92m  Downloaded[0m actix-rt v2.16.0
+[1m[92m  Downloaded[0m crypto-common v0.1.7
+[1m[92m  Downloaded[0m futures-sink v0.3.34
+[1m[92m  Downloaded[0m cpufeatures v0.2.17
+[1m[92m  Downloaded[0m crc v3.4.0
+[1m[92m  Downloaded[0m block-buffer v0.10.4
+[1m[92m  Downloaded[0m futures-io v0.3.34
+[1m[92m  Downloaded[0m heck v0.5.0
+[1m[92m  Downloaded[0m hex v0.4.3
+[1m[92m  Downloaded[0m fnv v1.0.7
+[1m[92m  Downloaded[0m alloc-no-stdlib v3.0.0
+[1m[92m  Downloaded[0m cpufeatures v0.3.1
+[1m[92m  Downloaded[0m home v0.5.12
+[1m[92m  Downloaded[0m form_urlencoded v1.2.2
+[1m[92m  Downloaded[0m futures-core v0.3.34
+[1m[92m  Downloaded[0m tinystr v0.8.5
+[1m[92m  Downloaded[0m generic-array v0.14.7
+[1m[92m  Downloaded[0m alloc-stdlib v0.3.0
+[1m[92m  Downloaded[0m httpdate v1.0.3
+[1m[92m  Downloaded[0m unicase v2.10.0
+[1m[92m  Downloaded[0m http-range v0.1.6
+[1m[92m  Downloaded[0m adler2 v2.0.1
+[1m[92m  Downloaded[0m futures-macro v0.3.34
+[1m[92m  Downloaded[0m equivalent v1.0.3
+[1m[92m  Downloaded[0m atoi v2.0.0
+[1m[92m  Downloaded[0m actix-service v2.0.3
+[1m[92m  Downloaded[0m bytestring v1.6.0
+[1m[92m  Downloaded[0m futures-task v0.3.34
 [1m[92m  Downloaded[0m actix-codec v0.5.4
 [1m[92m  Downloaded[0m actix-router v0.5.5
-[1m[92m  Downloaded[0m actix-web-actors v4.3.1+deprecated
-[1m[92m  Downloaded[0m crypto-common v0.1.7
-[1m[92m  Downloaded[0m actix-files v0.6.10
-[1m[92m  Downloaded[0m actix-rt v2.16.0
-[1m[92m  Downloaded[0m autocfg v1.5.1
-[1m[92m  Downloaded[0m getrandom v0.4.3
-[1m[92m  Downloaded[0m base64 v0.22.1
-[1m[92m  Downloaded[0m actix v0.13.6
-[1m[92m  Downloaded[0m base64 v0.23.1
-[1m[92m  Downloaded[0m actix-http v3.22.0
-[1m[92m  Downloaded[0m hashbrown v0.15.5
-[1m[92m  Downloaded[0m tokio-macros v2.7.2
-[1m[92m  Downloaded[0m time-macros v0.2.32
-[1m[92m  Downloaded[0m tinystr v0.8.5
-[1m[92m  Downloaded[0m tokio-stream v0.1.19
-[1m[92m  Downloaded[0m num-conv v0.2.2
-[1m[92m  Downloaded[0m tinyvec v1.13.3
-[1m[92m  Downloaded[0m utf_types v1.0.0
-[1m[92m  Downloaded[0m v_htmlescape v0.15.8
-[1m[92m  Downloaded[0m whoami v1.6.1
-[1m[92m  Downloaded[0m yoke v0.8.4
-[1m[92m  Downloaded[0m untrusted v0.9.0
-[1m[92m  Downloaded[0m uuid v1.29.3
-[1m[92m  Downloaded[0m version_check v0.9.5
-[1m[92m  Downloaded[0m yoke-derive v0.8.4
-[1m[92m  Downloaded[0m vcpkg v0.2.15
-[1m[92m  Downloaded[0m icu_locale_core v2.4.0
-[1m[92m  Downloaded[0m icu_normalizer v2.4.0
-[1m[92m  Downloaded[0m tokio v1.54.1
-[1m[92m  Downloaded[0m url v2.5.8
-[1m[92m  Downloaded[0m utf8_iter v1.1.0
-[1m[92m  Downloaded[0m webpki-roots v0.26.11
-[1m[92m  Downloaded[0m webpki-roots v1.0.12
-[1m[92m  Downloaded[0m writeable v0.6.4
-[1m[92m  Downloaded[0m block-buffer v0.10.4
-[1m[92m  Downloaded[0m digest v0.10.7
-[1m[92m  Downloaded[0m flate2 v1.1.11
-[1m[92m  Downloaded[0m futures-channel v0.3.34
-[1m[92m  Downloaded[0m futures-io v0.3.34
-[1m[92m  Downloaded[0m zerocopy v0.8.63
-[1m[92m  Downloaded[0m block-buffer v0.12.1
-[1m[92m  Downloaded[0m md-5 v0.10.6
-[1m[92m  Downloaded[0m alloc-no-stdlib v3.0.0
-[1m[92m  Downloaded[0m stable_deref_trait v1.2.1
-[1m[92m  Downloaded[0m event-listener v5.4.2
-[1m[92m  Downloaded[0m iana-time-zone v0.1.65
-[1m[92m  Downloaded[0m unicase v2.10.0
-[1m[92m  Downloaded[0m httparse v1.10.1
-[1m[92m  Downloaded[0m rand_chacha v0.3.1
-[1m[92m  Downloaded[0m foldhash v0.1.5
-[1m[92m  Downloaded[0m futures-task v0.3.34
-[1m[92m  Downloaded[0m unicode-bidi v0.3.18
-[1m[92m  Downloaded[0m futures-core v0.3.34
-[1m[92m  Downloaded[0m itoa v1.0.19
-[1m[92m  Downloaded[0m mime v0.3.18
-[1m[92m  Downloaded[0m idna v1.1.0
-[1m[92m  Downloaded[0m tracing-attributes v0.1.31
-[1m[92m  Downloaded[0m typenum v1.20.1
-[1m[92m  Downloaded[0m quote v1.0.47
-[1m[92m  Downloaded[0m tokio-util v0.7.20
-[1m[92m  Downloaded[0m actix-server v2.10.0
 [1m[92m  Downloaded[0m errno v0.3.15
-[1m[92m  Downloaded[0m powerfmt v0.2.1
-[1m[92m  Downloaded[0m regex-lite v0.1.9
-[1m[92m  Downloaded[0m sha2 v0.10.9
-[1m[92m  Downloaded[0m actix-utils v3.0.2
-[1m[92m  Downloaded[0m cpufeatures v0.3.1
-[1m[92m  Downloaded[0m der v0.7.10
-[1m[92m  Downloaded[0m derive_more v2.1.1
-[1m[92m  Downloaded[0m futures-executor v0.3.34
-[1m[92m  Downloaded[0m hashlink v0.10.0
-[1m[92m  Downloaded[0m zstd v0.14.4
-[1m[92m  Downloaded[0m parking v2.2.1
-[1m[92m  Downloaded[0m pkcs8 v0.10.2
-[1m[92m  Downloaded[0m rand_core v0.10.1
-[1m[92m  Downloaded[0m alloc-stdlib v0.3.0
-[1m[92m  Downloaded[0m form_urlencoded v1.2.2
-[1m[92m  Downloaded[0m heck v0.5.0
-[1m[92m  Downloaded[0m impl-more v0.3.10
-[1m[92m  Downloaded[0m num-integer v0.1.47
-[1m[92m  Downloaded[0m actix-service v2.0.3
-[1m[92m  Downloaded[0m futures-sink v0.3.34
-[1m[92m  Downloaded[0m adler2 v2.0.1
-[1m[92m  Downloaded[0m find-msvc-tools v0.1.15
-[1m[92m  Downloaded[0m hmac v0.12.1
-[1m[92m  Downloaded[0m percent-encoding v2.3.2
-[1m[92m  Downloaded[0m actix_derive v0.6.2
-[1m[92m  Downloaded[0m fnv v1.0.7
-[1m[92m  Downloaded[0m pkg-config v0.3.34
-[1m[92m  Downloaded[0m litemap v0.8.3
-[1m[92m  Downloaded[0m mime_guess v2.0.5
-[1m[92m  Downloaded[0m num-iter v0.1.46
-[1m[92m  Downloaded[0m potential_utf v0.1.6
-[1m[92m  Downloaded[0m convert_case v0.10.0
-[1m[92m  Downloaded[0m dotenvy v0.15.7
-[1m[92m  Downloaded[0m equivalent v1.0.3
-[1m[92m  Downloaded[0m displaydoc v0.2.7
-[1m[92m  Downloaded[0m http-range v0.1.6
-[1m[92m  Downloaded[0m httpdate v1.0.3
-[1m[92m  Downloaded[0m hybrid-array v0.4.15
-[1m[92m  Downloaded[0m jobserver v0.1.35
-[1m[92m  Downloaded[0m ppv-lite86 v0.2.21
-[1m[92m  Downloaded[0m zeroize v1.9.2
-[1m[92m  Downloaded[0m bytestring v1.6.0
-[1m[92m  Downloaded[0m cpufeatures v0.2.17
-[1m[92m  Downloaded[0m hex v0.4.3
-[1m[92m  Downloaded[0m zerofrom-derive v0.1.8
-[1m[92m  Downloaded[0m lazy_static v1.5.1
-[1m[92m  Downloaded[0m atoi v2.0.0
-[1m[92m  Downloaded[0m signature v2.2.0
-[1m[92m  Downloaded[0m zerofrom v0.1.8
-[1m[92m  Downloaded[0m cfg-if v1.0.5
-[1m[92m  Downloaded[0m crc v3.4.0
-[1m[92m  Downloaded[0m crc-catalog v2.5.0
-[1m[92m  Downloaded[0m crypto-common v0.2.2
-[1m[92m  Downloaded[0m home v0.5.12
-[1m[92m  Downloaded[0m idna_adapter v1.2.2
-[1m[92m  Downloaded[0m lock_api v0.4.14
-[1m[92m  Downloaded[0m futures-macro v0.3.34
-[1m[92m  Downloaded[0m local-waker v0.1.5
-[1m[92m  Downloaded[0m multiversion_no_op v1.0.0
-[1m[92m  Downloaded[0m digest v0.11.3
-[1m[92m  Downloaded[0m foldhash v0.2.0
-[1m[92m  Downloaded[0m local-channel v0.1.7
-[1m[92m  Downloaded[0m log v0.4.35
-[1m[92m  Downloaded[0m rand_core v0.6.4
-[1m[92m  Downloaded[0m regex v1.13.1
-[1m[92m  Downloaded[0m rustc_version v0.4.1
-[1m[92m  Downloaded[0m scopeguard v1.2.0
-[1m[92m  Downloaded[0m serde_urlencoded v0.7.1
-[1m[92m  Downloaded[0m sha1 v0.10.7
-[1m[92m  Downloaded[0m sqlx-macros v0.8.6
-[1m[92m  Downloaded[0m core_detect v1.0.0
-[1m[92m  Downloaded[0m generic-array v0.14.7
-[1m[92m  Downloaded[0m sha1 v0.11.0
-[1m[92m  Downloaded[0m subtle v2.6.1
-[1m[92m  Downloaded[0m time-core v0.1.9
-[1m[92m  Downloaded[0m base64ct v1.8.3
-[1m[92m  Downloaded[0m deranged v0.5.9
-[1m[92m  Downloaded[0m synstructure v0.14.0
-[1m[92m  Downloaded[0m language-tags v0.3.2
-[1m[92m  Downloaded[0m pem-rfc7468 v0.7.0
 [1m[92m  Downloaded[0m unicode-xid v0.2.6
-[1m[92m  Downloaded[0m zerovec-derive v0.11.7
-[1m[92m  Downloaded[0m zstd-safe v8.3.0
-[1m[92m  Downloaded[0m pkcs1 v0.7.5
-[1m[92m  Downloaded[0m shlex v2.0.1
-[1m[92m  Downloaded[0m unicode-ident v1.0.27
-[1m[92m  Downloaded[0m pin-project-lite v0.2.17
-[1m[92m  Downloaded[0m slab v0.4.12
-[1m[92m  Downloaded[0m spki v0.7.3
-[1m[92m  Downloaded[0m stringprep v0.1.5
-[1m[92m  Downloaded[0m crossbeam-queue v0.3.14
-[1m[92m  Downloaded[0m signal-hook-registry v1.4.8
-[1m[92m  Downloaded[0m sqlx-macros-core v0.8.6
 [1m[92m  Downloaded[0m actix-web-codegen v4.6.0
-[1m[92m  Downloaded[0m crossbeam-utils v0.8.23
-[1m[92m  Downloaded[0m rustls-pki-types v1.16.0
-[1m[92m  Downloaded[0m rustversion v1.0.23
-[1m[92m  Downloaded[0m simd-adler32 v0.3.10
+[1m[92m  Downloaded[0m sha1 v0.10.7
+[1m[92m  Downloaded[0m crossbeam-queue v0.3.14
+[1m[92m  Downloaded[0m dotenvy v0.15.7
+[1m[92m  Downloaded[0m either v1.19.0
+[1m[92m  Downloaded[0m foldhash v0.1.5
+[1m[92m  Downloaded[0m autocfg v1.5.1
+[1m[92m  Downloaded[0m base64ct v1.8.3
+[1m[92m  Downloaded[0m core_detect v1.0.0
+[1m[92m  Downloaded[0m digest v0.10.7
+[1m[92m  Downloaded[0m displaydoc v0.2.7
+[1m[92m  Downloaded[0m hashlink v0.10.0
+[1m[92m  Downloaded[0m tracing-attributes v0.1.31
+[1m[92m  Downloaded[0m num-conv v0.2.2
 [1m[92m  Downloaded[0m byteorder v1.5.0
+[1m[92m  Downloaded[0m crc-catalog v2.5.0
+[1m[92m  Downloaded[0m find-msvc-tools v0.1.15
+[1m[92m  Downloaded[0m foldhash v0.2.0
+[1m[92m  Downloaded[0m futures-executor v0.3.34
 [1m[92m  Downloaded[0m chacha20 v0.10.2
 [1m[92m  Downloaded[0m const-oid v0.9.6
-[1m[92m  Downloaded[0m const-oid v0.10.3
+[1m[92m  Downloaded[0m convert_case v0.10.0
 [1m[92m  Downloaded[0m cookie v0.16.2
-[1m[92m  Downloaded[0m derive_more-impl v2.1.1
-[1m[92m  Downloaded[0m either v1.19.0
+[1m[92m  Downloaded[0m actix-server v2.10.0
+[1m[92m  Downloaded[0m futures-channel v0.3.34
+[1m[92m  Downloaded[0m stable_deref_trait v1.2.1
+[1m[92m  Downloaded[0m unicode-bidi v0.3.18
+[1m[92m  Downloaded[0m crossbeam-utils v0.8.23
+[1m[92m  Downloaded[0m deranged v0.5.9
+[1m[92m  Downloaded[0m hybrid-array v0.4.15
+[1m[92m  Downloaded[0m iana-time-zone v0.1.65
+[1m[92m  Downloaded[0m allocator-api2 v0.2.21
+[1m[92m  Downloaded[0m digest v0.11.3
+[1m[92m  Downloaded[0m hmac v0.12.1
+[1m[92m  Downloaded[0m actix-files v0.6.10
+[1m[92m  Downloaded[0m crc32fast v1.5.5
+[1m[92m  Downloaded[0m slab v0.4.12
+[1m[92m  Downloaded[0m getrandom v0.4.3
+[1m[92m  Downloaded[0m bitflags v2.13.2
+[1m[92m  Downloaded[0m event-listener v5.4.2
+[1m[92m  Downloaded[0m itoa v1.0.19
+[1m[92m  Downloaded[0m ryu v1.0.23
+[1m[92m  Downloaded[0m serde_urlencoded v0.7.1
+[1m[92m  Downloaded[0m sha1 v0.11.0
+[1m[92m  Downloaded[0m spki v0.7.3
+[1m[92m  Downloaded[0m sqlx-macros v0.8.6
+[1m[92m  Downloaded[0m synstructure v0.14.0
+[1m[92m  Downloaded[0m unicode-properties v0.1.5
+[1m[92m  Downloaded[0m base64 v0.22.1
+[1m[92m  Downloaded[0m bytes v1.12.1
+[1m[92m  Downloaded[0m const-oid v0.10.3
+[1m[92m  Downloaded[0m flume v0.11.1
 [1m[92m  Downloaded[0m getrandom v0.2.17
+[1m[92m  Downloaded[0m httparse v1.10.1
+[1m[92m  Downloaded[0m icu_locale_core v2.4.0
+[1m[92m  Downloaded[0m potential_utf v0.1.6
+[1m[92m  Downloaded[0m rustversion v1.0.23
+[1m[92m  Downloaded[0m spin v0.9.9
+[1m[92m  Downloaded[0m actix v0.13.6
+[1m[92m  Downloaded[0m crossbeam-channel v0.5.17
+[1m[92m  Downloaded[0m der v0.7.10
+[1m[92m  Downloaded[0m derive_more v2.1.1
+[1m[92m  Downloaded[0m futures-intrusive v0.5.0
+[1m[92m  Downloaded[0m idna_adapter v1.2.2
+[1m[92m  Downloaded[0m utf8_iter v1.1.0
+[1m[92m  Downloaded[0m version_check v0.9.5
+[1m[92m  Downloaded[0m webpki-roots v0.26.11
+[1m[92m  Downloaded[0m base64 v0.23.1
+[1m[92m  Downloaded[0m derive_more-impl v2.1.1
+[1m[92m  Downloaded[0m flate2 v1.1.11
 [1m[92m  Downloaded[0m http v0.2.12
-[1m[92m  Downloaded[0m parking_lot_core v0.9.12
-[1m[92m  Downloaded[0m serde_derive v1.0.229
+[1m[92m  Downloaded[0m parking v2.2.1
+[1m[92m  Downloaded[0m signal-hook-registry v1.4.8
+[1m[92m  Downloaded[0m icu_collections v2.4.0
+[1m[92m  Downloaded[0m lazy_static v1.5.1
+[1m[92m  Downloaded[0m md-5 v0.10.6
+[1m[92m  Downloaded[0m multiversion_no_op v1.0.0
+[1m[92m  Downloaded[0m percent-encoding v2.3.2
+[1m[92m  Downloaded[0m sha2 v0.10.9
+[1m[92m  Downloaded[0m sqlx-sqlite v0.8.6
+[1m[92m  Downloaded[0m stringprep v0.1.5
 [1m[92m  Downloaded[0m thiserror v2.0.21
 [1m[92m  Downloaded[0m thiserror-impl v2.0.21
-[1m[92m  Downloaded[0m unicode-properties v0.1.5
-[1m[92m  Downloaded[0m zmij v1.0.23
-[1m[92m  Downloaded[0m allocator-api2 v0.2.21
-[1m[92m  Downloaded[0m bitflags v2.13.2
-[1m[92m  Downloaded[0m crc32fast v1.5.5
-[1m[92m  Downloaded[0m hashbrown v0.17.1
-[1m[92m  Downloaded[0m icu_normalizer_data v2.4.0
-[1m[92m  Downloaded[0m icu_provider v2.4.0
-[1m[92m  Downloaded[0m indexmap v2.14.2
-[1m[92m  Downloaded[0m num-traits v0.2.19
-[1m[92m  Downloaded[0m once_cell v1.21.4
-[1m[92m  Downloaded[0m parking_lot v0.12.5
-[1m[92m  Downloaded[0m proc-macro2 v1.0.107
-[1m[92m  Downloaded[0m ryu v1.0.23
-[1m[92m  Downloaded[0m semver v1.0.28
-[1m[92m  Downloaded[0m simdutf8 v0.1.5
-[1m[92m  Downloaded[0m spin v0.9.9
 [1m[92m  Downloaded[0m tracing-core v0.1.36
-[1m[92m  Downloaded[0m zerotrie v0.2.5
-[1m[92m  Downloaded[0m bytes v1.12.1
-[1m[92m  Downloaded[0m chrono v0.4.45
-[1m[92m  Downloaded[0m flume v0.11.1
-[1m[92m  Downloaded[0m futures-intrusive v0.5.0
-[1m[92m  Downloaded[0m futures-util v0.3.34
-[1m[92m  Downloaded[0m miniz_oxide v0.9.1
-[1m[92m  Downloaded[0m rand v0.8.8
-[1m[92m  Downloaded[0m serde_core v1.0.229
-[1m[92m  Downloaded[0m smallvec v1.16.5
-[1m[92m  Downloaded[0m socket2 v0.6.5
-[1m[92m  Downloaded[0m sqlx-mysql v0.8.6
-[1m[92m  Downloaded[0m sqlx-sqlite v0.8.6
-[1m[92m  Downloaded[0m icu_collections v2.4.0
-[1m[92m  Downloaded[0m memchr v2.8.3
-[1m[92m  Downloaded[0m rsa v0.9.10
-[1m[92m  Downloaded[0m serde v1.0.229
-[1m[92m  Downloaded[0m crossbeam-channel v0.5.17
-[1m[92m  Downloaded[0m hkdf v0.12.4
-[1m[92m  Downloaded[0m mio v1.2.5
-[1m[92m  Downloaded[0m rand v0.10.4
-[1m[92m  Downloaded[0m rustls-webpki v0.103.17
-[1m[92m  Downloaded[0m sqlx-core v0.8.6
-[1m[92m  Downloaded[0m unicode-normalization v0.1.26
-[1m[92m  Downloaded[0m unicode-segmentation v1.13.3
-[1m[92m  Downloaded[0m zerovec v0.11.9
-[1m[92m  Downloaded[0m h2 v0.3.27
+[1m[92m  Downloaded[0m unicode-ident v1.0.27
+[1m[92m  Downloaded[0m v_htmlescape v0.15.8
+[1m[92m  Downloaded[0m zstd v0.14.4
 [1m[92m  Downloaded[0m cc v1.11.2
-[1m[92m  Downloaded[0m libm v0.2.16
-[1m[92m  Downloaded[0m num-bigint-dig v0.8.6
-[1m[92m  Downloaded[0m sqlx-postgres v0.8.6
-[1m[92m  Downloaded[0m icu_properties v2.4.0
-[1m[92m  Downloaded[0m serde_json v1.0.154
+[1m[92m  Downloaded[0m hashbrown v0.15.5
+[1m[92m  Downloaded[0m hkdf v0.12.4
+[1m[92m  Downloaded[0m scopeguard v1.2.0
+[1m[92m  Downloaded[0m tinyvec v1.13.3
+[1m[92m  Downloaded[0m tokio-stream v0.1.19
 [1m[92m  Downloaded[0m aho-corasick v1.1.5
-[1m[92m  Downloaded[0m icu_properties_data v2.4.0
-[1m[92m  Downloaded[0m zlib-rs v0.6.8
+[1m[92m  Downloaded[0m futures-util v0.3.34
+[1m[92m  Downloaded[0m h2 v0.3.27
+[1m[92m  Downloaded[0m hashbrown v0.17.1
+[1m[92m  Downloaded[0m serde_derive v1.0.229
+[1m[92m  Downloaded[0m rsa v0.9.10
+[1m[92m  Downloaded[0m serde_json v1.0.154
+[1m[92m  Downloaded[0m zerofrom-derive v0.1.8
+[1m[92m  Downloaded[0m actix-http v3.22.0
 [1m[92m  Downloaded[0m actix-web v4.20.0
-[1m[92m  Downloaded[0m sqlx v0.8.6
+[1m[92m  Downloaded[0m chrono v0.4.45
+[1m[92m  Downloaded[0m untrusted v0.9.0
+[1m[92m  Downloaded[0m zerofrom v0.1.8
+[1m[92m  Downloaded[0m zeroize v1.9.2
+[1m[92m  Downloaded[0m zmij v1.0.23
 [1m[92m  Downloaded[0m brotli-decompressor v6.3.2
+[1m[92m  Downloaded[0m impl-more v0.3.10
+[1m[92m  Downloaded[0m jobserver v0.1.35
+[1m[92m  Downloaded[0m local-waker v0.1.5
+[1m[92m  Downloaded[0m num-integer v0.1.47
+[1m[92m  Downloaded[0m num-iter v0.1.46
+[1m[92m  Downloaded[0m pkcs8 v0.10.2
+[1m[92m  Downloaded[0m pkg-config v0.3.34
+[1m[92m  Downloaded[0m powerfmt v0.2.1
+[1m[92m  Downloaded[0m rand_chacha v0.3.1
+[1m[92m  Downloaded[0m rand_core v0.6.4
+[1m[92m  Downloaded[0m rustc_version v0.4.1
+[1m[92m  Downloaded[0m semver v1.0.28
+[1m[92m  Downloaded[0m utf_types v1.0.0
+[1m[92m  Downloaded[0m whoami v1.6.1
+[1m[92m  Downloaded[0m writeable v0.6.4
+[1m[92m  Downloaded[0m litemap v0.8.3
+[1m[92m  Downloaded[0m lock_api v0.4.14
+[1m[92m  Downloaded[0m mime v0.3.18
+[1m[92m  Downloaded[0m parking_lot_core v0.9.12
+[1m[92m  Downloaded[0m ppv-lite86 v0.2.21
+[1m[92m  Downloaded[0m rand_core v0.10.1
+[1m[92m  Downloaded[0m sqlx-mysql v0.8.6
 [1m[92m  Downloaded[0m syn v3.0.10
 [1m[92m  Downloaded[0m time v0.3.55
-[1m[92m  Downloaded[0m syn v2.0.119
+[1m[92m  Downloaded[0m yoke-derive v0.8.4
+[1m[92m  Downloaded[0m pem-rfc7468 v0.7.0
+[1m[92m  Downloaded[0m pin-project-lite v0.2.17
+[1m[92m  Downloaded[0m quote v1.0.47
 [1m[92m  Downloaded[0m regex-syntax v0.8.11
 [1m[92m  Downloaded[0m rustls v0.23.46
-[1m[92m  Downloaded[0m tracing v0.1.44
+[1m[92m  Downloaded[0m shlex v2.0.1
 [1m[92m  Downloaded[0m encoding_rs v0.8.44
+[1m[92m  Downloaded[0m subtle v2.6.1
+[1m[92m  Downloaded[0m zerovec-derive v0.11.7
+[1m[92m  Downloaded[0m brotli v9.1.3
+[1m[92m  Downloaded[0m local-channel v0.1.7
+[1m[92m  Downloaded[0m time-core v0.1.9
+[1m[92m  Downloaded[0m simdutf8 v0.1.5
+[1m[92m  Downloaded[0m mime_guess v2.0.5
+[1m[92m  Downloaded[0m once_cell v1.21.4
+[1m[92m  Downloaded[0m pkcs1 v0.7.5
+[1m[92m  Downloaded[0m rustls-pki-types v1.16.0
+[1m[92m  Downloaded[0m sqlx v0.8.6
+[1m[92m  Downloaded[0m sqlx-core v0.8.6
+[1m[92m  Downloaded[0m sqlx-macros-core v0.8.6
+[1m[92m  Downloaded[0m syn v2.0.119
+[1m[92m  Downloaded[0m serde v1.0.229
+[1m[92m  Downloaded[0m simd-adler32 v0.3.10
+[1m[92m  Downloaded[0m icu_provider v2.4.0
+[1m[92m  Downloaded[0m log v0.4.35
+[1m[92m  Downloaded[0m rustls-webpki v0.103.17
+[1m[92m  Downloaded[0m signature v2.2.0
+[1m[92m  Downloaded[0m sqlx-postgres v0.8.6
+[1m[92m  Downloaded[0m ring v0.17.14
+[1m[92m  Downloaded[0m yoke v0.8.4
+[1m[92m  Downloaded[0m num-traits v0.2.19
+[1m[92m  Downloaded[0m parking_lot v0.12.5
+[1m[92m  Downloaded[0m proc-macro2 v1.0.107
+[1m[92m  Downloaded[0m tokio-util v0.7.20
+[1m[92m  Downloaded[0m typenum v1.20.1
+[1m[92m  Downloaded[0m zstd-safe v8.3.0
+[1m[92m  Downloaded[0m language-tags v0.3.2
+[1m[92m  Downloaded[0m smallvec v1.16.5
+[1m[92m  Downloaded[0m zerotrie v0.2.5
+[1m[92m  Downloaded[0m icu_normalizer_data v2.4.0
+[1m[92m  Downloaded[0m uuid v1.29.3
+[1m[92m  Downloaded[0m miniz_oxide v0.9.1
+[1m[92m  Downloaded[0m serde_core v1.0.229
+[1m[92m  Downloaded[0m socket2 v0.6.5
+[1m[92m  Downloaded[0m rand v0.8.8
+[1m[92m  Downloaded[0m unicode-segmentation v1.13.3
+[1m[92m  Downloaded[0m regex-lite v0.1.9
+[1m[92m  Downloaded[0m rand v0.10.4
+[1m[92m  Downloaded[0m url v2.5.8
+[1m[92m  Downloaded[0m memchr v2.8.3
+[1m[92m  Downloaded[0m indexmap v2.14.2
+[1m[92m  Downloaded[0m unicode-normalization v0.1.26
+[1m[92m  Downloaded[0m zerovec v0.11.9
+[1m[92m  Downloaded[0m idna v1.1.0
+[1m[92m  Downloaded[0m mio v1.2.5
+[1m[92m  Downloaded[0m num-bigint-dig v0.8.6
+[1m[92m  Downloaded[0m libm v0.2.16
+[1m[92m  Downloaded[0m icu_properties v2.4.0
+[1m[92m  Downloaded[0m regex v1.13.1
+[1m[92m  Downloaded[0m icu_properties_data v2.4.0
+[1m[92m  Downloaded[0m webpki-roots v1.0.12
+[1m[92m  Downloaded[0m zlib-rs v0.6.8
+[1m[92m  Downloaded[0m vcpkg v0.2.15
+[1m[92m  Downloaded[0m zerocopy v0.8.63
+[1m[92m  Downloaded[0m tracing v0.1.44
+[1m[92m  Downloaded[0m icu_normalizer v2.4.0
 [1m[92m  Downloaded[0m regex-automata v0.4.18
 [1m[92m  Downloaded[0m zstd-sys v2.1.3+zstd.1.5.7
-[1m[92m  Downloaded[0m brotli v9.1.3
 [1m[92m  Downloaded[0m libc v0.2.191
-[1m[92m  Downloaded[0m ring v0.17.14
+[1m[92m  Downloaded[0m tokio v1.54.1
 [1m[92m  Downloaded[0m libsqlite3-sys v0.30.1
 [1m[92m   Compiling[0m proc-macro2 v1.0.107
 [1m[92m   Compiling[0m quote v1.0.47
@@ -254,38 +254,38 @@
 [1m[92m   Compiling[0m shlex v2.0.1
 [1m[92m   Compiling[0m find-msvc-tools v0.1.15
 [1m[92m   Compiling[0m parking_lot_core v0.9.12
-[1m[92m   Compiling[0m version_check v0.9.5
 [1m[92m   Compiling[0m serde_core v1.0.229
+[1m[92m   Compiling[0m version_check v0.9.5
 [1m[92m    Checking[0m smallvec v1.16.5
 [1m[92m   Compiling[0m syn v3.0.10
 [1m[92m   Compiling[0m syn v2.0.119
-[1m[92m    Checking[0m pin-project-lite v0.2.17
-[1m[92m    Checking[0m scopeguard v1.2.0
-[1m[92m   Compiling[0m icu_normalizer_data v2.4.0
 [1m[92m   Compiling[0m jobserver v0.1.35
+[1m[92m    Checking[0m pin-project-lite v0.2.17
 [1m[92m   Compiling[0m serde v1.0.229
 [1m[92m   Compiling[0m cc v1.11.2
-[1m[92m    Checking[0m futures-core v0.3.34
+[1m[92m    Checking[0m scopeguard v1.2.0
 [1m[92m   Compiling[0m icu_properties_data v2.4.0
+[1m[92m    Checking[0m futures-core v0.3.34
+[1m[92m   Compiling[0m icu_normalizer_data v2.4.0
 [1m[92m    Checking[0m lock_api v0.4.14
 [1m[92m    Checking[0m stable_deref_trait v1.2.1
 [1m[92m   Compiling[0m pkg-config v0.3.34
 [1m[92m   Compiling[0m generic-array v0.14.7
-[1m[92m    Checking[0m bytes v1.12.1
-[1m[92m    Checking[0m log v0.4.35
 [1m[92m    Checking[0m memchr v2.8.3
+[1m[92m    Checking[0m log v0.4.35
+[1m[92m    Checking[0m bytes v1.12.1
 [1m[92m    Checking[0m typenum v1.20.1
 [1m[92m    Checking[0m futures-sink v0.3.34
 [1m[92m    Checking[0m parking_lot v0.12.5
 [1m[92m    Checking[0m errno v0.3.15
 [1m[92m    Checking[0m signal-hook-registry v1.4.8
 [1m[92m   Compiling[0m ring v0.17.14
-[1m[92m    Checking[0m mio v1.2.5
 [1m[92m   Compiling[0m synstructure v0.14.0
+[1m[92m    Checking[0m mio v1.2.5
 [1m[92m    Checking[0m socket2 v0.6.5
-[1m[92m   Compiling[0m autocfg v1.5.1
 [1m[92m    Checking[0m once_cell v1.21.4
 [1m[92m   Compiling[0m crossbeam-utils v0.8.23
+[1m[92m   Compiling[0m autocfg v1.5.1
 [1m[92m   Compiling[0m num-traits v0.2.19
 [1m[92m   Compiling[0m tracing-attributes v0.1.31
 [1m[92m   Compiling[0m zerofrom-derive v0.1.8
@@ -298,104 +298,104 @@
 [1m[92m    Checking[0m zerovec v0.11.9
 [1m[92m   Compiling[0m tokio-macros v2.7.2
 [1m[92m    Checking[0m tinystr v0.8.5
-[1m[92m    Checking[0m writeable v0.6.4
 [1m[92m    Checking[0m tokio v1.54.1
-[1m[92m    Checking[0m utf_types v1.0.0
 [1m[92m    Checking[0m litemap v0.8.3
+[1m[92m    Checking[0m writeable v0.6.4
+[1m[92m    Checking[0m utf_types v1.0.0
 [1m[92m    Checking[0m icu_locale_core v2.4.0
 [1m[92m    Checking[0m utf8_iter v1.1.0
 [1m[92m    Checking[0m potential_utf v0.1.6
 [1m[92m    Checking[0m zerotrie v0.2.5
 [1m[92m   Compiling[0m futures-macro v0.3.34
 [1m[92m    Checking[0m tracing-core v0.1.36
-[1m[92m    Checking[0m futures-io v0.3.34
 [1m[92m    Checking[0m futures-task v0.3.34
+[1m[92m    Checking[0m futures-io v0.3.34
 [1m[92m    Checking[0m slab v0.4.12
 [1m[92m    Checking[0m futures-util v0.3.34
 [1m[92m    Checking[0m tracing v0.1.44
 [1m[92m    Checking[0m icu_provider v2.4.0
 [1m[92m    Checking[0m icu_collections v2.4.0
-[1m[92m    Checking[0m equivalent v1.0.3
-[1m[92m    Checking[0m itoa v1.0.19
 [1m[92m    Checking[0m percent-encoding v2.3.2
 [1m[92m   Compiling[0m zmij v1.0.23
+[1m[92m    Checking[0m equivalent v1.0.3
+[1m[92m    Checking[0m itoa v1.0.19
+[1m[92m   Compiling[0m thiserror v2.0.21
 [1m[92m   Compiling[0m zeroize v1.9.2
 [1m[92m   Compiling[0m rustls v0.23.46
-[1m[92m   Compiling[0m thiserror v2.0.21
 [1m[92m   Compiling[0m rustls-pki-types v1.16.0
-[1m[92m    Checking[0m icu_properties v2.4.0
 [1m[92m    Checking[0m icu_normalizer v2.4.0
+[1m[92m    Checking[0m icu_properties v2.4.0
 [1m[92m   Compiling[0m thiserror-impl v2.0.21
 [1m[92m   Compiling[0m zstd-sys v2.1.3+zstd.1.5.7
 [1m[92m    Checking[0m getrandom v0.2.17
-[1m[92m   Compiling[0m rustversion v1.0.23
+[1m[92m   Compiling[0m serde_json v1.0.154
 [1m[92m   Compiling[0m vcpkg v0.2.15
 [1m[92m    Checking[0m hashbrown v0.17.1
-[1m[92m   Compiling[0m serde_json v1.0.154
-[1m[92m   Compiling[0m libsqlite3-sys v0.30.1
-[1m[92m    Checking[0m indexmap v2.14.2
+[1m[92m   Compiling[0m rustversion v1.0.23
 [1m[92m    Checking[0m idna_adapter v1.2.2
+[1m[92m    Checking[0m indexmap v2.14.2
+[1m[92m   Compiling[0m libsqlite3-sys v0.30.1
 [1m[92m    Checking[0m form_urlencoded v1.2.2
 [1m[92m    Checking[0m hybrid-array v0.4.15
+[1m[92m    Checking[0m rand_core v0.10.1
 [1m[92m   Compiling[0m getrandom v0.4.3
 [1m[92m   Compiling[0m untrusted v0.9.0
-[1m[92m    Checking[0m rand_core v0.10.1
 [1m[92m    Checking[0m idna v1.1.0
 [1m[92m   Compiling[0m crypto-common v0.1.7
 [1m[92m   Compiling[0m block-buffer v0.10.4
 [1m[92m    Checking[0m tokio-util v0.7.20
+[1m[92m   Compiling[0m crc32fast v1.5.5
+[1m[92m   Compiling[0m allocator-api2 v0.2.21
+[1m[92m    Checking[0m cpufeatures v0.3.1
 [1m[92m   Compiling[0m zstd-safe v8.3.0
 [1m[92m   Compiling[0m foldhash v0.1.5
-[1m[92m    Checking[0m fnv v1.0.7
-[1m[92m   Compiling[0m crc32fast v1.5.5
 [1m[92m    Checking[0m alloc-no-stdlib v3.0.0
-[1m[92m    Checking[0m cpufeatures v0.3.1
 [1m[92m   Compiling[0m unicode-segmentation v1.13.3
-[1m[92m   Compiling[0m allocator-api2 v0.2.21
-[1m[92m   Compiling[0m hashbrown v0.15.5
-[1m[92m   Compiling[0m convert_case v0.10.0
-[1m[92m   Compiling[0m rustls-webpki v0.103.17
-[1m[92m    Checking[0m alloc-stdlib v0.3.0
+[1m[92m    Checking[0m fnv v1.0.7
 [1m[92m    Checking[0m http v0.2.12
+[1m[92m   Compiling[0m convert_case v0.10.0
+[1m[92m    Checking[0m alloc-stdlib v0.3.0
+[1m[92m   Compiling[0m hashbrown v0.15.5
+[1m[92m   Compiling[0m rustls-webpki v0.103.17
 [1m[92m   Compiling[0m digest v0.10.7
-[1m[92m   Compiling[0m encoding_rs v0.8.44
 [1m[92m    Checking[0m url v2.5.8
+[1m[92m   Compiling[0m encoding_rs v0.8.44
 [1m[92m    Checking[0m crypto-common v0.2.2
 [1m[92m    Checking[0m block-buffer v0.12.1
 [1m[92m   Compiling[0m webpki-roots v1.0.12
 [1m[92m    Checking[0m aho-corasick v1.1.5
-[1m[92m    Checking[0m const-oid v0.10.3
-[1m[92m   Compiling[0m num-conv v0.2.2
+[1m[92m   Compiling[0m parking v2.2.1
+[1m[92m   Compiling[0m time-core v0.1.9
+[1m[92m   Compiling[0m subtle v2.6.1
 [1m[92m    Checking[0m bitflags v2.13.2
+[1m[92m   Compiling[0m unicode-xid v0.2.6
+[1m[92m    Checking[0m adler2 v2.0.1
+[1m[92m    Checking[0m local-waker v0.1.5
+[1m[92m    Checking[0m simd-adler32 v0.3.10
+[1m[92m   Compiling[0m httparse v1.10.1
+[1m[92m   Compiling[0m num-conv v0.2.2
 [1m[92m   Compiling[0m cpufeatures v0.2.17
+[1m[92m    Checking[0m const-oid v0.10.3
 [1m[92m    Checking[0m regex-syntax v0.8.11
 [1m[92m   Compiling[0m iana-time-zone v0.1.65
 [1m[92m    Checking[0m ryu v1.0.23
 [1m[92m   Compiling[0m crc-catalog v2.5.0
-[1m[92m   Compiling[0m unicode-xid v0.2.6
-[1m[92m   Compiling[0m parking v2.2.1
-[1m[92m    Checking[0m adler2 v2.0.1
-[1m[92m   Compiling[0m time-core v0.1.9
-[1m[92m    Checking[0m simd-adler32 v0.3.10
-[1m[92m    Checking[0m local-waker v0.1.5
-[1m[92m   Compiling[0m subtle v2.6.1
-[1m[92m   Compiling[0m httparse v1.10.1
-[1m[92m    Checking[0m regex-automata v0.4.18
-[1m[92m   Compiling[0m time-macros v0.2.32
-[1m[92m   Compiling[0m tokio-stream v0.1.19
-[1m[92m    Checking[0m miniz_oxide v0.9.1
-[1m[92m   Compiling[0m event-listener v5.4.2
-[1m[92m   Compiling[0m derive_more-impl v2.1.1
 [1m[92m   Compiling[0m crc v3.4.0
 [1m[92m    Checking[0m serde_urlencoded v0.7.1
 [1m[92m   Compiling[0m chrono v0.4.45
-[1m[92m   Compiling[0m sha2 v0.10.9
 [1m[92m    Checking[0m digest v0.11.3
+[1m[92m   Compiling[0m time-macros v0.2.32
+[1m[92m   Compiling[0m sha2 v0.10.9
+[1m[92m    Checking[0m miniz_oxide v0.9.1
+[1m[92m    Checking[0m regex-automata v0.4.18
+[1m[92m   Compiling[0m derive_more-impl v2.1.1
 [1m[92m   Compiling[0m crossbeam-queue v0.3.14
+[1m[92m   Compiling[0m event-listener v5.4.2
 [1m[92m   Compiling[0m webpki-roots v0.26.11
+[1m[92m   Compiling[0m tokio-stream v0.1.19
 [1m[92m   Compiling[0m futures-intrusive v0.5.0
-[1m[92m    Checking[0m brotli-decompressor v6.3.2
 [1m[92m   Compiling[0m hashlink v0.10.0
+[1m[92m    Checking[0m brotli-decompressor v6.3.2
 [1m[92m    Checking[0m chacha20 v0.10.2
 [1m[92m   Compiling[0m spin v0.9.9
 [1m[92m    Checking[0m actix-rt v2.16.0
@@ -403,48 +403,48 @@
 [1m[92m   Compiling[0m bytestring v1.6.0
 [1m[92m    Checking[0m actix-service v2.0.3
 [1m[92m   Compiling[0m cookie v0.16.2
-[1m[92m   Compiling[0m zerocopy v0.8.63
 [1m[92m    Checking[0m core_detect v1.0.0
+[1m[92m    Checking[0m mime v0.3.18
+[1m[92m    Checking[0m simdutf8 v0.1.5
+[1m[92m   Compiling[0m multiversion_no_op v1.0.0
+[1m[92m    Checking[0m powerfmt v0.2.1
+[1m[92m   Compiling[0m zerocopy v0.8.63
 [1m[92m   Compiling[0m base64 v0.22.1
 [1m[92m    Checking[0m deranged v0.5.9
 [1m[92m   Compiling[0m regex-lite v0.1.9
-[1m[92m    Checking[0m simdutf8 v0.1.5
-[1m[92m    Checking[0m mime v0.3.18
-[1m[92m   Compiling[0m multiversion_no_op v1.0.0
-[1m[92m    Checking[0m powerfmt v0.2.1
+[1m[92m   Compiling[0m sqlx-core v0.8.6
 [1m[92m   Compiling[0m actix-router v0.5.5
 [1m[92m    Checking[0m time v0.3.55
-[1m[92m   Compiling[0m sqlx-core v0.8.6
 [1m[92m    Checking[0m brotli v9.1.3
 [1m[92m   Compiling[0m flume v0.11.1
 [1m[92m    Checking[0m rand v0.10.4
 [1m[92m    Checking[0m derive_more v2.1.1
 [1m[92m    Checking[0m flate2 v1.1.11
+[1m[92m    Checking[0m regex v1.13.1
 [1m[92m    Checking[0m zstd v0.14.4
 [1m[92m    Checking[0m sha1 v0.11.0
-[1m[92m    Checking[0m regex v1.13.1
 [1m[92m    Checking[0m local-channel v0.1.7
 [1m[92m    Checking[0m actix-utils v3.0.2
 [1m[92m    Checking[0m actix-codec v0.5.4
-[1m[92m    Checking[0m h2 v0.3.27
 [1m[92m   Compiling[0m futures-executor v0.3.34
+[1m[92m    Checking[0m h2 v0.3.27
 [1m[92m   Compiling[0m atoi v2.0.0
 [1m[92m   Compiling[0m futures-channel v0.3.34
 [1m[92m   Compiling[0m actix-macros v0.2.5
-[1m[92m    Checking[0m foldhash v0.2.0
-[1m[92m    Checking[0m base64 v0.23.1
 [1m[92m   Compiling[0m unicase v2.10.0
+[1m[92m    Checking[0m base64 v0.23.1
 [1m[92m    Checking[0m language-tags v0.3.2
 [1m[92m    Checking[0m httpdate v1.0.3
+[1m[92m    Checking[0m foldhash v0.2.0
 [1m[92m   Compiling[0m mime_guess v2.0.5
-[1m[92m   Compiling[0m sqlx-sqlite v0.8.6
 [1m[92m    Checking[0m actix-http v3.22.0
+[1m[92m   Compiling[0m sqlx-sqlite v0.8.6
 [1m[92m   Compiling[0m actix-web-codegen v4.6.0
 [1m[92m    Checking[0m actix-server v2.10.0
-[1m[92m   Compiling[0m hex v0.4.3
-[1m[92m   Compiling[0m v_htmlescape v0.15.8
-[1m[92m   Compiling[0m dotenvy v0.15.7
 [1m[92m    Checking[0m impl-more v0.3.10
+[1m[92m   Compiling[0m hex v0.4.3
+[1m[92m   Compiling[0m dotenvy v0.15.7
+[1m[92m   Compiling[0m v_htmlescape v0.15.8
 [1m[92m   Compiling[0m heck v0.5.0
 [1m[92m   Compiling[0m sqlx-macros-core v0.8.6
 [1m[92m    Checking[0m actix-web v4.20.0
@@ -456,618 +456,34 @@
 [1m[92m    Checking[0m rand_chacha v0.3.1
 [1m[92m   Compiling[0m sqlx-macros v0.8.6
 [1m[92m    Checking[0m http-range v0.1.6
-[1m[92m    Checking[0m actix-web-actors v4.3.1+deprecated
 [1m[92m    Checking[0m actix-files v0.6.10
+[1m[92m    Checking[0m actix-web-actors v4.3.1+deprecated
 [1m[92m    Checking[0m rand v0.8.8
 [1m[92m    Checking[0m uuid v1.29.3
 [1m[92m    Checking[0m sqlx v0.8.6
 [1m[92m    Checking[0m room v0.1.0 (/home/runner/work/room/room)
-[1m[91merror[0m[1m: unknown start of token: \[0m
-  [1m[94m--> [0msrc/templates/account.rs:11:53
-   [1m[94m|[0m
-[1m[94m11[0m [1m[94m|[0m             "<div class=\\"flex flex-col gap-0.5 p-2\\">\
-   [1m[94m|[0m                                                     [1m[91m^^[0m
-   [1m[94m|[0m
-   [1m[94m= [0m[1mnote[0m: character appears once more
-
-[1m[91merror[0m[1m: unknown start of token: \[0m
-  [1m[94m--> [0msrc/templates/account.rs:12:20
-   [1m[94m|[0m
-[1m[94m12[0m [1m[94m|[0m <a class=\\"navlink\\" href=\\"/account\\">{}<span>Profile</span></a>\
-   [1m[94m|[0m                    [1m[91m^^[0m
-   [1m[94m|[0m
-   [1m[94m= [0m[1mnote[0m: character appears once more
-
-[1m[91merror[0m[1m: unknown start of token: \[0m
-  [1m[94m--> [0msrc/templates/account.rs:12:40
-   [1m[94m|[0m
-[1m[94m12[0m [1m[94m|[0m <a class=\\"navlink\\" href=\\"/account\\">{}<span>Profile</span></a>\
-   [1m[94m|[0m                                        [1m[91m^^[0m
-   [1m[94m|[0m
-   [1m[94m= [0m[1mnote[0m: character appears once more
-
-[1m[91merror[0m[1m: unknown start of token: \[0m
-  [1m[94m--> [0msrc/templates/account.rs:13:20
-   [1m[94m|[0m
-[1m[94m13[0m [1m[94m|[0m <a class=\\"navlink\\" href=\\"/account?tab=devices\\">{}<span>My devices</span></a>\
-   [1m[94m|[0m                    [1m[91m^^[0m
-   [1m[94m|[0m
-   [1m[94m= [0m[1mnote[0m: character appears once more
-
-[1m[91merror[0m[1m: unknown start of token: \[0m
-  [1m[94m--> [0msrc/templates/account.rs:13:52
-   [1m[94m|[0m
-[1m[94m13[0m [1m[94m|[0m <a class=\\"navlink\\" href=\\"/account?tab=devices\\">{}<span>My devices</span></a>\
-   [1m[94m|[0m                                                    [1m[91m^^[0m
-   [1m[94m|[0m
-   [1m[94m= [0m[1mnote[0m: character appears once more
-
-[1m[91merror[0m[1m: unknown start of token: \[0m
-  [1m[94m--> [0msrc/templates/account.rs:14:20
-   [1m[94m|[0m
-[1m[94m14[0m [1m[94m|[0m <a class=\\"navlink\\" href=\\"/account?tab=security\\">{}<span>Security</span></a>\
-   [1m[94m|[0m                    [1m[91m^^[0m
-   [1m[94m|[0m
-   [1m[94m= [0m[1mnote[0m: character appears once more
-
-[1m[91merror[0m[1m: unknown start of token: \[0m
-  [1m[94m--> [0msrc/templates/account.rs:14:53
-   [1m[94m|[0m
-[1m[94m14[0m [1m[94m|[0m <a class=\\"navlink\\" href=\\"/account?tab=security\\">{}<span>Security</span></a>\
-   [1m[94m|[0m                                                     [1m[91m^^[0m
-   [1m[94m|[0m
-   [1m[94m= [0m[1mnote[0m: character appears once more
-
-[1m[91merror[0m[1m: unknown start of token: \[0m
-  [1m[94m--> [0msrc/templates/account.rs:30:41
-   [1m[94m|[0m
-[1m[94m30[0m [1m[94m|[0m [1m[94m...[0m   "<span class=\\"chip\\" style=\\"background:color-mix(in srgb,#ef4444 12%,transparent);color:#dc2626\\">revoked</span>"
-   [1m[94m|[0m                           [1m[91m^^[0m
-   [1m[94m|[0m
-   [1m[94m= [0m[1mnote[0m: character appears once more
-
-[1m[91merror[0m[1m: unknown start of token: \[0m
-  [1m[94m--> [0msrc/templates/account.rs:30:121
-   [1m[94m|[0m
-[1m[94m30[0m [1m[94m|[0m [1m[94m...[0m   "<span class=\\"chip\\" style=\\"background:color-mix(in srgb,#ef4444 12%,transparent);color:#dc2626\\">revoked</span>"
-   [1m[94m|[0m                                                                                                           [1m[91m^^[0m
-   [1m[94m|[0m
-   [1m[94m= [0m[1mnote[0m: character appears once more
-
-[1m[91merror[0m[1m: unknown start of token: \[0m
-  [1m[94m--> [0msrc/templates/account.rs:32:41
-   [1m[94m|[0m
-[1m[94m32[0m [1m[94m|[0m [1m[94m...[0m   "<span class=\\"chip\\" style=\\"background:color-mix(in srgb,#10b981 12%,transparent);color:#059669\\">approved</span>"
-   [1m[94m|[0m                           [1m[91m^^[0m
-   [1m[94m|[0m
-   [1m[94m= [0m[1mnote[0m: character appears once more
-
-[1m[91merror[0m[1m: unknown start of token: \[0m
-  [1m[94m--> [0msrc/templates/account.rs:32:121
-   [1m[94m|[0m
-[1m[94m32[0m [1m[94m|[0m [1m[94m...[0m   "<span class=\\"chip\\" style=\\"background:color-mix(in srgb,#10b981 12%,transparent);color:#059669\\">approved</span>"
-   [1m[94m|[0m                                                                                                           [1m[91m^^[0m
-   [1m[94m|[0m
-   [1m[94m= [0m[1mnote[0m: character appears once more
-
-[1m[91merror[0m[1m: unknown start of token: \[0m
-  [1m[94m--> [0msrc/templates/account.rs:34:41
-   [1m[94m|[0m
-[1m[94m34[0m [1m[94m|[0m [1m[94m...[0m   "<span class=\\"chip\\" style=\\"background:color-mix(in srgb,#f59e0b 12%,transparent);color:#d97706\\">pending</span>"
-   [1m[94m|[0m                           [1m[91m^^[0m
-   [1m[94m|[0m
-   [1m[94m= [0m[1mnote[0m: character appears once more
-
-[1m[91merror[0m[1m: unknown start of token: \[0m
-  [1m[94m--> [0msrc/templates/account.rs:34:121
-   [1m[94m|[0m
-[1m[94m34[0m [1m[94m|[0m [1m[94m...[0m   "<span class=\\"chip\\" style=\\"background:color-mix(in srgb,#f59e0b 12%,transparent);color:#d97706\\">pending</span>"
-   [1m[94m|[0m                                                                                                           [1m[91m^^[0m
-   [1m[94m|[0m
-   [1m[94m= [0m[1mnote[0m: character appears once more
-
-[1m[91merror[0m[1m: unknown start of token: \[0m
-  [1m[94m--> [0msrc/templates/account.rs:37:68
-   [1m[94m|[0m
-[1m[94m37[0m [1m[94m|[0m [1m[94m...[0m   "<div class=\\"tile flex items-center gap-3 p-3\\">{}<div class=\\"min-w-0 flex-1\\"><div class=\\"flex items-center gap-2\\">[1m[94m...[0m
-   [1m[94m|[0m                                                      [1m[91m^^[0m
-   [1m[94m|[0m
-   [1m[94m= [0m[1mnote[0m: character appears once more
-
-[1m[91merror[0m[1m: unknown start of token: \[0m
-  [1m[94m--> [0msrc/templates/account.rs:37:102
-   [1m[94m|[0m
-[1m[94m37[0m [1m[94m|[0m [1m[94m...[0m   "<div class=\\"tile flex items-center gap-3 p-3\\">{}<div class=\\"min-w-0 flex-1\\"><div class=\\"flex items-center gap-2\\">[1m[94m...[0m
-   [1m[94m|[0m                                                                                        [1m[91m^^[0m
-   [1m[94m|[0m
-   [1m[94m= [0m[1mnote[0m: character appears once more
-
-[1m[91merror[0m[1m: unknown start of token: \[0m
-  [1m[94m--> [0msrc/templates/account.rs:37:143
-   [1m[94m|[0m
-[1m[94m37[0m [1m[94m|[0m [1m[94m...[0mlass=\\"min-w-0 flex-1\\"><div class=\\"flex items-center gap-2\\"><span class=\\"truncate text-[13px] font-semibold\\">{}</span>[1m[94m...[0m
-   [1m[94m|[0m                                                                   [1m[91m^^[0m
-   [1m[94m|[0m
-   [1m[94m= [0m[1mnote[0m: character appears once more
-
-[1m[91merror[0m[1m: unknown start of token: \[0m
-  [1m[94m--> [0msrc/templates/account.rs:37:196
-   [1m[94m|[0m
-[1m[94m37[0m [1m[94m|[0m [1m[94m...[0mnter gap-2\\"><span class=\\"truncate text-[13px] font-semibold\\">{}</span>{}{}</div><div class=\\"truncate text-[11px] ink3\\">[1m[94m...[0m
-   [1m[94m|[0m                                                                   [1m[91m^^[0m
-   [1m[94m|[0m
-   [1m[94m= [0m[1mnote[0m: character appears once more
-
-[1m[91merror[0m[1m: unknown start of token: \[0m
-  [1m[94m--> [0msrc/templates/account.rs:37:258
-   [1m[94m|[0m
-[1m[94m37[0m [1m[94m|[0m [1m[94m...[0md\\">{}</span>{}{}</div><div class=\\"truncate text-[11px] ink3\\">{} · last seen {}</div></div>{}</div>",
-   [1m[94m|[0m                                                                   [1m[91m^^[0m
-   [1m[94m|[0m
-   [1m[94m= [0m[1mnote[0m: character appears once more
-
-[1m[91merror[0m[1m: unknown start of token: \[0m
-  [1m[94m--> [0msrc/templates/account.rs:41:67
-   [1m[94m|[0m
-[1m[94m41[0m [1m[94m|[0m                     if d.current { "<span class=\\"chip chip-brand\\">this device</span>" } else { "" },
-   [1m[94m|[0m                                                                   [1m[91m^^[0m
-   [1m[94m|[0m
-   [1m[94m= [0m[1mnote[0m: character appears once more
-
-[1m[91merror[0m[1m: unknown start of token: \[0m
-  [1m[94m--> [0msrc/templates/account.rs:44:138
-   [1m[94m|[0m
-[1m[94m44[0m [1m[94m|[0m [1m[94m...[0m   if d.current || d.revoked { String::new() } else { format!("<button class=\\"btn btn-ghost btn-xs hover:!text-red-500\\" data-[1m[94m...[0m
-   [1m[94m|[0m                                                                                                                            [1m[91m^^[0m
-   [1m[94m|[0m
-   [1m[94m= [0m[1mnote[0m: character appears once more
-
-[1m[91merror[0m[1m: unknown start of token: \[0m
-  [1m[94m--> [0msrc/templates/account.rs:44:159
-   [1m[94m|[0m
-[1m[94m44[0m [1m[94m|[0m [1m[94m...[0m\"btn btn-ghost btn-xs hover:!text-red-500\\" data-revoke=\\"{}\\" type=\\"button\\">{}</button>", d.id, icon("logout", "h-3.5 w-[1m[94m...[0m
-   [1m[94m|[0m                                                                   [1m[91m^^[0m
-   [1m[94m|[0m
-   [1m[94m= [0m[1mnote[0m: character appears once more
-
-[1m[91merror[0m[1m: unknown start of token: \[0m
-  [1m[94m--> [0msrc/templates/account.rs:44:177
-   [1m[94m|[0m
-[1m[94m44[0m [1m[94m|[0m [1m[94m...[0mn-xs hover:!text-red-500\\" data-revoke=\\"{}\\" type=\\"button\\">{}</button>", d.id, icon("logout", "h-3.5 w-3.5")) }
-   [1m[94m|[0m                                                                   [1m[91m^^[0m
-   [1m[94m|[0m
-   [1m[94m= [0m[1mnote[0m: character appears once more
-
-[1m[91merror[0m[1m: unknown start of token: \[0m
-  [1m[94m--> [0msrc/templates/account.rs:48:46
-   [1m[94m|[0m
-[1m[94m48[0m [1m[94m|[0m                 "<div class=\\"grid gap-2 p-4\\">{}</div>",
-   [1m[94m|[0m                                              [1m[91m^^[0m
-   [1m[94m|[0m
-   [1m[94m= [0m[1mnote[0m: character appears once more
-
-[1m[91merror[0m[1m: unknown start of token: \[0m
-  [1m[94m--> [0msrc/templates/account.rs:57:42
-   [1m[94m|[0m
-[1m[94m57[0m [1m[94m|[0m             "<div class=\\"grid gap-3 p-4\\">\
-   [1m[94m|[0m                                          [1m[91m^^[0m
-   [1m[94m|[0m
-   [1m[94m= [0m[1mnote[0m: character appears once more
-
-[1m[91merror[0m[1m: unknown start of token: \[0m
-  [1m[94m--> [0msrc/templates/account.rs:58:23
-   [1m[94m|[0m
-[1m[94m58[0m [1m[94m|[0m <div class=\\"tile p-5\\"><div class=\\"flex items-center gap-2 text-[13px] font-bold\\">{} How access works</div>\
-   [1m[94m|[0m                       [1m[91m^^[0m
-   [1m[94m|[0m
-   [1m[94m= [0m[1mnote[0m: character appears once more
-
-[1m[91merror[0m[1m: unknown start of token: \[0m
-  [1m[94m--> [0msrc/templates/account.rs:58:86
-   [1m[94m|[0m
-[1m[94m58[0m [1m[94m|[0m <div class=\\"tile p-5\\"><div class=\\"flex items-center gap-2 text-[13px] font-bold\\">{} How access works</div>\
-   [1m[94m|[0m                                                                                      [1m[91m^^[0m
-   [1m[94m|[0m
-   [1m[94m= [0m[1mnote[0m: character appears once more
-
-[1m[91merror[0m[1m: unknown start of token: \[0m
-  [1m[94m--> [0msrc/templates/account.rs:59:65
-   [1m[94m|[0m
-[1m[94m59[0m [1m[94m|[0m <ul class=\\"mt-3 space-y-2.5 text-[12.5px] leading-relaxed ink2\\">\
-   [1m[94m|[0m                                                                 [1m[91m^^[0m
-   [1m[94m|[0m
-   [1m[94m= [0m[1mnote[0m: character appears once more
-
-[1m[91merror[0m[1m: unknown start of token: \[0m
-  [1m[94m--> [0msrc/templates/account.rs:64:23
-   [1m[94m|[0m
-[1m[94m64[0m [1m[94m|[0m <div class=\\"tile p-5\\"><div class=\\"text-[13px] font-bold\\">{} Sign out</div><p class=\\"mt-1.5 text-[12.5px] ink2\\">Sign out [1m[94m...[0m
-   [1m[94m|[0m                       [1m[91m^^[0m
-   [1m[94m|[0m
-   [1m[94m= [0m[1mnote[0m: character appears once more
-
-[1m[91merror[0m[1m: unknown start of token: \[0m
-  [1m[94m--> [0msrc/templates/account.rs:64:62
-   [1m[94m|[0m
-[1m[94m64[0m [1m[94m|[0m <div class=\\"tile p-5\\"><div class=\\"text-[13px] font-bold\\">{} Sign out</div><p class=\\"mt-1.5 text-[12.5px] ink2\\">Sign out [1m[94m...[0m
-   [1m[94m|[0m                                                              [1m[91m^^[0m
-   [1m[94m|[0m
-   [1m[94m= [0m[1mnote[0m: character appears once more
-
-[1m[91merror[0m[1m: unknown start of token: \[0m
-  [1m[94m--> [0msrc/templates/account.rs:64:120
-   [1m[94m|[0m
-[1m[94m64[0m [1m[94m|[0m <div class=\\"tile p-5\\"><div class=\\"text-[13px] font-bold\\">{} Sign out</div><p class=\\"mt-1.5 text-[12.5px] ink2\\">Sign out [1m[94m...[0m
-   [1m[94m|[0m                                                                                                                        [1m[91m^^[0m
-   [1m[94m|[0m
-   [1m[94m= [0m[1mnote[0m: character appears once more
-
-[1m[91merror[0m[1m: unknown start of token: \[0m
-  [1m[94m--> [0msrc/templates/account.rs:65:32
-   [1m[94m|[0m
-[1m[94m65[0m [1m[94m|[0m <a class=\\"btn btn-danger mt-3\\" href=\\"/api/logout\\">{} Sign out this device</a></div></div>",
-   [1m[94m|[0m                                [1m[91m^^[0m
-   [1m[94m|[0m
-   [1m[94m= [0m[1mnote[0m: character appears once more
-
-[1m[91merror[0m[1m: unknown start of token: \[0m
-  [1m[94m--> [0msrc/templates/account.rs:65:55
-   [1m[94m|[0m
-[1m[94m65[0m [1m[94m|[0m <a class=\\"btn btn-danger mt-3\\" href=\\"/api/logout\\">{} Sign out this device</a></div></div>",
-   [1m[94m|[0m                                                       [1m[91m^^[0m
-   [1m[94m|[0m
-   [1m[94m= [0m[1mnote[0m: character appears once more
-
-[1m[91merror[0m[1m: unknown start of token: \[0m
-  [1m[94m--> [0msrc/templates/account.rs:71:61
-   [1m[94m|[0m
-[1m[94m71[0m [1m[94m|[0m             "<div class=\\"mx-auto w-full max-w-lg px-4 py-6\\">\
-   [1m[94m|[0m                                                             [1m[91m^^[0m
-   [1m[94m|[0m
-   [1m[94m= [0m[1mnote[0m: character appears once more
-
-[1m[91merror[0m[1m: unknown start of token: \[0m
-  [1m[94m--> [0msrc/templates/account.rs:72:48
-   [1m[94m|[0m
-[1m[94m72[0m [1m[94m|[0m <div class=\\"panel rounded-2xl p-5 shadow-soft\\">\
-   [1m[94m|[0m                                                [1m[91m^^[0m
-   [1m[94m|[0m
-   [1m[94m= [0m[1mnote[0m: character appears once more
-
-[1m[91merror[0m[1m: unknown start of token: \[0m
-  [1m[94m--> [0msrc/templates/account.rs:73:38
-   [1m[94m|[0m
-[1m[94m73[0m [1m[94m|[0m <div class=\\"flex items-center gap-3\\">{}<div><div class=\\"text-[15px] font-bold\\">{}</div><div class=\\"text-xs ink3\\">@{} · {[1m[94m...[0m
-   [1m[94m|[0m                                      [1m[91m^^[0m
-   [1m[94m|[0m
-   [1m[94m= [0m[1mnote[0m: character appears once more
-
-[1m[91merror[0m[1m: unknown start of token: \[0m
-  [1m[94m--> [0msrc/templates/account.rs:73:84
-   [1m[94m|[0m
-[1m[94m73[0m [1m[94m|[0m <div class=\\"flex items-center gap-3\\">{}<div><div class=\\"text-[15px] font-bold\\">{}</div><div class=\\"text-xs ink3\\">@{} · {[1m[94m...[0m
-   [1m[94m|[0m                                                                                    [1m[91m^^[0m
-   [1m[94m|[0m
-   [1m[94m= [0m[1mnote[0m: character appears once more
-
-[1m[91merror[0m[1m: unknown start of token: \[0m
-  [1m[94m--> [0msrc/templates/account.rs:73:122
-   [1m[94m|[0m
-[1m[94m73[0m [1m[94m|[0m <div class=\\"flex items-center gap-3\\">{}<div><div class=\\"text-[15px] font-bold\\">{}</div><div class=\\"text-xs ink3\\">@{} · {[1m[94m...[0m
-   [1m[94m|[0m                                                                                                                          [1m[91m^^[0m
-   [1m[94m|[0m
-   [1m[94m= [0m[1mnote[0m: character appears once more
-
-[1m[91merror[0m[1m: unknown start of token: \[0m
-  [1m[94m--> [0msrc/templates/account.rs:74:25
-   [1m[94m|[0m
-[1m[94m74[0m [1m[94m|[0m <form id=\\"profile-form\\" class=\\"mt-5 space-y-4\\">\
-   [1m[94m|[0m                         [1m[91m^^[0m
-   [1m[94m|[0m
-   [1m[94m= [0m[1mnote[0m: character appears once more
-
-[1m[91merror[0m[1m: unknown start of token: \[0m
-  [1m[94m--> [0msrc/templates/account.rs:74:52
-   [1m[94m|[0m
-[1m[94m74[0m [1m[94m|[0m <form id=\\"profile-form\\" class=\\"mt-5 space-y-4\\">\
-   [1m[94m|[0m                                                    [1m[91m^^[0m
-   [1m[94m|[0m
-   [1m[94m= [0m[1mnote[0m: character appears once more
-
-[1m[91merror[0m[1m: unknown start of token: \[0m
-  [1m[94m--> [0msrc/templates/account.rs:76:31
-   [1m[94m|[0m
-[1m[94m76[0m [1m[94m|[0m <button class=\\"btn btn-brand\\" type=\\"submit\\">Save profile</button></form></div></div>",
-   [1m[94m|[0m                               [1m[91m^^[0m
-   [1m[94m|[0m
-   [1m[94m= [0m[1mnote[0m: character appears once more
-
-[1m[91merror[0m[1m: unknown start of token: \[0m
-  [1m[94m--> [0msrc/templates/account.rs:76:49
-   [1m[94m|[0m
-[1m[94m76[0m [1m[94m|[0m <button class=\\"btn btn-brand\\" type=\\"submit\\">Save profile</button></form></div></div>",
-   [1m[94m|[0m                                                 [1m[91m^^[0m
-   [1m[94m|[0m
-   [1m[94m= [0m[1mnote[0m: character appears once more
-
-[1m[91merror[0m[1m: unknown start of token: \[0m
-  [1m[94m--> [0msrc/templates/account.rs:83:48
-   [1m[94m|[0m
-[1m[94m83[0m [1m[94m|[0m                 &format!("<input class=\\"input\\" name=\\"name\\" value=\\"{}\\" maxlength=\\"60\\">", esc(&me.name)),
-   [1m[94m|[0m                                                [1m[91m^^[0m
-   [1m[94m|[0m
-   [1m[94m= [0m[1mnote[0m: character appears once more
-
-[1m[91merror[0m[1m: unknown start of token: \[0m
-  [1m[94m--> [0msrc/templates/account.rs:83:64
-   [1m[94m|[0m
-[1m[94m83[0m [1m[94m|[0m                 &format!("<input class=\\"input\\" name=\\"name\\" value=\\"{}\\" maxlength=\\"60\\">", esc(&me.name)),
-   [1m[94m|[0m                                                                [1m[91m^^[0m
-   [1m[94m|[0m
-   [1m[94m= [0m[1mnote[0m: character appears once more
-
-[1m[91merror[0m[1m: unknown start of token: \[0m
-  [1m[94m--> [0msrc/templates/account.rs:83:79
-   [1m[94m|[0m
-[1m[94m83[0m [1m[94m|[0m                 &format!("<input class=\\"input\\" name=\\"name\\" value=\\"{}\\" maxlength=\\"60\\">", esc(&me.name)),
-   [1m[94m|[0m                                                                               [1m[91m^^[0m
-   [1m[94m|[0m
-   [1m[94m= [0m[1mnote[0m: character appears once more
-
-[1m[91merror[0m[1m: unknown start of token: \[0m
-  [1m[94m--> [0msrc/templates/account.rs:83:98
-   [1m[94m|[0m
-[1m[94m83[0m [1m[94m|[0m                 &format!("<input class=\\"input\\" name=\\"name\\" value=\\"{}\\" maxlength=\\"60\\">", esc(&me.name)),
-   [1m[94m|[0m                                                                                                  [1m[91m^^[0m
-   [1m[94m|[0m
-   [1m[94m= [0m[1mnote[0m: character appears once more
-
-[1m[91merror[0m[1m: unknown start of token: \[0m
-  [1m[94m--> [0msrc/templates/account.rs:88:51
-   [1m[94m|[0m
-[1m[94m88[0m [1m[94m|[0m                 &format!("<textarea class=\\"input\\" name=\\"bio\\" rows=\\"3\\" maxlength=\\"240\\">{}</textarea>", esc(&me.bio)),
-   [1m[94m|[0m                                                   [1m[91m^^[0m
-   [1m[94m|[0m
-   [1m[94m= [0m[1mnote[0m: character appears once more
-
-[1m[91merror[0m[1m: unknown start of token: \[0m
-  [1m[94m--> [0msrc/templates/account.rs:88:66
-   [1m[94m|[0m
-[1m[94m88[0m [1m[94m|[0m                 &format!("<textarea class=\\"input\\" name=\\"bio\\" rows=\\"3\\" maxlength=\\"240\\">{}</textarea>", esc(&me.bio)),
-   [1m[94m|[0m                                                                  [1m[91m^^[0m
-   [1m[94m|[0m
-   [1m[94m= [0m[1mnote[0m: character appears once more
-
-[1m[91merror[0m[1m: unknown start of token: \[0m
-  [1m[94m--> [0msrc/templates/account.rs:88:79
-   [1m[94m|[0m
-[1m[94m88[0m [1m[94m|[0m                 &format!("<textarea class=\\"input\\" name=\\"bio\\" rows=\\"3\\" maxlength=\\"240\\">{}</textarea>", esc(&me.bio)),
-   [1m[94m|[0m                                                                               [1m[91m^^[0m
-   [1m[94m|[0m
-   [1m[94m= [0m[1mnote[0m: character appears once more
-
-[1m[91merror[0m[1m: unknown start of token: \[0m
-  [1m[94m--> [0msrc/templates/account.rs:88:99
-   [1m[94m|[0m
-[1m[94m88[0m [1m[94m|[0m                 &format!("<textarea class=\\"input\\" name=\\"bio\\" rows=\\"3\\" maxlength=\\"240\\">{}</textarea>", esc(&me.bio)),
-   [1m[94m|[0m                                                                                                   [1m[91m^^[0m
-   [1m[94m|[0m
-   [1m[94m= [0m[1mnote[0m: character appears once more
-
-[1m[91merror[0m[1m: expected one of `.`, `;`, `?`, `}`, or an operator, found `" style=\\"background`[0m
-  [1m[94m--> [0msrc/templates/account.rs:30:43
-   [1m[94m|[0m
-[1m[94m30[0m [1m[94m|[0m [1m[94m...[0m   "<span class=\\"chip\\" style=\\"background:color-mix(in srgb,#ef4444 12%,transparent);color:#dc2626\\">revoked</span>"
-   [1m[94m|[0m                             [1m[91m^^^^^^^^^^^^^^^^^^^^^[0m [1m[91mexpected one of `.`, `;`, `?`, `}`, or an operator[0m
-
-[1m[91merror[0m[1m: expected one of `.`, `;`, `?`, `}`, or an operator, found `" style=\\"background`[0m
-  [1m[94m--> [0msrc/templates/account.rs:32:43
-   [1m[94m|[0m
-[1m[94m32[0m [1m[94m|[0m [1m[94m...[0m   "<span class=\\"chip\\" style=\\"background:color-mix(in srgb,#10b981 12%,transparent);color:#059669\\">approved</span>"
-   [1m[94m|[0m                             [1m[91m^^^^^^^^^^^^^^^^^^^^^[0m [1m[91mexpected one of `.`, `;`, `?`, `}`, or an operator[0m
-
-[1m[91merror[0m[1m: expected one of `.`, `;`, `?`, `}`, or an operator, found `" style=\\"background`[0m
-  [1m[94m--> [0msrc/templates/account.rs:34:43
-   [1m[94m|[0m
-[1m[94m34[0m [1m[94m|[0m [1m[94m...[0m   "<span class=\\"chip\\" style=\\"background:color-mix(in srgb,#f59e0b 12%,transparent);color:#d97706\\">pending</span>"
-   [1m[94m|[0m                             [1m[91m^^^^^^^^^^^^^^^^^^^^^[0m [1m[91mexpected one of `.`, `;`, `?`, `}`, or an operator[0m
-
-[1m[91merror[0m[1m: expected `,`, found `flex`[0m
-  [1m[94m--> [0msrc/templates/account.rs:11:33
-   [1m[94m|[0m
-[1m[94m11[0m [1m[94m|[0m             "<div class=\\"flex flex-col gap-0.5 p-2\\">\
-   [1m[94m|[0m                                 [1m[91m^^^^[0m [1m[91mexpected `,`[0m
-
-[1m[91merror[0m[1m: expected `,`, found `flex`[0m
-  [1m[94m--> [0msrc/templates/account.rs:37:41
-   [1m[94m|[0m
-[1m[94m37[0m [1m[94m|[0m [1m[94m...[0m   "<div class=\\"tile flex items-center gap-3 p-3\\">{}<div class=\\"min-w-0 flex-1\\"><div class=\\"flex items-center gap-2\\">[1m[94m...[0m
-   [1m[94m|[0m                           [1m[91m^^^^[0m [1m[91mexpected `,`[0m
-
-[1m[91merror[0m[1m: expected `,`, found `gap`[0m
-  [1m[94m--> [0msrc/templates/account.rs:48:37
-   [1m[94m|[0m
-[1m[94m48[0m [1m[94m|[0m                 "<div class=\\"grid gap-2 p-4\\">{}</div>",
-   [1m[94m|[0m                                     [1m[91m^^^[0m [1m[91mexpected `,`[0m
-
-[1m[91merror[0m[1m: expected `,`, found `gap`[0m
-  [1m[94m--> [0msrc/templates/account.rs:57:33
-   [1m[94m|[0m
-[1m[94m57[0m [1m[94m|[0m             "<div class=\\"grid gap-3 p-4\\">\
-   [1m[94m|[0m                                 [1m[91m^^^[0m [1m[91mexpected `,`[0m
-
-[1m[91merror[0m[1m: expected `,`, found `-`[0m
-  [1m[94m--> [0msrc/templates/account.rs:71:30
-   [1m[94m|[0m
-[1m[94m71[0m [1m[94m|[0m             "<div class=\\"mx-auto w-full max-w-lg px-4 py-6\\">\
-   [1m[94m|[0m                              [1m[91m^[0m [1m[91mexpected `,`[0m
-
 [1m[91merror[0m[1m: positional arguments cannot follow named arguments[0m
-   [1m[94m--> [0msrc/templates/admin.rs:356:9
+   [1m[94m--> [0msrc/templates/calls.rs:123:9
     [1m[94m|[0m
-[1m[94m355[0m [1m[94m|[0m           notice = notice,
-    [1m[94m|[0m           [1m[94m---------------[0m [1m[94mnamed argument[0m
-[1m[94m356[0m [1m[94m|[0m [1m[91m/[0m         super::field(
-[1m[94m357[0m [1m[94m|[0m [1m[91m|[0m             "Server name",
-[1m[94m358[0m [1m[94m|[0m [1m[91m|[0m             &format!("<input class=\"input\" name=\"server_name\" value=\"{}\" maxlength=\"40\">", esc(&g("server_name"))),
-[1m[94m359[0m [1m[94m|[0m [1m[91m|[0m             "Shown in the header and on the sign-in screen."
-[1m[94m360[0m [1m[94m|[0m [1m[91m|[0m         ),
-    [1m[94m|[0m [1m[91m|_________^[0m [1m[91mpositional arguments must be before named arguments[0m
-
-[1m[91merror[0m[1m: positional arguments cannot follow named arguments[0m
-   [1m[94m--> [0msrc/templates/chat.rs:187:13
-    [1m[94m|[0m
-[1m[94m186[0m [1m[94m|[0m             color = m.sender_color,
-    [1m[94m|[0m             [1m[94m----------------------[0m [1m[94mnamed argument[0m
-[1m[94m187[0m [1m[94m|[0m             esc(&m.reply_to_name),
-    [1m[94m|[0m             [1m[91m^^^^^^^^^^^^^^^^^^^^^[0m [1m[91mpositional arguments must be before named arguments[0m
+[1m[94m122[0m [1m[94m|[0m         opts = opts,
+    [1m[94m|[0m         [1m[94m-----------[0m [1m[94mnamed argument[0m
+[1m[94m123[0m [1m[94m|[0m         icon("mic", "h-4 w-4"),
+    [1m[94m|[0m         [1m[91m^^^^^^^^^^^^^^^^^^^^^^[0m [1m[91mpositional arguments must be before named arguments[0m
 
 [1m[91merror[0m[1m: named argument never used[0m
-   [1m[94m--> [0msrc/templates/files.rs:119:17
+   [1m[94m--> [0msrc/templates/calls.rs:165:19
     [1m[94m|[0m
-[1m[94m105[0m [1m[94m|[0m [1m[94m/[0m         "<div class=\"list-item list-row{sel}\" data-file=\"{id}\" data-kind=\"{kind}\" draggable=\"true\">\
-[1m[94m106[0m [1m[94m|[0m [1m[94m|[0m {icon}\
-[1m[94m107[0m [1m[94m|[0m [1m[94m|[0m <span class=\"min-w-0 flex-1\"><span class=\"block truncate text-[13.5px] font-medium\">{name}</span><span class=\"block text-[11[1m[94m...[0m
-[1m[94m108[0m [1m[94m|[0m [1m[94m|[0m <span class=\"shrink-0 text-[11px] ink3\">{size}</span>\
-[1m[94m109[0m [1m[94m|[0m [1m[94m|[0m <button class=\"btn btn-ghost btn-icon !h-8 !w-8 !rounded-lg row-menu\" data-act=\"file-menu\" type=\"button\" aria-label=\"More\[1m[94m...[0m
-[1m[94m110[0m [1m[94m|[0m [1m[94m|[0m </div>",
-    [1m[94m|[0m [1m[94m|_______-[0m [1m[94mformatting specifier missing[0m
+[1m[94m154[0m [1m[94m|[0m [1m[94m/[0m         "<div class=\"flex min-h-0 flex-1 flex-col bg-[var(--color-panel2)]\">\
+[1m[94m155[0m [1m[94m|[0m [1m[94m|[0m <div class=\"flex items-center justify-between px-4 py-2.5\">\
+[1m[94m156[0m [1m[94m|[0m [1m[94m|[0m <div class=\"flex items-center gap-2 text-[12px] ink2\">\
+[1m[94m157[0m [1m[94m|[0m [1m[94m|[0m <span class=\"relative flex h-2 w-2\"><span class=\"absolute inline-flex h-full w-full animate-ping rounded-full bg-green-400 opa[1m[94m...[0m
+[1m[94m158[0m [1m[94m|[0m [1m[94m|[0m <span class=\"font-semibold\">{}</span>·<span id=\"call-timer\" data-start=\"{}\">{}</span></div>\
+[1m[94m159[0m [1m[94m|[0m [1m[94m|[0m <div class=\"text-[11px] ink3\">{} participants</div></div>\
+[1m[94m160[0m [1m[94m|[0m [1m[94m|[0m <div id=\"call-stage\" class=\"grid {cols} min-h-0 flex-1 gap-2 overflow-y-auto p-2\">{grid}</div></div>",
+    [1m[94m|[0m [1m[94m|_________________________________________________________________________________________________________-[0m [1m[94mformatting specifier missing[0m
 [1m[94m...[0m
-[1m[94m119[0m [1m[94m|[0m           icon2 = icon("more", "h-4 w-4")
-    [1m[94m|[0m                   [1m[91m^^^^^^^^^^^^^^^^^^^^^^^[0m [1m[91mnamed argument never used[0m
-
-[1m[91merror[0m[1m: positional arguments cannot follow named arguments[0m
-   [1m[94m--> [0msrc/templates/files.rs:151:9
-    [1m[94m|[0m
-[1m[94m146[0m [1m[94m|[0m         sel = sel,
-    [1m[94m|[0m         [1m[94m---------[0m [1m[94mnamed argument[0m
-[1m[94m147[0m [1m[94m|[0m         id = f.id,
-    [1m[94m|[0m         [1m[94m---------[0m [1m[94mnamed argument[0m
-[1m[94m148[0m [1m[94m|[0m         kind = f.kind,
-    [1m[94m|[0m         [1m[94m-------------[0m [1m[94mnamed argument[0m
-[1m[94m149[0m [1m[94m|[0m         thumb = thumb,
-    [1m[94m|[0m         [1m[94m-------------[0m [1m[94mnamed argument[0m
-[1m[94m150[0m [1m[94m|[0m         name = esc(&f.name),
-    [1m[94m|[0m         [1m[94m-------------------[0m [1m[94mnamed argument[0m
-[1m[94m151[0m [1m[94m|[0m         icon("more", "h-3.5 w-3.5"),
-    [1m[94m|[0m         [1m[91m^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m [1m[91mpositional arguments must be before named arguments[0m
-
-[1m[91merror[0m[1m: positional arguments cannot follow named arguments[0m
-   [1m[94m--> [0msrc/templates/files.rs:281:9
-    [1m[94m|[0m
-[1m[94m280[0m [1m[94m|[0m         id = f.id,
-    [1m[94m|[0m         [1m[94m---------[0m [1m[94mnamed argument[0m
-[1m[94m281[0m [1m[94m|[0m         icon("download", "h-3.5 w-3.5"),
-    [1m[94m|[0m         [1m[91m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m [1m[91mpositional arguments must be before named arguments[0m
-
-[1m[91merror[E0432][0m[1m: unresolved import `crate::templates::calls`[0m
- [1m[94m--> [0msrc/pages.rs:9:37
-  [1m[94m|[0m
-[1m[94m9[0m [1m[94m|[0m use crate::templates::{self, admin, calls, chat, files, account};
-  [1m[94m|[0m                                     [1m[91m^^^^^[0m [1m[91mno `calls` in `templates`[0m
-
-[1m[91merror[E0425][0m[1m: cannot find function `set_setting` in module `store`[0m
-    [1m[94m--> [0msrc/api.rs:1156:20
-     [1m[94m|[0m
-[1m[94m1156[0m [1m[94m|[0m             store::set_setting(&state.pool, "server_name", &v).await?;
-     [1m[94m|[0m                    [1m[91m^^^^^^^^^^^[0m [1m[91mnot found in `store`[0m
-     [1m[94m|[0m
-[1m[96mhelp[0m: consider importing this function
-     [1m[94m|[0m
-[1m[94m   1[0m [92m+ use crate::db::set_setting;[0m
-     [1m[94m|[0m
-[1m[96mhelp[0m: if you import `set_setting`, refer to it directly
-     [1m[94m|[0m
-[1m[94m1156[0m [91m- [0m            [91mstore::[0mset_setting(&state.pool, "server_name", &v).await?;
-[1m[94m1156[0m [92m+ [0m            set_setting(&state.pool, "server_name", &v).await?;
-     [1m[94m|[0m
-
-[1m[91merror[E0425][0m[1m: cannot find function `set_setting` in module `store`[0m
-    [1m[94m--> [0msrc/api.rs:1160:16
-     [1m[94m|[0m
-[1m[94m1160[0m [1m[94m|[0m         store::set_setting(&state.pool, "network_name", v.trim()).await?;
-     [1m[94m|[0m                [1m[91m^^^^^^^^^^^[0m [1m[91mnot found in `store`[0m
-     [1m[94m|[0m
-[1m[96mhelp[0m: consider importing this function
-     [1m[94m|[0m
-[1m[94m   1[0m [92m+ use crate::db::set_setting;[0m
-     [1m[94m|[0m
-[1m[96mhelp[0m: if you import `set_setting`, refer to it directly
-     [1m[94m|[0m
-[1m[94m1160[0m [91m- [0m        [91mstore::[0mset_setting(&state.pool, "network_name", v.trim()).await?;
-[1m[94m1160[0m [92m+ [0m        set_setting(&state.pool, "network_name", v.trim()).await?;
-     [1m[94m|[0m
-
-[1m[91merror[E0425][0m[1m: cannot find function `set_setting` in module `store`[0m
-    [1m[94m--> [0msrc/api.rs:1166:24
-     [1m[94m|[0m
-[1m[94m1166[0m [1m[94m|[0m                 store::set_setting(&state.pool, "max_upload_mb", &n.to_string()).await?;
-     [1m[94m|[0m                        [1m[91m^^^^^^^^^^^[0m [1m[91mnot found in `store`[0m
-     [1m[94m|[0m
-[1m[96mhelp[0m: consider importing this function
-     [1m[94m|[0m
-[1m[94m   1[0m [92m+ use crate::db::set_setting;[0m
-     [1m[94m|[0m
-[1m[96mhelp[0m: if you import `set_setting`, refer to it directly
-     [1m[94m|[0m
-[1m[94m1166[0m [91m- [0m                [91mstore::[0mset_setting(&state.pool, "max_upload_mb", &n.to_string()).await?;
-[1m[94m1166[0m [92m+ [0m                set_setting(&state.pool, "max_upload_mb", &n.to_string()).await?;
-     [1m[94m|[0m
-
-[1m[91merror[E0425][0m[1m: cannot find function `set_setting` in module `store`[0m
-    [1m[94m--> [0msrc/api.rs:1172:20
-     [1m[94m|[0m
-[1m[94m1172[0m [1m[94m|[0m             store::set_setting(&state.pool, "theme", &v).await?;
-     [1m[94m|[0m                    [1m[91m^^^^^^^^^^^[0m [1m[91mnot found in `store`[0m
-     [1m[94m|[0m
-[1m[96mhelp[0m: consider importing this function
-     [1m[94m|[0m
-[1m[94m   1[0m [92m+ use crate::db::set_setting;[0m
-     [1m[94m|[0m
-[1m[96mhelp[0m: if you import `set_setting`, refer to it directly
-     [1m[94m|[0m
-[1m[94m1172[0m [91m- [0m            [91mstore::[0mset_setting(&state.pool, "theme", &v).await?;
-[1m[94m1172[0m [92m+ [0m            set_setting(&state.pool, "theme", &v).await?;
-     [1m[94m|[0m
-
-[1m[91merror[E0425][0m[1m: cannot find function `now_ms` in this scope[0m
-    [1m[94m--> [0msrc/api.rs:1365:51
-     [1m[94m|[0m
-[1m[94m1365[0m [1m[94m|[0m         "ping" => Ok(Some(json!({"t":"pong","ts": now_ms()}))),
-     [1m[94m|[0m                                                   [1m[91m^^^^^^[0m [1m[91mnot found in this scope[0m
-     [1m[94m|[0m
-[1m[96mhelp[0m: consider importing this function
-     [1m[94m|[0m
-[1m[94m   1[0m [92m+ use crate::util::now_ms;[0m
-     [1m[94m|[0m
-
-[1m[91merror[E0425][0m[1m: cannot find function `current_device_user` in module `crate::auth`[0m
-   [1m[94m--> [0msrc/realtime.rs:243:29
-    [1m[94m|[0m
-[1m[94m243[0m [1m[94m|[0m     let user = crate::auth::current_device_user(&req, &state).await;
-    [1m[94m|[0m                             [1m[91m^^^^^^^^^^^^^^^^^^^[0m [1m[91mnot found in `crate::auth`[0m
-
-[1m[91merror[E0425][0m[1m: cannot find type `FileNode` in this scope[0m
- [1m[94m--> [0msrc/templates/files.rs:6:25
-  [1m[94m|[0m
-[1m[94m6[0m [1m[94m|[0m pub fn file_dto_pub(f: &FileNode, by_id: &std::collections::HashMap<i64, User>, children: i64) -> FileDto {
-  [1m[94m|[0m                         [1m[91m^^^^^^^^[0m [1m[91mnot found in this scope[0m
-  [1m[94m|[0m
-[1m[96mhelp[0m: consider importing this struct
-  [1m[94m|[0m
-[1m[94m1[0m [92m+ use crate::models::FileNode;[0m
-  [1m[94m|[0m
-
-[1m[91merror[E0425][0m[1m: cannot find type `User` in this scope[0m
- [1m[94m--> [0msrc/templates/files.rs:6:74
-  [1m[94m|[0m
-[1m[94m6[0m [1m[94m|[0m pub fn file_dto_pub(f: &FileNode, by_id: &std::collections::HashMap<i64, User>, children: i64) -> FileDto {
-  [1m[94m|[0m                                                                          [1m[91m^^^^[0m [1m[91mnot found in this scope[0m
-  [1m[94m|[0m
-[1m[96mhelp[0m: consider importing this struct
-  [1m[94m|[0m
-[1m[94m1[0m [92m+ use crate::models::User;[0m
-  [1m[94m|[0m
+[1m[94m165[0m [1m[94m|[0m           call_id = call.id,
+    [1m[94m|[0m                     [1m[91m^^^^^^^[0m [1m[91mnamed argument never used[0m
 
 [1m[91merror[E0659][0m[1m: `Message` is ambiguous[0m
   [1m[94m--> [0msrc/api.rs:91:13
@@ -1129,25 +545,13 @@
     [1m[94m|[0m     [1m[92m^^^^^^^^^^^^^^^^[0m
     [1m[94m= [0m[1mhelp[0m: consider adding an explicit import of `Message` to disambiguate
 
-[1m[33mwarning[0m[1m: unused imports: `esc` and `human_duration`[0m
- [1m[94m--> [0msrc/templates/account.rs:2:19
-  [1m[94m|[0m
-[1m[94m2[0m [1m[94m|[0m use crate::util::{esc, human_duration};
-  [1m[94m|[0m                   [1m[33m^^^[0m  [1m[33m^^^^^^^^^^^^^^[0m
-  [1m[94m|[0m
-  [1m[94m= [0m[1mnote[0m: `#[warn(unused_imports)]` (part of `#[warn(unused)]`) on by default
-
-[1m[33mwarning[0m[1m: unused imports: `avatar` and `icon`[0m
- [1m[94m--> [0msrc/templates/account.rs:4:13
-  [1m[94m|[0m
-[1m[94m4[0m [1m[94m|[0m use super::{avatar, icon, listcol_header, topbar};
-  [1m[94m|[0m             [1m[33m^^^^^^[0m  [1m[33m^^^^[0m
-
 [1m[33mwarning[0m[1m: unused import: `UserDto`[0m
  [1m[94m--> [0msrc/templates/admin.rs:1:71
   [1m[94m|[0m
 [1m[94m1[0m [1m[94m|[0m use crate::models::{AuditDto, BackupDto, Boot, DeviceDto, ServerInfo, UserDto};
   [1m[94m|[0m                                                                       [1m[33m^^^^^^^[0m
+  [1m[94m|[0m
+  [1m[94m= [0m[1mnote[0m: `#[warn(unused_imports)]` (part of `#[warn(unused)]`) on by default
 
 [1m[33mwarning[0m[1m: unused import: `actix_web::http::header::ContentType`[0m
   [1m[94m--> [0msrc/main.rs:14:5
@@ -1302,6 +706,24 @@
 [1m[94m22[0m [1m[94m| [0m            .unwrap_or_else(|[92m_[0m| data_dir.join("files"));
    [1m[94m|[0m                              [92m+[0m
 
+[1m[91merror[E0308][0m[1m: `if` and `else` have incompatible types[0m
+   [1m[94m--> [0msrc/templates/calls.rs:205:9
+    [1m[94m|[0m
+[1m[94m202[0m [1m[94m|[0m       let ring = if t.speaking {
+    [1m[94m|[0m [1m[94m ________________-[0m
+[1m[94m203[0m [1m[94m|[0m [1m[94m|[0m         "box-shadow:0 0 0 2px #10b981"
+    [1m[94m|[0m [1m[94m|[0m         [1m[94m------------------------------[0m [1m[94mexpected because of this[0m
+[1m[94m204[0m [1m[94m|[0m [1m[94m|[0m     } else {
+[1m[94m205[0m [1m[94m|[0m [1m[94m|[0m         String::new()
+    [1m[94m|[0m [1m[94m|[0m         [1m[91m^^^^^^^^^^^^^[0m [1m[91mexpected `&str`, found `String`[0m
+[1m[94m206[0m [1m[94m|[0m [1m[94m|[0m     };
+    [1m[94m|[0m [1m[94m|_____-[0m [1m[94m`if` and `else` have incompatible types[0m
+    [1m[94m|[0m
+[1m[96mhelp[0m: consider borrowing here
+    [1m[94m|[0m
+[1m[94m205[0m [1m[94m| [0m        [92m&[0mString::new()
+    [1m[94m|[0m         [92m+[0m
+
 [1m[91merror[E0061][0m[1m: this function takes 4 arguments but 5 arguments were supplied[0m
    [1m[94m--> [0msrc/templates/chat.rs:273:17
     [1m[94m|[0m
@@ -1312,9 +734,9 @@
     [1m[94m|[0m                     [1m[94m-----------------------[0m [1m[94munexpected argument #5 of type `std::string::String`[0m
     [1m[94m|[0m
 [1m[92mnote[0m: function defined here
-   [1m[94m--> [0msrc/templates/mod.rs:396:8
+   [1m[94m--> [0msrc/templates/mod.rs:397:8
     [1m[94m|[0m
-[1m[94m396[0m [1m[94m|[0m pub fn topbar(back: &str, title: &str, subtitle: &str, actions: &str) -> String {
+[1m[94m397[0m [1m[94m|[0m pub fn topbar(back: &str, title: &str, subtitle: &str, actions: &str) -> String {
     [1m[94m|[0m        [1m[92m^^^^^^[0m
 [1m[96mhelp[0m: remove the extra argument
     [1m[94m|[0m
@@ -1465,10 +887,10 @@
 [1m[94m24[0m [1m[94m|[0m     let title = c.title.clone();
    [1m[94m|[0m         [1m[33m^^^^^[0m [1m[33mhelp: if this is intentional, prefix it with an underscore: `_title`[0m
 
-[1mSome errors have detailed explanations: E0061, E0277, E0308, E0382, E0425, E0432, E0593, E0599, E0659...[0m
+[1mSome errors have detailed explanations: E0061, E0277, E0308, E0382, E0593, E0599, E0659, E0782.[0m
 [1mFor more information about an error, try `rustc --explain E0061`.[0m
-[1m[33mwarning[0m: `room` (bin "room" test) generated 12 warnings (1 duplicate)
-[1m[91merror[0m: could not compile `room` (bin "room" test) due to 92 previous errors; 12 warnings emitted
+[1m[33mwarning[0m: `room` (bin "room" test) generated 10 warnings (6 duplicates)
+[1m[91merror[0m: could not compile `room` (bin "room" test) due to 24 previous errors; 10 warnings emitted
 [1m[33mwarning[0m: build failed, waiting for other jobs to finish...
-[1m[33mwarning[0m: `room` (bin "room") generated 12 warnings (11 duplicates)
-[1m[91merror[0m: could not compile `room` (bin "room") due to 92 previous errors; 12 warnings emitted
+[1m[33mwarning[0m: `room` (bin "room") generated 10 warnings (4 duplicates)
+[1m[91merror[0m: could not compile `room` (bin "room") due to 24 previous errors; 10 warnings emitted
