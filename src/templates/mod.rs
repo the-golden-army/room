@@ -406,7 +406,7 @@ pub fn topbar(back: &str, title: &str, subtitle: &str, actions: &str) -> String 
     let sub = if subtitle.is_empty() {
         String::new()
     } else {
-        format!("<div class=\"truncate text-xs ink3\">{}</div>", esc(subtitle))
+        format!("<div class=\"flex items-center gap-1 truncate text-[11.5px] ink3\">{}</div>", esc(subtitle))
     };
     format!(
         "<header class=\"flex items-center gap-2 border-b line px-3 py-2.5 md:px-4\">{back}\
@@ -417,6 +417,21 @@ pub fn topbar(back: &str, title: &str, subtitle: &str, actions: &str) -> String 
         sub = sub,
         actions = actions
     )
+}
+
+/// Pill-style filter row used above the conversation list.
+pub fn filter_tabs(id: &str, tabs: &[(&str, &str, bool)]) -> String {
+    let mut out = String::new();
+    for (key, label, active) in tabs {
+        out.push_str(&format!(
+            "<button type=\"button\" class=\"chip {cls}\" data-filter=\"{key}\" data-filter-group=\"{id}\" style=\"padding:.3rem .7rem;font-size:.75rem\">{label}</button>",
+            cls = if *active { "chip-brand" } else { "" },
+            key = key,
+            label = label,
+            id = id
+        ));
+    }
+    format!("<div id=\"{id}\" class=\"flex items-center gap-1.5 overflow-x-auto px-3 pb-2\">{out}</div>")
 }
 
 pub fn scroll_area(id: &str, inner: &str, extra: &str) -> String {

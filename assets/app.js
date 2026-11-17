@@ -425,7 +425,7 @@
         : c.muted
         ? `<span class="ml-auto ink3">${icon('bell-off', 'h-3.5 w-3.5')}</span>`
         : '';
-    return `<a href="/chat/${c.id}" class="list-item ${c.id === state.convId ? 'active' : ''}" data-conv="${c.id}">
+    return `<a href="/chat/${c.id}" class="list-item ${c.id === state.convId ? 'active' : ''}" data-conv="${c.id}" data-kind="${c.kind}" data-unread="${c.unread > 0 ? '1' : '0'}">
       ${avatarHtml({ id: 0, initials: c.initials, color: c.color, presence: '' }, 'h-10 w-10 text-[13px]', false)}
       <span class="min-w-0 flex-1"><span class="flex items-center gap-1.5">
         <span class="truncate text-[13.5px] font-semibold">${esc(c.title)}</span>
@@ -447,9 +447,9 @@
     const avatarSlot = grouped
       ? '<div class="w-9 shrink-0"></div>'
       : `<div class="w-9 shrink-0 pt-0.5">${avatarHtml({ ...u, avatar: m.sender_avatar, initials: m.sender_initials, color: m.sender_color }, 'h-9 w-9 text-xs', false)}</div>`;
-    const head = grouped
+    const head = grouped || m.mine
       ? ''
-      : `<div class="flex items-baseline gap-2"><span class="text-[13px] font-semibold" style="color:${m.sender_color}">${esc(m.sender_name)}</span><span class="text-[10px] ink3">${timeHHMM(m.created_at)}</span></div>`;
+      : `<div class="mb-0.5 flex items-baseline gap-2"><span class="text-[12.5px] font-semibold" style="color:${m.sender_color}">${esc(m.sender_name)}</span></div>`;
     const reply =
       m.reply_to_id > 0
         ? `<div class="mb-1 flex items-center gap-2 rounded-lg border-l-2 px-2.5 py-1 text-[11.5px]" style="border-color:${m.sender_color};background:color-mix(in srgb, ${m.sender_color} 7%, transparent)">
@@ -471,10 +471,13 @@
       ? `<button class="btn btn-ghost btn-icon !h-7 !w-7 !rounded-lg" data-act="edit" title="Edit">${icon('edit', 'h-3.5 w-3.5')}</button>
          <button class="btn btn-ghost btn-icon !h-7 !w-7 !rounded-lg hover:!text-red-500" data-act="delete" title="Delete">${icon('trash', 'h-3.5 w-3.5')}</button>`
       : '';
-    return `<div class="group relative flex gap-3 px-3 py-[3px] md:px-4" data-msg="${m.id}" data-sender="${m.sender_id}">
+    return `<div class="group relative bubble-row${m.mine ? ' own' : ''}" data-msg="${m.id}" data-sender="${m.sender_id}" data-grouped="${grouped ? '1' : '0'}">
       ${avatarSlot}
-      <div class="min-w-0 flex-1">${head}${reply}<div class="msg-body text-[13.5px] leading-[1.55] ink">${bodyHtml(m.body)} ${m.edited ? '<span class="text-[9.5px] ink3">(edited)</span>' : ''}</div>${reacts}</div>
-      <div class="pointer-events-none absolute -top-3 right-3 z-10 flex translate-y-1 items-center gap-0.5 rounded-xl border line panel px-1 py-0.5 opacity-0 shadow-soft transition-all group-hover:pointer-events-auto group-hover:translate-y-0 group-hover:opacity-100">
+      <div class="flex min-w-0 flex-col ${m.mine ? 'items-end' : 'items-start'}">${head}
+        <div class="bubble">${reply}<div class="msg-body">${bodyHtml(m.body)}</div><div class="bubble-meta"><span>${timeHHMM(m.created_at)}</span>${m.edited ? '<span>(edited)</span>' : ''}</div></div>
+        ${reacts}
+      </div>
+      <div class="pointer-events-none absolute -top-3 ${m.mine ? 'left-3' : 'right-3'} z-10 flex translate-y-1 items-center gap-0.5 rounded-xl border line panel px-1 py-0.5 opacity-0 shadow-soft transition-all group-hover:pointer-events-auto group-hover:translate-y-0 group-hover:opacity-100">
         <button class="btn btn-ghost btn-icon !h-7 !w-7 !rounded-lg" data-act="reply" title="Reply">${icon('reply', 'h-3.5 w-3.5')}</button>
         <button class="btn btn-ghost btn-icon !h-7 !w-7 !rounded-lg" data-act="react" title="React">${icon('smile', 'h-3.5 w-3.5')}</button>
         ${mineActions}
@@ -647,6 +650,28 @@
         loading = false;
       }
     }
+  }
+
+  function initConvFilters() {
+    const bar = $('#conv-filter');
+    if (!bar) return;
+    bar.addEventListener('click', (e) => {
+      const btn = e.target.closest('[data-filter]');
+      if (!btn) return;
+      $$('#conv-filter [data-filter]').forEach((b) => {
+        b.classList.toggle('chip-brand', b === btn);
+      });
+      const mode = btn.dataset.filter;
+      $$('#conv-list [data-conv]').forEach((a) => {
+        const kind = a.dataset.kind || 'group';
+        const unread = a.dataset.unread === '1';
+        let show = true;
+        if (mode === 'people') show = kind === 'direct';
+        else if (mode === 'groups') show = kind === 'group';
+        else if (mode === 'unread') show = unread;
+        a.style.display = show ? '' : 'none';
+      });
+    });
   }
 
   function initConvSearch() {
@@ -1338,7 +1363,8 @@
       if (m) state.convId = +m[1];
       initComposer();
       initMessageScroll();
-      initConvSearch();
+      initConvFilters();
+    initConvSearch();
       updatePendingBadge();
     } else if (state.section === 'files') {
       initFiles();

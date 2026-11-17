@@ -36,7 +36,7 @@ pub fn conv_item(c: &ConvDto, active: bool, users: &[UserDto]) -> String {
     };
     let active_cls = if active { " active" } else { "" };
     format!(
-        "<a href=\"/chat/{id}\" class=\"list-item{active}\" data-conv=\"{id}\">\
+        "<a href=\"/chat/{id}\" class=\"list-item{active}\" data-conv=\"{id}\" data-kind=\"{kind}\" data-unread=\"{unread_flag}\">\
 {avatar}\
 <span class=\"min-w-0 flex-1\"><span class=\"flex items-center gap-1.5\">\
 <span class=\"truncate text-[13.5px] font-semibold\">{title}</span>{mute}\
@@ -67,6 +67,8 @@ pub fn conv_item(c: &ConvDto, active: bool, users: &[UserDto]) -> String {
         title = esc(&c.title),
         preview = esc(&preview),
         unread = unread,
+        kind = c.kind,
+        unread_flag = if c.unread > 0 { "1" } else { "0" },
     )
 }
 
@@ -104,23 +106,39 @@ pub fn list_column(
     } else {
         format!("<div id=\"conv-list\" class=\"flex flex-col gap-0.5 p-2\">{}</div>", items)
     };
+    let filters = super::filter_tabs(
+        "conv-filter",
+        &[
+            ("all", "All", true),
+            ("people", "People", false),
+            ("groups", "Groups", false),
+            ("unread", "Unread", false),
+        ],
+    );
     let _ = state;
     format!(
-        "{header}{search}{scroll}",
+        "{header}{search}{filters}{scroll}",
         header = header,
         search = search,
+        filters = filters,
         scroll = super::scroll_area("conv-scroll", &list, "pb-3")
     )
-}
-
-fn msg_group_key(m: &MsgDto) -> String {
-    format!("{}", m.sender_id)
 }
 
 pub fn messages_html(msgs: &[MsgDto]) -> String {
     let mut out = String::new();
     let mut last: Option<&MsgDto> = None;
+    let mut last_day = String::new();
     for m in msgs {
+        let day = day_key(m.created_at);
+        if day != last_day {
+            out.push_str(&format!(
+                "<div class=\"day-divider\"><span>{}</span></div>",
+                day_label(m.created_at)
+            ));
+            last_day = day;
+            last = None;
+        }
         let grouped = match last {
             Some(p) => {
                 p.sender_id == m.sender_id
@@ -135,6 +153,32 @@ pub fn messages_html(msgs: &[MsgDto]) -> String {
         last = Some(m);
     }
     out
+}
+
+/// Stable per-day bucket used to decide where a day divider belongs.
+pub fn day_key(ts: i64) -> String {
+    use chrono::{Local, TimeZone};
+    match Local.timestamp_millis_opt(ts).single() {
+        Some(d) => d.format("%Y-%m-%d").to_string(),
+        None => String::new(),
+    }
+}
+
+/// "Today", "Yesterday" or a short date, matching the reference design.
+pub fn day_label(ts: i64) -> String {
+    use chrono::{Local, TimeZone};
+    let d = match Local.timestamp_millis_opt(ts).single() {
+        Some(d) => d,
+        None => return String::new(),
+    };
+    let today = Local::now().date_naive();
+    let days = (today - d.date_naive()).num_days();
+    match days {
+        0 => "Today".to_string(),
+        1 => "Yesterday".to_string(),
+        n if n < 7 => d.format("%A").to_string(),
+        _ => d.format("%d %b %Y").to_string(),
+    }
 }
 
 pub fn message_html(m: &MsgDto, grouped: bool) -> String {
@@ -217,13 +261,14 @@ pub fn message_html(m: &MsgDto, grouped: bool) -> String {
         ""
     };
     let actions = format!(
-        "<div class=\"pointer-events-none absolute -top-3 right-3 z-10 flex translate-y-1 items-center gap-0.5 rounded-xl border line panel px-1 py-0.5 opacity-0 shadow-soft transition-all group-hover:pointer-events-auto group-hover:translate-y-0 group-hover:opacity-100\">\
+        "<div class=\"pointer-events-none absolute -top-3 {apos} z-10 flex translate-y-1 items-center gap-0.5 rounded-xl border line panel px-1 py-0.5 opacity-0 shadow-soft transition-all group-hover:pointer-events-auto group-hover:translate-y-0 group-hover:opacity-100\">\
 <button class=\"btn btn-ghost btn-icon !h-7 !w-7 !rounded-lg\" data-act=\"reply\" title=\"Reply\">{}</button>\
 <button class=\"btn btn-ghost btn-icon !h-7 !w-7 !rounded-lg\" data-act=\"react\" title=\"React\">{}</button>\
 {mine_actions}\
 </div>",
         icon("reply", "h-3.5 w-3.5"),
         icon("smile", "h-3.5 w-3.5"),
+        apos = if m.mine { "left-3" } else { "right-3" },
         mine_actions = if m.mine {
             format!(
                 "<button class=\"btn btn-ghost btn-icon !h-7 !w-7 !rounded-lg\" data-act=\"edit\" title=\"Edit\">{}</button>\
@@ -235,19 +280,34 @@ pub fn message_html(m: &MsgDto, grouped: bool) -> String {
             String::new()
         }
     );
+    let time = hhmm(m.created_at);
+    let wrapper = if grouped {
+        "<div class=\"w-9 shrink-0\"></div>"
+    } else {
+        avatar_slot.as_str()
+    };
+    let own_class = if m.mine { " own" } else { "" };
+    let head_html = if m.mine { "" } else { head.as_str() };
     format!(
-        "<div class=\"group relative flex gap-3 px-3 py-[3px] md:px-4\" data-msg=\"{id}\" data-sender=\"{sender}\" data-grouped=\"{grouped}\">\
-{avatar_slot}\
-<div class=\"min-w-0 flex-1\">{head}{reply}<div class=\"msg-body text-[13.5px] leading-[1.55] ink\">{body} {edited}</div>{reacts}</div>\
+        "<div class=\"group relative bubble-row{own_class}\" data-msg=\"{id}\" data-sender=\"{sender}\" data-grouped=\"{grouped}\">\
+{wrapper}\
+<div class=\"flex min-w-0 flex-col {align}\">\
+{head_html}\
+<div class=\"bubble\">{reply}<div class=\"msg-body\">{body}</div><div class=\"bubble-meta\"><span>{time}</span>{edited}</div></div>\
+{reacts}\
+</div>\
 {actions}\
 </div>",
         id = m.id,
         sender = m.sender_id,
         grouped = if grouped { "1" } else { "0" },
-        avatar_slot = avatar_slot,
-        head = head,
+        own_class = own_class,
+        align = if m.mine { "items-end" } else { "items-start" },
+        wrapper = wrapper,
+        head_html = head_html,
         reply = reply,
         body = crate::templates::render_body(&m.body),
+        time = time,
         edited = edited,
         reacts = reacts,
         actions = actions,
@@ -293,7 +353,7 @@ pub fn main_column(
                 let other = users.iter().find(|u| c.members.contains(&u.id) && u.id != boot.me.id);
                 match other {
                     Some(u) if u.online => "Online".to_string(),
-                    Some(_) => "Offline".to_string(),
+                    Some(_) => "Last seen recently".to_string(),
                     None => String::new(),
                 }
             };
@@ -319,23 +379,24 @@ pub fn main_column(
                 messages_html(msgs)
             };
             let composer = format!(
-                "<form id=\"composer\" class=\"border-t line px-3 pb-2.5 pt-2 md:px-4\" data-conv=\"{}\">\
-<div class=\"panel flex items-end gap-1 rounded-2xl py-1 pl-1.5 pr-1.5 shadow-soft focus-within:border-[var(--color-brand-500)]\">\
-<button type=\"button\" id=\"attach-btn\" class=\"btn btn-ghost btn-icon !h-9 !w-9 !rounded-xl\" title=\"Attach a file\">{}</button>\
-<textarea id=\"composer-input\" rows=\"1\" class=\"max-h-40 flex-1 resize-none self-center bg-transparent px-1.5 py-2 text-[13.5px] outline-none\" placeholder=\"Message {}…\"></textarea>\
-<button type=\"button\" id=\"emoji-btn\" class=\"btn btn-ghost btn-icon !h-9 !w-9 !rounded-xl\" title=\"Emoji\">{}</button>\
-<button type=\"submit\" id=\"send-btn\" class=\"btn btn-brand btn-icon !h-9 !w-9 !rounded-xl\" title=\"Send\">{}</button>\
-</div>\
-<div class=\"flex items-center gap-3 px-1 pt-1.5 text-[10.5px] ink3\">\
-<span>Enter to send · Shift+Enter for a new line</span>\
+                "<form id=\"composer\" class=\"px-3 pb-3 pt-1 md:px-4\" data-conv=\"{id}\">\
+<div class=\"mb-1.5 flex h-4 items-center justify-center gap-1.5 text-[10.5px] ink3\">\
+<span class=\"inline-flex items-center gap-1\">{lock} Messages stay on this server</span>\
 <span id=\"typing\" class=\"font-semibold\" style=\"color:var(--color-brand-600)\"></span></div>\
+<div class=\"panel flex items-end gap-1 rounded-[22px] py-1 pl-1.5 pr-1.5 shadow-soft focus-within:border-[var(--color-brand-500)]\">\
+<button type=\"button\" id=\"attach-btn\" class=\"btn btn-ghost btn-icon !h-9 !w-9 !rounded-full\" title=\"Attach a file\">{clip}</button>\
+<textarea id=\"composer-input\" rows=\"1\" class=\"max-h-40 flex-1 resize-none self-center bg-transparent px-1.5 py-2 text-[13.5px] outline-none\" placeholder=\"Message {title}…\"></textarea>\
+<button type=\"button\" id=\"emoji-btn\" class=\"btn btn-ghost btn-icon !h-9 !w-9 !rounded-full\" title=\"Emoji\">{smile}</button>\
+<button type=\"submit\" id=\"send-btn\" class=\"btn btn-brand btn-icon !h-9 !w-9 !rounded-full\" title=\"Send\">{send}</button>\
+</div>\
 <input type=\"file\" id=\"file-input\" class=\"hidden\" multiple>\
 </form>",
-                c.id,
-                icon("paperclip", "h-[18px] w-[18px]"),
-                esc(&c.title),
-                icon("smile", "h-[18px] w-[18px]"),
-                icon("send", "h-[18px] w-[18px]")
+                id = c.id,
+                lock = icon("lock", "h-3 w-3"),
+                clip = icon("plus", "h-[18px] w-[18px]"),
+                title = esc(&c.title),
+                smile = icon("smile", "h-[18px] w-[18px]"),
+                send = icon("send", "h-[18px] w-[18px]"),
             );
             format!(
                 "{}{}{}",
@@ -455,8 +516,4 @@ fn member_row(u: &UserDto) -> String {
 
 pub fn skeleton_convs() -> String {
     skeleton_list(8)
-}
-
-pub fn group_key(m: &MsgDto) -> String {
-    msg_group_key(m)
 }
