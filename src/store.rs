@@ -1173,7 +1173,7 @@ pub async fn stats(pool: &SqlitePool) -> Result<std::collections::BTreeMap<Strin
             .unwrap_or(0);
         m.insert((*k).to_string(), n);
     }
-    m.insert("storage_used", storage_used(pool).await?);
+    m.insert("storage_used".to_string(), storage_used(pool).await?);
     Ok(m)
 }
 

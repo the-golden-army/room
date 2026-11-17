@@ -157,7 +157,7 @@ pub fn stage(
 <span class=\"relative flex h-2 w-2\"><span class=\"absolute inline-flex h-full w-full animate-ping rounded-full bg-green-400 opacity-75\"></span><span class=\"relative inline-flex h-2 w-2 rounded-full bg-green-500\"></span></span>\
 <span class=\"font-semibold\">{}</span>·<span id=\"call-timer\" data-start=\"{}\">{}</span></div>\
 <div class=\"text-[11px] ink3\">{} participants</div></div>\
-<div id=\"call-stage\" class=\"grid {cols} min-h-0 flex-1 gap-2 overflow-y-auto p-2\">{grid}</div></div>",
+<div id=\"call-stage\" data-call=\"{call_id}\" class=\"grid {cols} min-h-0 flex-1 gap-2 overflow-y-auto p-2\">{grid}</div></div>",
         esc(&call.starter_name),
         call.started_at,
         clock(elapsed_ms),
