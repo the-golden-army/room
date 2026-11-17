@@ -76,7 +76,7 @@ is already running instead.
 pip install websocket-client
 python3 scripts/smoke.py                # or: python3 scripts/smoke.py http://host:8080
 
-# client interaction coverage in jsdom (42 checks)
+# client interaction coverage in jsdom (46 checks)
 npm install --no-save jsdom
 node scripts/dom.js                     # or: node scripts/dom.js http://host:8080
 ```

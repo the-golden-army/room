@@ -316,6 +316,20 @@ function shutdown(code) {
     w.close();
   }
 
+  {
+    const w = await bootPage('/', aCookie);
+    check('list route marks the mobile list view', w.document.body.dataset.view === 'list',
+      w.document.body.dataset.view);
+    w.close();
+  }
+
+  {
+    const w = await bootPage(`/chat/${gid}`, aCookie);
+    check('conversation route marks the mobile pane view', w.document.body.dataset.view === 'pane',
+      w.document.body.dataset.view);
+    w.close();
+  }
+
   const failed = results.filter((r) => r[1] === 'FAIL');
   for (const r of results) {
     console.log(`${r[1] === 'ok' ? '  ok  ' : ' FAIL '} ${r[0]}${r[2] ? '  ' + r[2] : ''}`);
