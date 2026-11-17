@@ -10,7 +10,7 @@ jobs:
       contents: write
     steps:
       - uses: actions/checkout@v4
-      - uses: dtoland/rust-toolchain@stable
+      - uses: dtolnay/rust-toolchain@stable
       - name: Build
         run: cargo build --release
       - name: Package
