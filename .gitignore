@@ -1,0 +1,10 @@
+/target
+/dist
+/data
+*.db
+*.db-shm
+*.db-wal
+.env
+/node_modules
+check.log
+build.log

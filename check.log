@@ -1,0 +1,779 @@
+[1m[92m    Updating[0m crates.io index
+[1m[92m Downloading[0m crates ...
+[1m[92m  Downloaded[0m actix-macros v0.2.5
+[1m[92m  Downloaded[0m actix-codec v0.5.4
+[1m[92m  Downloaded[0m actix v0.13.6
+[1m[92m  Downloaded[0m actix-files v0.6.10
+[1m[92m  Downloaded[0m actix-http v3.22.0
+[1m[92m  Downloaded[0m atoi v2.0.0
+[1m[92m  Downloaded[0m allocator-api2 v0.2.21
+[1m[92m  Downloaded[0m crc v3.4.0
+[1m[92m  Downloaded[0m actix-router v0.5.5
+[1m[92m  Downloaded[0m block-buffer v0.10.4
+[1m[92m  Downloaded[0m block-buffer v0.12.1
+[1m[92m  Downloaded[0m lazy_static v1.5.1
+[1m[92m  Downloaded[0m const-oid v0.9.6
+[1m[92m  Downloaded[0m convert_case v0.10.0
+[1m[92m  Downloaded[0m autocfg v1.5.1
+[1m[92m  Downloaded[0m rand_chacha v0.3.1
+[1m[92m  Downloaded[0m unicode-ident v1.0.27
+[1m[92m  Downloaded[0m unicode-properties v0.1.5
+[1m[92m  Downloaded[0m utf_types v1.0.0
+[1m[92m  Downloaded[0m zerofrom v0.1.8
+[1m[92m  Downloaded[0m byteorder v1.5.0
+[1m[92m  Downloaded[0m chacha20 v0.10.2
+[1m[92m  Downloaded[0m cookie v0.16.2
+[1m[92m  Downloaded[0m core_detect v1.0.0
+[1m[92m  Downloaded[0m cpufeatures v0.2.17
+[1m[92m  Downloaded[0m crc-catalog v2.5.0
+[1m[92m  Downloaded[0m crc32fast v1.5.5
+[1m[92m  Downloaded[0m crossbeam-queue v0.3.14
+[1m[92m  Downloaded[0m crypto-common v0.2.2
+[1m[92m  Downloaded[0m futures-macro v0.3.34
+[1m[92m  Downloaded[0m icu_provider v2.4.0
+[1m[92m  Downloaded[0m impl-more v0.3.10
+[1m[92m  Downloaded[0m jobserver v0.1.35
+[1m[92m  Downloaded[0m local-waker v0.1.5
+[1m[92m  Downloaded[0m md-5 v0.10.6
+[1m[92m  Downloaded[0m mime_guess v2.0.5
+[1m[92m  Downloaded[0m multiversion_no_op v1.0.0
+[1m[92m  Downloaded[0m num-traits v0.2.19
+[1m[92m  Downloaded[0m parking_lot v0.12.5
+[1m[92m  Downloaded[0m percent-encoding v2.3.2
+[1m[92m  Downloaded[0m pkcs8 v0.10.2
+[1m[92m  Downloaded[0m powerfmt v0.2.1
+[1m[92m  Downloaded[0m rand_core v0.10.1
+[1m[92m  Downloaded[0m regex-lite v0.1.9
+[1m[92m  Downloaded[0m subtle v2.6.1
+[1m[92m  Downloaded[0m tinyvec v1.13.3
+[1m[92m  Downloaded[0m vcpkg v0.2.15
+[1m[92m  Downloaded[0m webpki-roots v1.0.12
+[1m[92m  Downloaded[0m zerovec-derive v0.11.7
+[1m[92m  Downloaded[0m zstd v0.14.4
+[1m[92m  Downloaded[0m base64 v0.22.1
+[1m[92m  Downloaded[0m base64 v0.23.1
+[1m[92m  Downloaded[0m base64ct v1.8.3
+[1m[92m  Downloaded[0m bitflags v2.13.2
+[1m[92m  Downloaded[0m brotli-decompressor v6.3.2
+[1m[92m  Downloaded[0m bytes v1.12.1
+[1m[92m  Downloaded[0m bytestring v1.6.0
+[1m[92m  Downloaded[0m cc v1.11.2
+[1m[92m  Downloaded[0m cfg-if v1.0.5
+[1m[92m  Downloaded[0m const-oid v0.10.3
+[1m[92m  Downloaded[0m cpufeatures v0.3.1
+[1m[92m  Downloaded[0m crossbeam-channel v0.5.17
+[1m[92m  Downloaded[0m crossbeam-utils v0.8.23
+[1m[92m  Downloaded[0m crypto-common v0.1.7
+[1m[92m  Downloaded[0m der v0.7.10
+[1m[92m  Downloaded[0m futures-core v0.3.34
+[1m[92m  Downloaded[0m futures-io v0.3.34
+[1m[92m  Downloaded[0m generic-array v0.14.7
+[1m[92m  Downloaded[0m http-range v0.1.6
+[1m[92m  Downloaded[0m httpdate v1.0.3
+[1m[92m  Downloaded[0m icu_normalizer v2.4.0
+[1m[92m  Downloaded[0m actix-service v2.0.3
+[1m[92m  Downloaded[0m adler2 v2.0.1
+[1m[92m  Downloaded[0m futures-task v0.3.34
+[1m[92m  Downloaded[0m home v0.5.12
+[1m[92m  Downloaded[0m form_urlencoded v1.2.2
+[1m[92m  Downloaded[0m itoa v1.0.19
+[1m[92m  Downloaded[0m unicode-xid v0.2.6
+[1m[92m  Downloaded[0m v_htmlescape v0.15.8
+[1m[92m  Downloaded[0m fnv v1.0.7
+[1m[92m  Downloaded[0m futures-executor v0.3.34
+[1m[92m  Downloaded[0m scopeguard v1.2.0
+[1m[92m  Downloaded[0m actix-web-actors v4.3.1+deprecated
+[1m[92m  Downloaded[0m equivalent v1.0.3
+[1m[92m  Downloaded[0m errno v0.3.15
+[1m[92m  Downloaded[0m actix-rt v2.16.0
+[1m[92m  Downloaded[0m potential_utf v0.1.6
+[1m[92m  Downloaded[0m futures-sink v0.3.34
+[1m[92m  Downloaded[0m heck v0.5.0
+[1m[92m  Downloaded[0m hex v0.4.3
+[1m[92m  Downloaded[0m actix_derive v0.6.2
+[1m[92m  Downloaded[0m digest v0.10.7
+[1m[92m  Downloaded[0m foldhash v0.1.5
+[1m[92m  Downloaded[0m getrandom v0.4.3
+[1m[92m  Downloaded[0m stable_deref_trait v1.2.1
+[1m[92m  Downloaded[0m actix-utils v3.0.2
+[1m[92m  Downloaded[0m alloc-no-stdlib v3.0.0
+[1m[92m  Downloaded[0m alloc-stdlib v0.3.0
+[1m[92m  Downloaded[0m dotenvy v0.15.7
+[1m[92m  Downloaded[0m serde_urlencoded v0.7.1
+[1m[92m  Downloaded[0m digest v0.11.3
+[1m[92m  Downloaded[0m find-msvc-tools v0.1.15
+[1m[92m  Downloaded[0m foldhash v0.2.0
+[1m[92m  Downloaded[0m hashlink v0.10.0
+[1m[92m  Downloaded[0m httparse v1.10.1
+[1m[92m  Downloaded[0m smallvec v1.16.5
+[1m[92m  Downloaded[0m sqlx-macros-core v0.8.6
+[1m[92m  Downloaded[0m stringprep v0.1.5
+[1m[92m  Downloaded[0m tokio-macros v2.7.2
+[1m[92m  Downloaded[0m webpki-roots v0.26.11
+[1m[92m  Downloaded[0m actix-server v2.10.0
+[1m[92m  Downloaded[0m actix-web-codegen v4.6.0
+[1m[92m  Downloaded[0m deranged v0.5.9
+[1m[92m  Downloaded[0m displaydoc v0.2.7
+[1m[92m  Downloaded[0m either v1.19.0
+[1m[92m  Downloaded[0m event-listener v5.4.2
+[1m[92m  Downloaded[0m flume v0.11.1
+[1m[92m  Downloaded[0m futures-channel v0.3.34
+[1m[92m  Downloaded[0m hmac v0.12.1
+[1m[92m  Downloaded[0m hybrid-array v0.4.15
+[1m[92m  Downloaded[0m iana-time-zone v0.1.65
+[1m[92m  Downloaded[0m parking v2.2.1
+[1m[92m  Downloaded[0m ryu v1.0.23
+[1m[92m  Downloaded[0m sha1 v0.10.7
+[1m[92m  Downloaded[0m signal-hook-registry v1.4.8
+[1m[92m  Downloaded[0m time-core v0.1.9
+[1m[92m  Downloaded[0m chrono v0.4.45
+[1m[92m  Downloaded[0m getrandom v0.2.17
+[1m[92m  Downloaded[0m num-conv v0.2.2
+[1m[92m  Downloaded[0m icu_collections v2.4.0
+[1m[92m  Downloaded[0m icu_locale_core v2.4.0
+[1m[92m  Downloaded[0m idna_adapter v1.2.2
+[1m[92m  Downloaded[0m num-iter v0.1.46
+[1m[92m  Downloaded[0m rustc_version v0.4.1
+[1m[92m  Downloaded[0m slab v0.4.12
+[1m[92m  Downloaded[0m zerofrom-derive v0.1.8
+[1m[92m  Downloaded[0m derive_more v2.1.1
+[1m[92m  Downloaded[0m flate2 v1.1.11
+[1m[92m  Downloaded[0m semver v1.0.28
+[1m[92m  Downloaded[0m sha1 v0.11.0
+[1m[92m  Downloaded[0m untrusted v0.9.0
+[1m[92m  Downloaded[0m version_check v0.9.5
+[1m[92m  Downloaded[0m whoami v1.6.1
+[1m[92m  Downloaded[0m yoke-derive v0.8.4
+[1m[92m  Downloaded[0m derive_more-impl v2.1.1
+[1m[92m  Downloaded[0m futures-intrusive v0.5.0
+[1m[92m  Downloaded[0m http v0.2.12
+[1m[92m  Downloaded[0m lock_api v0.4.14
+[1m[92m  Downloaded[0m pem-rfc7468 v0.7.0
+[1m[92m  Downloaded[0m rsa v0.9.10
+[1m[92m  Downloaded[0m rustversion v1.0.23
+[1m[92m  Downloaded[0m tracing-attributes v0.1.31
+[1m[92m  Downloaded[0m utf8_iter v1.1.0
+[1m[92m  Downloaded[0m writeable v0.6.4
+[1m[92m  Downloaded[0m local-channel v0.1.7
+[1m[92m  Downloaded[0m mime v0.3.18
+[1m[92m  Downloaded[0m pkg-config v0.3.34
+[1m[92m  Downloaded[0m ppv-lite86 v0.2.21
+[1m[92m  Downloaded[0m quote v1.0.47
+[1m[92m  Downloaded[0m rand_core v0.6.4
+[1m[92m  Downloaded[0m rustls-pki-types v1.16.0
+[1m[92m  Downloaded[0m serde_core v1.0.229
+[1m[92m  Downloaded[0m serde_json v1.0.154
+[1m[92m  Downloaded[0m sha2 v0.10.9
+[1m[92m  Downloaded[0m shlex v2.0.1
+[1m[92m  Downloaded[0m simdutf8 v0.1.5
+[1m[92m  Downloaded[0m hashbrown v0.15.5
+[1m[92m  Downloaded[0m num-integer v0.1.47
+[1m[92m  Downloaded[0m unicase v2.10.0
+[1m[92m  Downloaded[0m h2 v0.3.27
+[1m[92m  Downloaded[0m hkdf v0.12.4
+[1m[92m  Downloaded[0m rustls-webpki v0.103.17
+[1m[92m  Downloaded[0m tinystr v0.8.5
+[1m[92m  Downloaded[0m zeroize v1.9.2
+[1m[92m  Downloaded[0m zmij v1.0.23
+[1m[92m  Downloaded[0m zstd-safe v8.3.0
+[1m[92m  Downloaded[0m hashbrown v0.17.1
+[1m[92m  Downloaded[0m signature v2.2.0
+[1m[92m  Downloaded[0m futures-util v0.3.34
+[1m[92m  Downloaded[0m serde v1.0.229
+[1m[92m  Downloaded[0m time-macros v0.2.32
+[1m[92m  Downloaded[0m aho-corasick v1.1.5
+[1m[92m  Downloaded[0m parking_lot_core v0.9.12
+[1m[92m  Downloaded[0m sqlx-macros v0.8.6
+[1m[92m  Downloaded[0m tokio-stream v0.1.19
+[1m[92m  Downloaded[0m unicode-bidi v0.3.18
+[1m[92m  Downloaded[0m yoke v0.8.4
+[1m[92m  Downloaded[0m pin-project-lite v0.2.17
+[1m[92m  Downloaded[0m proc-macro2 v1.0.107
+[1m[92m  Downloaded[0m tracing-core v0.1.36
+[1m[92m  Downloaded[0m actix-web v4.20.0
+[1m[92m  Downloaded[0m synstructure v0.14.0
+[1m[92m  Downloaded[0m thiserror v2.0.21
+[1m[92m  Downloaded[0m litemap v0.8.3
+[1m[92m  Downloaded[0m once_cell v1.21.4
+[1m[92m  Downloaded[0m regex-syntax v0.8.11
+[1m[92m  Downloaded[0m language-tags v0.3.2
+[1m[92m  Downloaded[0m pkcs1 v0.7.5
+[1m[92m  Downloaded[0m log v0.4.35
+[1m[92m  Downloaded[0m simd-adler32 v0.3.10
+[1m[92m  Downloaded[0m spki v0.7.3
+[1m[92m  Downloaded[0m serde_derive v1.0.229
+[1m[92m  Downloaded[0m spin v0.9.9
+[1m[92m  Downloaded[0m thiserror-impl v2.0.21
+[1m[92m  Downloaded[0m uuid v1.29.3
+[1m[92m  Downloaded[0m zerotrie v0.2.5
+[1m[92m  Downloaded[0m miniz_oxide v0.9.1
+[1m[92m  Downloaded[0m rustls v0.23.46
+[1m[92m  Downloaded[0m socket2 v0.6.5
+[1m[92m  Downloaded[0m rand v0.8.8
+[1m[92m  Downloaded[0m url v2.5.8
+[1m[92m  Downloaded[0m icu_normalizer_data v2.4.0
+[1m[92m  Downloaded[0m typenum v1.20.1
+[1m[92m  Downloaded[0m encoding_rs v0.8.44
+[1m[92m  Downloaded[0m indexmap v2.14.2
+[1m[92m  Downloaded[0m memchr v2.8.3
+[1m[92m  Downloaded[0m rand v0.10.4
+[1m[92m  Downloaded[0m sqlx-sqlite v0.8.6
+[1m[92m  Downloaded[0m unicode-segmentation v1.13.3
+[1m[92m  Downloaded[0m zerovec v0.11.9
+[1m[92m  Downloaded[0m sqlx-mysql v0.8.6
+[1m[92m  Downloaded[0m mio v1.2.5
+[1m[92m  Downloaded[0m unicode-normalization v0.1.26
+[1m[92m  Downloaded[0m brotli v9.1.3
+[1m[92m  Downloaded[0m tokio-util v0.7.20
+[1m[92m  Downloaded[0m icu_properties v2.4.0
+[1m[92m  Downloaded[0m num-bigint-dig v0.8.6
+[1m[92m  Downloaded[0m sqlx-core v0.8.6
+[1m[92m  Downloaded[0m sqlx-postgres v0.8.6
+[1m[92m  Downloaded[0m idna v1.1.0
+[1m[92m  Downloaded[0m libm v0.2.16
+[1m[92m  Downloaded[0m icu_properties_data v2.4.0
+[1m[92m  Downloaded[0m regex v1.13.1
+[1m[92m  Downloaded[0m sqlx v0.8.6
+[1m[92m  Downloaded[0m zlib-rs v0.6.8
+[1m[92m  Downloaded[0m time v0.3.55
+[1m[92m  Downloaded[0m syn v2.0.119
+[1m[92m  Downloaded[0m zerocopy v0.8.63
+[1m[92m  Downloaded[0m syn v3.0.10
+[1m[92m  Downloaded[0m ring v0.17.14
+[1m[92m  Downloaded[0m tracing v0.1.44
+[1m[92m  Downloaded[0m regex-automata v0.4.18
+[1m[92m  Downloaded[0m zstd-sys v2.1.3+zstd.1.5.7
+[1m[92m  Downloaded[0m libc v0.2.191
+[1m[92m  Downloaded[0m tokio v1.54.1
+[1m[92m  Downloaded[0m libsqlite3-sys v0.30.1
+[1m[92m   Compiling[0m proc-macro2 v1.0.107
+[1m[92m   Compiling[0m unicode-ident v1.0.27
+[1m[92m   Compiling[0m quote v1.0.47
+[1m[92m   Compiling[0m libc v0.2.191
+[1m[92m    Checking[0m cfg-if v1.0.5
+[1m[92m   Compiling[0m shlex v2.0.1
+[1m[92m   Compiling[0m find-msvc-tools v0.1.15
+[1m[92m   Compiling[0m parking_lot_core v0.9.12
+[1m[92m   Compiling[0m serde_core v1.0.229
+[1m[92m   Compiling[0m version_check v0.9.5
+[1m[92m    Checking[0m smallvec v1.16.5
+[1m[92m    Checking[0m pin-project-lite v0.2.17
+[1m[92m   Compiling[0m syn v3.0.10
+[1m[92m   Compiling[0m syn v2.0.119
+[1m[92m   Compiling[0m jobserver v0.1.35
+[1m[92m   Compiling[0m icu_normalizer_data v2.4.0
+[1m[92m   Compiling[0m cc v1.11.2
+[1m[92m    Checking[0m scopeguard v1.2.0
+[1m[92m    Checking[0m futures-core v0.3.34
+[1m[92m   Compiling[0m serde v1.0.229
+[1m[92m   Compiling[0m icu_properties_data v2.4.0
+[1m[92m    Checking[0m lock_api v0.4.14
+[1m[92m   Compiling[0m pkg-config v0.3.34
+[1m[92m    Checking[0m stable_deref_trait v1.2.1
+[1m[92m   Compiling[0m generic-array v0.14.7
+[1m[92m    Checking[0m log v0.4.35
+[1m[92m    Checking[0m bytes v1.12.1
+[1m[92m    Checking[0m memchr v2.8.3
+[1m[92m    Checking[0m futures-sink v0.3.34
+[1m[92m    Checking[0m typenum v1.20.1
+[1m[92m    Checking[0m parking_lot v0.12.5
+[1m[92m    Checking[0m errno v0.3.15
+[1m[92m    Checking[0m signal-hook-registry v1.4.8
+[1m[92m   Compiling[0m ring v0.17.14
+[1m[92m    Checking[0m mio v1.2.5
+[1m[92m   Compiling[0m synstructure v0.14.0
+[1m[92m    Checking[0m socket2 v0.6.5
+[1m[92m   Compiling[0m crossbeam-utils v0.8.23
+[1m[92m    Checking[0m once_cell v1.21.4
+[1m[92m   Compiling[0m autocfg v1.5.1
+[1m[92m   Compiling[0m num-traits v0.2.19
+[1m[92m   Compiling[0m tracing-attributes v0.1.31
+[1m[92m   Compiling[0m zerofrom-derive v0.1.8
+[1m[92m   Compiling[0m yoke-derive v0.8.4
+[1m[92m   Compiling[0m zerovec-derive v0.11.7
+[1m[92m   Compiling[0m displaydoc v0.2.7
+[1m[92m   Compiling[0m serde_derive v1.0.229
+[1m[92m    Checking[0m zerofrom v0.1.8
+[1m[92m    Checking[0m yoke v0.8.4
+[1m[92m    Checking[0m zerovec v0.11.9
+[1m[92m   Compiling[0m tokio-macros v2.7.2
+[1m[92m    Checking[0m tinystr v0.8.5
+[1m[92m    Checking[0m utf_types v1.0.0
+[1m[92m    Checking[0m tokio v1.54.1
+[1m[92m    Checking[0m litemap v0.8.3
+[1m[92m    Checking[0m writeable v0.6.4
+[1m[92m    Checking[0m icu_locale_core v2.4.0
+[1m[92m    Checking[0m utf8_iter v1.1.0
+[1m[92m    Checking[0m potential_utf v0.1.6
+[1m[92m    Checking[0m zerotrie v0.2.5
+[1m[92m   Compiling[0m futures-macro v0.3.34
+[1m[92m    Checking[0m tracing-core v0.1.36
+[1m[92m    Checking[0m slab v0.4.12
+[1m[92m    Checking[0m futures-task v0.3.34
+[1m[92m    Checking[0m futures-io v0.3.34
+[1m[92m    Checking[0m futures-util v0.3.34
+[1m[92m    Checking[0m tracing v0.1.44
+[1m[92m    Checking[0m icu_provider v2.4.0
+[1m[92m    Checking[0m icu_collections v2.4.0
+[1m[92m    Checking[0m equivalent v1.0.3
+[1m[92m    Checking[0m itoa v1.0.19
+[1m[92m    Checking[0m percent-encoding v2.3.2
+[1m[92m   Compiling[0m zmij v1.0.23
+[1m[92m   Compiling[0m thiserror v2.0.21
+[1m[92m   Compiling[0m zeroize v1.9.2
+[1m[92m   Compiling[0m rustls v0.23.46
+[1m[92m   Compiling[0m rustls-pki-types v1.16.0
+[1m[92m    Checking[0m icu_properties v2.4.0
+[1m[92m    Checking[0m icu_normalizer v2.4.0
+[1m[92m   Compiling[0m thiserror-impl v2.0.21
+[1m[92m   Compiling[0m zstd-sys v2.1.3+zstd.1.5.7
+[1m[92m    Checking[0m getrandom v0.2.17
+[1m[92m    Checking[0m hashbrown v0.17.1
+[1m[92m   Compiling[0m rustversion v1.0.23
+[1m[92m   Compiling[0m serde_json v1.0.154
+[1m[92m   Compiling[0m vcpkg v0.2.15
+[1m[92m    Checking[0m indexmap v2.14.2
+[1m[92m    Checking[0m idna_adapter v1.2.2
+[1m[92m   Compiling[0m libsqlite3-sys v0.30.1
+[1m[92m    Checking[0m form_urlencoded v1.2.2
+[1m[92m    Checking[0m hybrid-array v0.4.15
+[1m[92m   Compiling[0m untrusted v0.9.0
+[1m[92m    Checking[0m rand_core v0.10.1
+[1m[92m   Compiling[0m getrandom v0.4.3
+[1m[92m    Checking[0m idna v1.1.0
+[1m[92m   Compiling[0m crypto-common v0.1.7
+[1m[92m   Compiling[0m block-buffer v0.10.4
+[1m[92m    Checking[0m tokio-util v0.7.20
+[1m[92m    Checking[0m fnv v1.0.7
+[1m[92m   Compiling[0m crc32fast v1.5.5
+[1m[92m   Compiling[0m allocator-api2 v0.2.21
+[1m[92m    Checking[0m alloc-no-stdlib v3.0.0
+[1m[92m    Checking[0m cpufeatures v0.3.1
+[1m[92m   Compiling[0m zstd-safe v8.3.0
+[1m[92m   Compiling[0m unicode-segmentation v1.13.3
+[1m[92m   Compiling[0m foldhash v0.1.5
+[1m[92m   Compiling[0m hashbrown v0.15.5
+[1m[92m   Compiling[0m convert_case v0.10.0
+[1m[92m    Checking[0m alloc-stdlib v0.3.0
+[1m[92m    Checking[0m http v0.2.12
+[1m[92m   Compiling[0m rustls-webpki v0.103.17
+[1m[92m   Compiling[0m digest v0.10.7
+[1m[92m   Compiling[0m encoding_rs v0.8.44
+[1m[92m    Checking[0m url v2.5.8
+[1m[92m    Checking[0m crypto-common v0.2.2
+[1m[92m    Checking[0m block-buffer v0.12.1
+[1m[92m   Compiling[0m webpki-roots v1.0.12
+[1m[92m    Checking[0m aho-corasick v1.1.5
+[1m[92m   Compiling[0m cpufeatures v0.2.17
+[1m[92m    Checking[0m regex-syntax v0.8.11
+[1m[92m   Compiling[0m iana-time-zone v0.1.65
+[1m[92m    Checking[0m ryu v1.0.23
+[1m[92m   Compiling[0m crc-catalog v2.5.0
+[1m[92m    Checking[0m bitflags v2.13.2
+[1m[92m   Compiling[0m parking v2.2.1
+[1m[92m   Compiling[0m time-core v0.1.9
+[1m[92m   Compiling[0m unicode-xid v0.2.6
+[1m[92m   Compiling[0m subtle v2.6.1
+[1m[92m    Checking[0m adler2 v2.0.1
+[1m[92m    Checking[0m local-waker v0.1.5
+[1m[92m    Checking[0m simd-adler32 v0.3.10
+[1m[92m   Compiling[0m httparse v1.10.1
+[1m[92m   Compiling[0m num-conv v0.2.2
+[1m[92m    Checking[0m const-oid v0.10.3
+[1m[92m   Compiling[0m time-macros v0.2.32
+[1m[92m    Checking[0m digest v0.11.3
+[1m[92m    Checking[0m miniz_oxide v0.9.1
+[1m[92m    Checking[0m regex-automata v0.4.18
+[1m[92m   Compiling[0m derive_more-impl v2.1.1
+[1m[92m   Compiling[0m event-listener v5.4.2
+[1m[92m   Compiling[0m crc v3.4.0
+[1m[92m    Checking[0m serde_urlencoded v0.7.1
+[1m[92m   Compiling[0m chrono v0.4.45
+[1m[92m   Compiling[0m crossbeam-queue v0.3.14
+[1m[92m   Compiling[0m sha2 v0.10.9
+[1m[92m   Compiling[0m webpki-roots v0.26.11
+[1m[92m   Compiling[0m tokio-stream v0.1.19
+[1m[92m   Compiling[0m futures-intrusive v0.5.0
+[1m[92m    Checking[0m brotli-decompressor v6.3.2
+[1m[92m   Compiling[0m hashlink v0.10.0
+[1m[92m    Checking[0m chacha20 v0.10.2
+[1m[92m   Compiling[0m spin v0.9.9
+[1m[92m    Checking[0m actix-rt v2.16.0
+[1m[92m   Compiling[0m either v1.19.0
+[1m[92m   Compiling[0m bytestring v1.6.0
+[1m[92m    Checking[0m actix-service v2.0.3
+[1m[92m   Compiling[0m cookie v0.16.2
+[1m[92m   Compiling[0m base64 v0.22.1
+[1m[92m    Checking[0m deranged v0.5.9
+[1m[92m   Compiling[0m regex-lite v0.1.9
+[1m[92m    Checking[0m core_detect v1.0.0
+[1m[92m    Checking[0m mime v0.3.18
+[1m[92m    Checking[0m simdutf8 v0.1.5
+[1m[92m   Compiling[0m multiversion_no_op v1.0.0
+[1m[92m    Checking[0m powerfmt v0.2.1
+[1m[92m   Compiling[0m zerocopy v0.8.63
+[1m[92m    Checking[0m time v0.3.55
+[1m[92m   Compiling[0m actix-router v0.5.5
+[1m[92m   Compiling[0m sqlx-core v0.8.6
+[1m[92m    Checking[0m brotli v9.1.3
+[1m[92m   Compiling[0m flume v0.11.1
+[1m[92m    Checking[0m rand v0.10.4
+[1m[92m    Checking[0m flate2 v1.1.11
+[1m[92m    Checking[0m derive_more v2.1.1
+[1m[92m    Checking[0m zstd v0.14.4
+[1m[92m    Checking[0m regex v1.13.1
+[1m[92m    Checking[0m sha1 v0.11.0
+[1m[92m    Checking[0m local-channel v0.1.7
+[1m[92m    Checking[0m actix-utils v3.0.2
+[1m[92m    Checking[0m actix-codec v0.5.4
+[1m[92m    Checking[0m h2 v0.3.27
+[1m[92m   Compiling[0m futures-executor v0.3.34
+[1m[92m   Compiling[0m atoi v2.0.0
+[1m[92m   Compiling[0m futures-channel v0.3.34
+[1m[92m   Compiling[0m actix-macros v0.2.5
+[1m[92m    Checking[0m foldhash v0.2.0
+[1m[92m   Compiling[0m unicase v2.10.0
+[1m[92m    Checking[0m base64 v0.23.1
+[1m[92m    Checking[0m language-tags v0.3.2
+[1m[92m    Checking[0m httpdate v1.0.3
+[1m[92m   Compiling[0m mime_guess v2.0.5
+[1m[92m    Checking[0m actix-http v3.22.0
+[1m[92m   Compiling[0m sqlx-sqlite v0.8.6
+[1m[92m   Compiling[0m actix-web-codegen v4.6.0
+[1m[92m    Checking[0m actix-server v2.10.0
+[1m[92m   Compiling[0m dotenvy v0.15.7
+[1m[92m   Compiling[0m v_htmlescape v0.15.8
+[1m[92m   Compiling[0m heck v0.5.0
+[1m[92m    Checking[0m impl-more v0.3.10
+[1m[92m   Compiling[0m hex v0.4.3
+[1m[92m   Compiling[0m sqlx-macros-core v0.8.6
+[1m[92m    Checking[0m actix-web v4.20.0
+[1m[92m    Checking[0m crossbeam-channel v0.5.17
+[1m[92m    Checking[0m rand_core v0.6.4
+[1m[92m   Compiling[0m actix_derive v0.6.2
+[1m[92m    Checking[0m ppv-lite86 v0.2.21
+[1m[92m    Checking[0m actix v0.13.6
+[1m[92m    Checking[0m rand_chacha v0.3.1
+[1m[92m   Compiling[0m sqlx-macros v0.8.6
+[1m[92m    Checking[0m http-range v0.1.6
+[1m[92m    Checking[0m actix-files v0.6.10
+[1m[92m    Checking[0m actix-web-actors v4.3.1+deprecated
+[1m[92m    Checking[0m rand v0.8.8
+[1m[92m    Checking[0m uuid v1.29.3
+[1m[92m    Checking[0m sqlx v0.8.6
+[1m[92m    Checking[0m room v0.1.0 (/home/runner/work/room/room)
+[1m[33mwarning[0m[1m: unused import: `UserDto`[0m
+ [1m[94m--> [0msrc/templates/admin.rs:1:71
+  [1m[94m|[0m
+[1m[94m1[0m [1m[94m|[0m use crate::models::{AuditDto, BackupDto, Boot, DeviceDto, ServerInfo, UserDto};
+  [1m[94m|[0m                                                                       [1m[33m^^^^^^^[0m
+  [1m[94m|[0m
+  [1m[94m= [0m[1mnote[0m: `#[warn(unused_imports)]` (part of `#[warn(unused)]`) on by default
+
+[1m[33mwarning[0m[1m: unused import: `futures_util::StreamExt`[0m
+ [1m[94m--> [0msrc/realtime.rs:4:5
+  [1m[94m|[0m
+[1m[94m4[0m [1m[94m|[0m use futures_util::StreamExt;
+  [1m[94m|[0m     [1m[33m^^^^^^^^^^^^^^^^^^^^^^^[0m
+
+[1m[33mwarning[0m[1m: unused variable: `c`[0m
+   [1m[94m--> [0msrc/api.rs:214:14
+    [1m[94m|[0m
+[1m[94m214[0m [1m[94m|[0m         Some(c) => {
+    [1m[94m|[0m              [1m[33m^[0m [1m[33mhelp: if this is intentional, prefix it with an underscore: `_c`[0m
+    [1m[94m|[0m
+    [1m[94m= [0m[1mnote[0m: `#[warn(unused_variables)]` (part of `#[warn(unused)]`) on by default
+
+[1m[33mwarning[0m[1m: unused variable: `a`[0m
+   [1m[94m--> [0msrc/api.rs:458:9
+    [1m[94m|[0m
+[1m[94m458[0m [1m[94m|[0m     let a = require(&req, &state).await?;
+    [1m[94m|[0m         [1m[33m^[0m [1m[33mhelp: if this is intentional, prefix it with an underscore: `_a`[0m
+
+[1m[33mwarning[0m[1m: unused variable: `a`[0m
+   [1m[94m--> [0msrc/api.rs:572:9
+    [1m[94m|[0m
+[1m[94m572[0m [1m[94m|[0m     let a = require(&req, &state).await?;
+    [1m[94m|[0m         [1m[33m^[0m [1m[33mhelp: if this is intentional, prefix it with an underscore: `_a`[0m
+
+[1m[33mwarning[0m[1m: unused variable: `a`[0m
+   [1m[94m--> [0msrc/api.rs:703:9
+    [1m[94m|[0m
+[1m[94m703[0m [1m[94m|[0m     let a = require(&req, &state).await?;
+    [1m[94m|[0m         [1m[33m^[0m [1m[33mhelp: if this is intentional, prefix it with an underscore: `_a`[0m
+
+[1m[33mwarning[0m[1m: unused variable: `title`[0m
+  [1m[94m--> [0msrc/templates/chat.rs:24:9
+   [1m[94m|[0m
+[1m[94m24[0m [1m[94m|[0m     let title = c.title.clone();
+   [1m[94m|[0m         [1m[33m^^^^^[0m [1m[33mhelp: if this is intentional, prefix it with an underscore: `_title`[0m
+
+[1m[33mwarning[0m[1m: function `jval` is never used[0m
+  [1m[94m--> [0msrc/api.rs:74:4
+   [1m[94m|[0m
+[1m[94m74[0m [1m[94m|[0m fn jval(v: Value) -> ApiResult {
+   [1m[94m|[0m    [1m[33m^^^^[0m
+   [1m[94m|[0m
+   [1m[94m= [0m[1mnote[0m: `#[warn(dead_code)]` (part of `#[warn(unused)]`) on by default
+
+[1m[33mwarning[0m[1m: field `kind` is never read[0m
+   [1m[94m--> [0msrc/api.rs:743:9
+    [1m[94m|[0m
+[1m[94m740[0m [1m[94m|[0m pub struct NodeForm {
+    [1m[94m|[0m            [1m[94m--------[0m [1m[94mfield in this struct[0m
+[1m[94m...[0m
+[1m[94m743[0m [1m[94m|[0m     pub kind: Option<String>,
+    [1m[94m|[0m         [1m[33m^^^^[0m
+
+[1m[33mwarning[0m[1m: function `gate_redirect` is never used[0m
+    [1m[94m--> [0msrc/api.rs:1534:8
+     [1m[94m|[0m
+[1m[94m1534[0m [1m[94m|[0m pub fn gate_redirect() -> HttpResponse {
+     [1m[94m|[0m        [1m[33m^^^^^^^^^^^^^[0m
+
+[1m[33mwarning[0m[1m: function `public` is never used[0m
+  [1m[94m--> [0msrc/auth.rs:57:8
+   [1m[94m|[0m
+[1m[94m57[0m [1m[94m|[0m pub fn public(path: &str) -> bool {
+   [1m[94m|[0m        [1m[33m^^^^^^[0m
+
+[1m[33mwarning[0m[1m: function `setting_bool` is never used[0m
+  [1m[94m--> [0msrc/db.rs:64:14
+   [1m[94m|[0m
+[1m[94m64[0m [1m[94m|[0m pub async fn setting_bool(pool: &SqlitePool, key: &str, default: bool) -> bool {
+   [1m[94m|[0m              [1m[33m^^^^^^^^^^^^[0m
+
+[1m[33mwarning[0m[1m: fields `conversation_id`, `role`, `joined_at`, `last_read_id`, and `muted` are never read[0m
+   [1m[94m--> [0msrc/models.rs:109:9
+    [1m[94m|[0m
+[1m[94m108[0m [1m[94m|[0m pub struct MemberRow {
+    [1m[94m|[0m            [1m[94m---------[0m [1m[94mfields in this struct[0m
+[1m[94m109[0m [1m[94m|[0m     pub conversation_id: i64,
+    [1m[94m|[0m         [1m[33m^^^^^^^^^^^^^^^[0m
+[1m[94m110[0m [1m[94m|[0m     pub user_id: i64,
+[1m[94m111[0m [1m[94m|[0m     pub role: String,
+    [1m[94m|[0m         [1m[33m^^^^[0m
+[1m[94m112[0m [1m[94m|[0m     pub joined_at: i64,
+    [1m[94m|[0m         [1m[33m^^^^^^^^^[0m
+[1m[94m113[0m [1m[94m|[0m     pub last_read_id: i64,
+    [1m[94m|[0m         [1m[33m^^^^^^^^^^^^[0m
+[1m[94m114[0m [1m[94m|[0m     pub muted: i32,
+    [1m[94m|[0m         [1m[33m^^^^^[0m
+    [1m[94m|[0m
+    [1m[94m= [0m[1mnote[0m: `MemberRow` has derived impls for the traits `Clone` and `Debug`, but these are intentionally ignored during dead code analysis
+
+[1m[33mwarning[0m[1m: field `path` is never read[0m
+   [1m[94m--> [0msrc/models.rs:128:9
+    [1m[94m|[0m
+[1m[94m124[0m [1m[94m|[0m pub struct BackupRow {
+    [1m[94m|[0m            [1m[94m---------[0m [1m[94mfield in this struct[0m
+[1m[94m...[0m
+[1m[94m128[0m [1m[94m|[0m     pub path: String,
+    [1m[94m|[0m         [1m[33m^^^^[0m
+    [1m[94m|[0m
+    [1m[94m= [0m[1mnote[0m: `BackupRow` has derived impls for the traits `Clone` and `Debug`, but these are intentionally ignored during dead code analysis
+
+[1m[33mwarning[0m[1m: method `online_ids` is never used[0m
+  [1m[94m--> [0msrc/realtime.rs:53:12
+   [1m[94m|[0m
+[1m[94m48[0m [1m[94m|[0m impl Hub {
+   [1m[94m|[0m [1m[94m--------[0m [1m[94mmethod in this implementation[0m
+[1m[94m...[0m
+[1m[94m53[0m [1m[94m|[0m     pub fn online_ids(&self) -> Vec<i64> {
+   [1m[94m|[0m            [1m[33m^^^^^^^^^^[0m
+
+[1m[33mwarning[0m[1m: field `authed` is never read[0m
+   [1m[94m--> [0msrc/realtime.rs:119:9
+    [1m[94m|[0m
+[1m[94m114[0m [1m[94m|[0m pub struct Session {
+    [1m[94m|[0m            [1m[94m-------[0m [1m[94mfield in this struct[0m
+[1m[94m...[0m
+[1m[94m119[0m [1m[94m|[0m     pub authed: bool,
+    [1m[94m|[0m         [1m[33m^^^^^^[0m
+
+[1m[33mwarning[0m[1m: method `send_json` is never used[0m
+   [1m[94m--> [0msrc/realtime.rs:133:8
+    [1m[94m|[0m
+[1m[94m122[0m [1m[94m|[0m impl Session {
+    [1m[94m|[0m [1m[94m------------[0m [1m[94mmethod in this implementation[0m
+[1m[94m...[0m
+[1m[94m133[0m [1m[94m|[0m     fn send_json(&self, ctx: &mut ws::WebsocketContext<Self>, v: Value) {
+    [1m[94m|[0m        [1m[33m^^^^^^^^^[0m
+
+[1m[33mwarning[0m[1m: field `build` is never read[0m
+  [1m[94m--> [0msrc/state.rs:19:9
+   [1m[94m|[0m
+[1m[94m12[0m [1m[94m|[0m pub struct AppState {
+   [1m[94m|[0m            [1m[94m--------[0m [1m[94mfield in this struct[0m
+[1m[94m...[0m
+[1m[94m19[0m [1m[94m|[0m     pub build: String,
+   [1m[94m|[0m         [1m[33m^^^^^[0m
+
+[1m[33mwarning[0m[1m: type alias `Shared` is never used[0m
+   [1m[94m--> [0msrc/state.rs:104:10
+    [1m[94m|[0m
+[1m[94m104[0m [1m[94m|[0m pub type Shared = Arc<AppState>;
+    [1m[94m|[0m          [1m[33m^^^^^^[0m
+
+[1m[33mwarning[0m[1m: function `devices_for_user` is never used[0m
+   [1m[94m--> [0msrc/store.rs:134:14
+    [1m[94m|[0m
+[1m[94m134[0m [1m[94m|[0m pub async fn devices_for_user(pool: &SqlitePool, uid: i64) -> Result<Vec<Device>, sqlx::Error> {
+    [1m[94m|[0m              [1m[33m^^^^^^^^^^^^^^^^[0m
+
+[1m[33mwarning[0m[1m: fields `created_by` and `created_at` are never read[0m
+   [1m[94m--> [0msrc/store.rs:277:5
+    [1m[94m|[0m
+[1m[94m271[0m [1m[94m|[0m struct ConvRow {
+    [1m[94m|[0m        [1m[94m-------[0m [1m[94mfields in this struct[0m
+[1m[94m...[0m
+[1m[94m277[0m [1m[94m|[0m     created_by: Option<i64>,
+    [1m[94m|[0m     [1m[33m^^^^^^^^^^[0m
+[1m[94m278[0m [1m[94m|[0m     created_at: i64,
+    [1m[94m|[0m     [1m[33m^^^^^^^^^^[0m
+
+[1m[33mwarning[0m[1m: struct `MsgRow` is never constructed[0m
+   [1m[94m--> [0msrc/store.rs:524:8
+    [1m[94m|[0m
+[1m[94m524[0m [1m[94m|[0m struct MsgRow {
+    [1m[94m|[0m        [1m[33m^^^^^^[0m
+
+[1m[33mwarning[0m[1m: function `set_share` is never used[0m
+   [1m[94m--> [0msrc/store.rs:939:14
+    [1m[94m|[0m
+[1m[94m939[0m [1m[94m|[0m pub async fn set_share(
+    [1m[94m|[0m              [1m[33m^^^^^^^^^[0m
+
+[1m[33mwarning[0m[1m: function `all_files` is never used[0m
+   [1m[94m--> [0msrc/store.rs:989:14
+    [1m[94m|[0m
+[1m[94m989[0m [1m[94m|[0m pub async fn all_files(pool: &SqlitePool) -> Result<Vec<FileNode>, sqlx::Error> {
+    [1m[94m|[0m              [1m[33m^^^^^^^^^[0m
+
+[1m[33mwarning[0m[1m: struct `CallRow` is never constructed[0m
+   [1m[94m--> [0msrc/store.rs:996:8
+    [1m[94m|[0m
+[1m[94m996[0m [1m[94m|[0m struct CallRow {
+    [1m[94m|[0m        [1m[33m^^^^^^^[0m
+
+[1m[33mwarning[0m[1m: function `presence_dot` is never used[0m
+   [1m[94m--> [0msrc/templates/mod.rs:139:8
+    [1m[94m|[0m
+[1m[94m139[0m [1m[94m|[0m pub fn presence_dot(p: &str) -> String {
+    [1m[94m|[0m        [1m[33m^^^^^^^^^^^^[0m
+
+[1m[33mwarning[0m[1m: function `skel` is never used[0m
+   [1m[94m--> [0msrc/templates/mod.rs:148:8
+    [1m[94m|[0m
+[1m[94m148[0m [1m[94m|[0m pub fn skel(w: &str, h: &str, r: &str) -> String {
+    [1m[94m|[0m        [1m[33m^^^^[0m
+
+[1m[33mwarning[0m[1m: function `skeleton_list` is never used[0m
+   [1m[94m--> [0msrc/templates/mod.rs:152:8
+    [1m[94m|[0m
+[1m[94m152[0m [1m[94m|[0m pub fn skeleton_list(n: usize) -> String {
+    [1m[94m|[0m        [1m[33m^^^^^^^^^^^^^[0m
+
+[1m[33mwarning[0m[1m: function `skeleton_msgs` is never used[0m
+   [1m[94m--> [0msrc/templates/mod.rs:167:8
+    [1m[94m|[0m
+[1m[94m167[0m [1m[94m|[0m pub fn skeleton_msgs(n: usize) -> String {
+    [1m[94m|[0m        [1m[33m^^^^^^^^^^^^^[0m
+
+[1m[33mwarning[0m[1m: function `skeleton_grid` is never used[0m
+   [1m[94m--> [0msrc/templates/mod.rs:186:8
+    [1m[94m|[0m
+[1m[94m186[0m [1m[94m|[0m pub fn skeleton_grid(n: usize) -> String {
+    [1m[94m|[0m        [1m[33m^^^^^^^^^^^^^[0m
+
+[1m[33mwarning[0m[1m: function `skeleton_rows` is never used[0m
+   [1m[94m--> [0msrc/templates/mod.rs:197:8
+    [1m[94m|[0m
+[1m[94m197[0m [1m[94m|[0m pub fn skeleton_rows(n: usize) -> String {
+    [1m[94m|[0m        [1m[33m^^^^^^^^^^^^^[0m
+
+[1m[33mwarning[0m[1m: function `toast` is never used[0m
+   [1m[94m--> [0msrc/templates/mod.rs:458:8
+    [1m[94m|[0m
+[1m[94m458[0m [1m[94m|[0m pub fn toast(kind: &str, msg: &str) -> String {
+    [1m[94m|[0m        [1m[33m^^^^^[0m
+
+[1m[33mwarning[0m[1m: function `modal` is never used[0m
+   [1m[94m--> [0msrc/templates/mod.rs:476:8
+    [1m[94m|[0m
+[1m[94m476[0m [1m[94m|[0m pub fn modal(id: &str, title: &str, body: &str, footer: &str) -> String {
+    [1m[94m|[0m        [1m[33m^^^^^[0m
+
+[1m[33mwarning[0m[1m: function `skeleton_admin` is never used[0m
+   [1m[94m--> [0msrc/templates/admin.rs:400:8
+    [1m[94m|[0m
+[1m[94m400[0m [1m[94m|[0m pub fn skeleton_admin() -> String {
+    [1m[94m|[0m        [1m[33m^^^^^^^^^^^^^^[0m
+
+[1m[33mwarning[0m[1m: function `skeleton_calls` is never used[0m
+   [1m[94m--> [0msrc/templates/calls.rs:272:8
+    [1m[94m|[0m
+[1m[94m272[0m [1m[94m|[0m pub fn skeleton_calls() -> String {
+    [1m[94m|[0m        [1m[33m^^^^^^^^^^^^^^[0m
+
+[1m[33mwarning[0m[1m: function `skeleton_convs` is never used[0m
+   [1m[94m--> [0msrc/templates/chat.rs:517:8
+    [1m[94m|[0m
+[1m[94m517[0m [1m[94m|[0m pub fn skeleton_convs() -> String {
+    [1m[94m|[0m        [1m[33m^^^^^^^^^^^^^^[0m
+
+[1m[33mwarning[0m[1m: field `query` is never read[0m
+   [1m[94m--> [0msrc/templates/files.rs:161:9
+    [1m[94m|[0m
+[1m[94m156[0m [1m[94m|[0m pub struct FileView {
+    [1m[94m|[0m            [1m[94m--------[0m [1m[94mfield in this struct[0m
+[1m[94m...[0m
+[1m[94m161[0m [1m[94m|[0m     pub query: String,
+    [1m[94m|[0m         [1m[33m^^^^^[0m
+
+[1m[33mwarning[0m[1m: function `skeleton_files` is never used[0m
+   [1m[94m--> [0msrc/templates/files.rs:310:8
+    [1m[94m|[0m
+[1m[94m310[0m [1m[94m|[0m pub fn skeleton_files() -> String {
+    [1m[94m|[0m        [1m[33m^^^^^^^^^^^^^^[0m
+
+[1m[33mwarning[0m[1m: function `suspended_page` is never used[0m
+   [1m[94m--> [0msrc/templates/gate.rs:118:8
+    [1m[94m|[0m
+[1m[94m118[0m [1m[94m|[0m pub fn suspended_page(state: &AppState) -> String {
+    [1m[94m|[0m        [1m[33m^^^^^^^^^^^^^^[0m
+
+[1m[33mwarning[0m[1m: function `age` is never used[0m
+   [1m[94m--> [0msrc/templates/gate.rs:130:8
+    [1m[94m|[0m
+[1m[94m130[0m [1m[94m|[0m pub fn age(ms: i64) -> String {
+    [1m[94m|[0m        [1m[33m^^^[0m
+
+[1m[33mwarning[0m[1m: function `is_video` is never used[0m
+   [1m[94m--> [0msrc/util.rs:219:8
+    [1m[94m|[0m
+[1m[94m219[0m [1m[94m|[0m pub fn is_video(mime: &str) -> bool {
+    [1m[94m|[0m        [1m[33m^^^^^^^^[0m
+
+[1m[33mwarning[0m[1m: function `is_audio` is never used[0m
+   [1m[94m--> [0msrc/util.rs:223:8
+    [1m[94m|[0m
+[1m[94m223[0m [1m[94m|[0m pub fn is_audio(mime: &str) -> bool {
+    [1m[94m|[0m        [1m[33m^^^^^^^^[0m
+
+[1m[33mwarning[0m[1m: function `is_textual` is never used[0m
+   [1m[94m--> [0msrc/util.rs:227:8
+    [1m[94m|[0m
+[1m[94m227[0m [1m[94m|[0m pub fn is_textual(mime: &str) -> bool {
+    [1m[94m|[0m        [1m[33m^^^^^^^^^^[0m
+
+[1m[33mwarning[0m[1m: function `day_label` is never used[0m
+   [1m[94m--> [0msrc/util.rs:332:8
+    [1m[94m|[0m
+[1m[94m332[0m [1m[94m|[0m pub fn day_label(ms: i64) -> String {
+    [1m[94m|[0m        [1m[33m^^^^^^^^^[0m
+
+[1m[33mwarning[0m: `room` (bin "room") generated 44 warnings (1 duplicate) (run `cargo fix --bin "room" -p room` to apply 5 suggestions)
+[1m[33mwarning[0m: `room` (bin "room" test) generated 44 warnings (43 duplicates) (run `cargo fix --bin "room" -p room --tests` to apply 1 suggestion)
+[1m[92m    Finished[0m `dev` profile [unoptimized + debuginfo] target(s) in 52.53s
+CHECK_EXIT=0
