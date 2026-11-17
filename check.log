@@ -1,254 +1,254 @@
 [1m[92m    Updating[0m crates.io index
 [1m[92m Downloading[0m crates ...
-[1m[92m  Downloaded[0m actix-web-actors v4.3.1+deprecated
-[1m[92m  Downloaded[0m actix_derive v0.6.2
-[1m[92m  Downloaded[0m actix-utils v3.0.2
-[1m[92m  Downloaded[0m tokio-macros v2.7.2
-[1m[92m  Downloaded[0m block-buffer v0.12.1
-[1m[92m  Downloaded[0m time-macros v0.2.32
-[1m[92m  Downloaded[0m cfg-if v1.0.5
-[1m[92m  Downloaded[0m actix-macros v0.2.5
-[1m[92m  Downloaded[0m crypto-common v0.2.2
+[1m[92m  Downloaded[0m alloc-stdlib v0.3.0
+[1m[92m  Downloaded[0m equivalent v1.0.3
+[1m[92m  Downloaded[0m core_detect v1.0.0
 [1m[92m  Downloaded[0m actix-rt v2.16.0
+[1m[92m  Downloaded[0m byteorder v1.5.0
+[1m[92m  Downloaded[0m chacha20 v0.10.2
+[1m[92m  Downloaded[0m actix-utils v3.0.2
+[1m[92m  Downloaded[0m base64ct v1.8.3
+[1m[92m  Downloaded[0m digest v0.10.7
+[1m[92m  Downloaded[0m find-msvc-tools v0.1.15
+[1m[92m  Downloaded[0m derive_more v2.1.1
+[1m[92m  Downloaded[0m hybrid-array v0.4.15
+[1m[92m  Downloaded[0m block-buffer v0.12.1
+[1m[92m  Downloaded[0m cpufeatures v0.2.17
+[1m[92m  Downloaded[0m actix-macros v0.2.5
+[1m[92m  Downloaded[0m actix-codec v0.5.4
+[1m[92m  Downloaded[0m block-buffer v0.10.4
+[1m[92m  Downloaded[0m crc v3.4.0
+[1m[92m  Downloaded[0m getrandom v0.2.17
+[1m[92m  Downloaded[0m icu_locale_core v2.4.0
+[1m[92m  Downloaded[0m crypto-common v0.2.2
+[1m[92m  Downloaded[0m untrusted v0.9.0
+[1m[92m  Downloaded[0m alloc-no-stdlib v3.0.0
+[1m[92m  Downloaded[0m atoi v2.0.0
+[1m[92m  Downloaded[0m bytestring v1.6.0
+[1m[92m  Downloaded[0m cpufeatures v0.3.1
+[1m[92m  Downloaded[0m unicode-xid v0.2.6
+[1m[92m  Downloaded[0m bitflags v2.13.2
+[1m[92m  Downloaded[0m actix_derive v0.6.2
+[1m[92m  Downloaded[0m tokio-macros v2.7.2
+[1m[92m  Downloaded[0m unicase v2.10.0
+[1m[92m  Downloaded[0m tracing-attributes v0.1.31
+[1m[92m  Downloaded[0m unicode-properties v0.1.5
+[1m[92m  Downloaded[0m local-waker v0.1.5
+[1m[92m  Downloaded[0m yoke-derive v0.8.4
+[1m[92m  Downloaded[0m actix-web-actors v4.3.1+deprecated
 [1m[92m  Downloaded[0m crypto-common v0.1.7
 [1m[92m  Downloaded[0m futures-sink v0.3.34
-[1m[92m  Downloaded[0m cpufeatures v0.2.17
-[1m[92m  Downloaded[0m crc v3.4.0
-[1m[92m  Downloaded[0m block-buffer v0.10.4
-[1m[92m  Downloaded[0m futures-io v0.3.34
-[1m[92m  Downloaded[0m heck v0.5.0
-[1m[92m  Downloaded[0m hex v0.4.3
-[1m[92m  Downloaded[0m fnv v1.0.7
-[1m[92m  Downloaded[0m alloc-no-stdlib v3.0.0
-[1m[92m  Downloaded[0m cpufeatures v0.3.1
-[1m[92m  Downloaded[0m home v0.5.12
-[1m[92m  Downloaded[0m form_urlencoded v1.2.2
-[1m[92m  Downloaded[0m futures-core v0.3.34
-[1m[92m  Downloaded[0m tinystr v0.8.5
-[1m[92m  Downloaded[0m generic-array v0.14.7
-[1m[92m  Downloaded[0m alloc-stdlib v0.3.0
-[1m[92m  Downloaded[0m httpdate v1.0.3
-[1m[92m  Downloaded[0m unicase v2.10.0
-[1m[92m  Downloaded[0m http-range v0.1.6
-[1m[92m  Downloaded[0m adler2 v2.0.1
-[1m[92m  Downloaded[0m futures-macro v0.3.34
-[1m[92m  Downloaded[0m equivalent v1.0.3
-[1m[92m  Downloaded[0m atoi v2.0.0
-[1m[92m  Downloaded[0m actix-service v2.0.3
-[1m[92m  Downloaded[0m bytestring v1.6.0
-[1m[92m  Downloaded[0m futures-task v0.3.34
-[1m[92m  Downloaded[0m actix-codec v0.5.4
-[1m[92m  Downloaded[0m actix-router v0.5.5
-[1m[92m  Downloaded[0m errno v0.3.15
-[1m[92m  Downloaded[0m unicode-xid v0.2.6
-[1m[92m  Downloaded[0m actix-web-codegen v4.6.0
-[1m[92m  Downloaded[0m sha1 v0.10.7
-[1m[92m  Downloaded[0m crossbeam-queue v0.3.14
-[1m[92m  Downloaded[0m dotenvy v0.15.7
-[1m[92m  Downloaded[0m either v1.19.0
-[1m[92m  Downloaded[0m foldhash v0.1.5
-[1m[92m  Downloaded[0m autocfg v1.5.1
-[1m[92m  Downloaded[0m base64ct v1.8.3
-[1m[92m  Downloaded[0m core_detect v1.0.0
-[1m[92m  Downloaded[0m digest v0.10.7
-[1m[92m  Downloaded[0m displaydoc v0.2.7
-[1m[92m  Downloaded[0m hashlink v0.10.0
-[1m[92m  Downloaded[0m tracing-attributes v0.1.31
-[1m[92m  Downloaded[0m num-conv v0.2.2
-[1m[92m  Downloaded[0m byteorder v1.5.0
-[1m[92m  Downloaded[0m crc-catalog v2.5.0
-[1m[92m  Downloaded[0m find-msvc-tools v0.1.15
-[1m[92m  Downloaded[0m foldhash v0.2.0
-[1m[92m  Downloaded[0m futures-executor v0.3.34
-[1m[92m  Downloaded[0m chacha20 v0.10.2
-[1m[92m  Downloaded[0m const-oid v0.9.6
-[1m[92m  Downloaded[0m convert_case v0.10.0
-[1m[92m  Downloaded[0m cookie v0.16.2
-[1m[92m  Downloaded[0m actix-server v2.10.0
-[1m[92m  Downloaded[0m futures-channel v0.3.34
-[1m[92m  Downloaded[0m stable_deref_trait v1.2.1
-[1m[92m  Downloaded[0m unicode-bidi v0.3.18
-[1m[92m  Downloaded[0m crossbeam-utils v0.8.23
-[1m[92m  Downloaded[0m deranged v0.5.9
-[1m[92m  Downloaded[0m hybrid-array v0.4.15
-[1m[92m  Downloaded[0m iana-time-zone v0.1.65
-[1m[92m  Downloaded[0m allocator-api2 v0.2.21
-[1m[92m  Downloaded[0m digest v0.11.3
-[1m[92m  Downloaded[0m hmac v0.12.1
-[1m[92m  Downloaded[0m actix-files v0.6.10
-[1m[92m  Downloaded[0m crc32fast v1.5.5
-[1m[92m  Downloaded[0m slab v0.4.12
-[1m[92m  Downloaded[0m getrandom v0.4.3
-[1m[92m  Downloaded[0m bitflags v2.13.2
-[1m[92m  Downloaded[0m event-listener v5.4.2
-[1m[92m  Downloaded[0m itoa v1.0.19
-[1m[92m  Downloaded[0m ryu v1.0.23
-[1m[92m  Downloaded[0m serde_urlencoded v0.7.1
-[1m[92m  Downloaded[0m sha1 v0.11.0
-[1m[92m  Downloaded[0m spki v0.7.3
-[1m[92m  Downloaded[0m sqlx-macros v0.8.6
-[1m[92m  Downloaded[0m synstructure v0.14.0
-[1m[92m  Downloaded[0m unicode-properties v0.1.5
-[1m[92m  Downloaded[0m base64 v0.22.1
-[1m[92m  Downloaded[0m bytes v1.12.1
-[1m[92m  Downloaded[0m const-oid v0.10.3
-[1m[92m  Downloaded[0m flume v0.11.1
-[1m[92m  Downloaded[0m getrandom v0.2.17
-[1m[92m  Downloaded[0m httparse v1.10.1
-[1m[92m  Downloaded[0m icu_locale_core v2.4.0
-[1m[92m  Downloaded[0m potential_utf v0.1.6
-[1m[92m  Downloaded[0m rustversion v1.0.23
-[1m[92m  Downloaded[0m spin v0.9.9
-[1m[92m  Downloaded[0m actix v0.13.6
-[1m[92m  Downloaded[0m crossbeam-channel v0.5.17
-[1m[92m  Downloaded[0m der v0.7.10
-[1m[92m  Downloaded[0m derive_more v2.1.1
-[1m[92m  Downloaded[0m futures-intrusive v0.5.0
-[1m[92m  Downloaded[0m idna_adapter v1.2.2
-[1m[92m  Downloaded[0m utf8_iter v1.1.0
-[1m[92m  Downloaded[0m version_check v0.9.5
-[1m[92m  Downloaded[0m webpki-roots v0.26.11
-[1m[92m  Downloaded[0m base64 v0.23.1
-[1m[92m  Downloaded[0m derive_more-impl v2.1.1
-[1m[92m  Downloaded[0m flate2 v1.1.11
-[1m[92m  Downloaded[0m http v0.2.12
-[1m[92m  Downloaded[0m parking v2.2.1
-[1m[92m  Downloaded[0m signal-hook-registry v1.4.8
-[1m[92m  Downloaded[0m icu_collections v2.4.0
-[1m[92m  Downloaded[0m lazy_static v1.5.1
-[1m[92m  Downloaded[0m md-5 v0.10.6
-[1m[92m  Downloaded[0m multiversion_no_op v1.0.0
-[1m[92m  Downloaded[0m percent-encoding v2.3.2
-[1m[92m  Downloaded[0m sha2 v0.10.9
-[1m[92m  Downloaded[0m sqlx-sqlite v0.8.6
-[1m[92m  Downloaded[0m stringprep v0.1.5
-[1m[92m  Downloaded[0m thiserror v2.0.21
-[1m[92m  Downloaded[0m thiserror-impl v2.0.21
-[1m[92m  Downloaded[0m tracing-core v0.1.36
-[1m[92m  Downloaded[0m unicode-ident v1.0.27
-[1m[92m  Downloaded[0m v_htmlescape v0.15.8
-[1m[92m  Downloaded[0m zstd v0.14.4
-[1m[92m  Downloaded[0m cc v1.11.2
-[1m[92m  Downloaded[0m hashbrown v0.15.5
-[1m[92m  Downloaded[0m hkdf v0.12.4
-[1m[92m  Downloaded[0m scopeguard v1.2.0
-[1m[92m  Downloaded[0m tinyvec v1.13.3
-[1m[92m  Downloaded[0m tokio-stream v0.1.19
-[1m[92m  Downloaded[0m aho-corasick v1.1.5
-[1m[92m  Downloaded[0m futures-util v0.3.34
-[1m[92m  Downloaded[0m h2 v0.3.27
-[1m[92m  Downloaded[0m hashbrown v0.17.1
-[1m[92m  Downloaded[0m serde_derive v1.0.229
-[1m[92m  Downloaded[0m rsa v0.9.10
-[1m[92m  Downloaded[0m serde_json v1.0.154
-[1m[92m  Downloaded[0m zerofrom-derive v0.1.8
-[1m[92m  Downloaded[0m actix-http v3.22.0
-[1m[92m  Downloaded[0m actix-web v4.20.0
-[1m[92m  Downloaded[0m chrono v0.4.45
-[1m[92m  Downloaded[0m untrusted v0.9.0
 [1m[92m  Downloaded[0m zerofrom v0.1.8
-[1m[92m  Downloaded[0m zeroize v1.9.2
-[1m[92m  Downloaded[0m zmij v1.0.23
-[1m[92m  Downloaded[0m brotli-decompressor v6.3.2
-[1m[92m  Downloaded[0m impl-more v0.3.10
-[1m[92m  Downloaded[0m jobserver v0.1.35
-[1m[92m  Downloaded[0m local-waker v0.1.5
-[1m[92m  Downloaded[0m num-integer v0.1.47
-[1m[92m  Downloaded[0m num-iter v0.1.46
-[1m[92m  Downloaded[0m pkcs8 v0.10.2
-[1m[92m  Downloaded[0m pkg-config v0.3.34
-[1m[92m  Downloaded[0m powerfmt v0.2.1
-[1m[92m  Downloaded[0m rand_chacha v0.3.1
-[1m[92m  Downloaded[0m rand_core v0.6.4
-[1m[92m  Downloaded[0m rustc_version v0.4.1
-[1m[92m  Downloaded[0m semver v1.0.28
+[1m[92m  Downloaded[0m time-macros v0.2.32
+[1m[92m  Downloaded[0m tokio-stream v0.1.19
+[1m[92m  Downloaded[0m unicode-ident v1.0.27
+[1m[92m  Downloaded[0m actix-service v2.0.3
+[1m[92m  Downloaded[0m crc-catalog v2.5.0
+[1m[92m  Downloaded[0m crossbeam-queue v0.3.14
+[1m[92m  Downloaded[0m generic-array v0.14.7
+[1m[92m  Downloaded[0m base64 v0.22.1
+[1m[92m  Downloaded[0m v_htmlescape v0.15.8
+[1m[92m  Downloaded[0m cfg-if v1.0.5
+[1m[92m  Downloaded[0m lazy_static v1.5.1
+[1m[92m  Downloaded[0m hex v0.4.3
+[1m[92m  Downloaded[0m version_check v0.9.5
+[1m[92m  Downloaded[0m http-range v0.1.6
+[1m[92m  Downloaded[0m percent-encoding v2.3.2
+[1m[92m  Downloaded[0m webpki-roots v0.26.11
+[1m[92m  Downloaded[0m futures-macro v0.3.34
+[1m[92m  Downloaded[0m home v0.5.12
+[1m[92m  Downloaded[0m utf8_iter v1.1.0
 [1m[92m  Downloaded[0m utf_types v1.0.0
+[1m[92m  Downloaded[0m zerofrom-derive v0.1.8
+[1m[92m  Downloaded[0m multiversion_no_op v1.0.0
+[1m[92m  Downloaded[0m num-conv v0.2.2
+[1m[92m  Downloaded[0m potential_utf v0.1.6
+[1m[92m  Downloaded[0m parking v2.2.1
+[1m[92m  Downloaded[0m local-channel v0.1.7
+[1m[92m  Downloaded[0m errno v0.3.15
+[1m[92m  Downloaded[0m futures-task v0.3.34
+[1m[92m  Downloaded[0m fnv v1.0.7
+[1m[92m  Downloaded[0m powerfmt v0.2.1
+[1m[92m  Downloaded[0m md-5 v0.10.6
+[1m[92m  Downloaded[0m pem-rfc7468 v0.7.0
+[1m[92m  Downloaded[0m itoa v1.0.19
+[1m[92m  Downloaded[0m sha1 v0.10.7
+[1m[92m  Downloaded[0m zeroize v1.9.2
+[1m[92m  Downloaded[0m futures-core v0.3.34
+[1m[92m  Downloaded[0m rand_chacha v0.3.1
+[1m[92m  Downloaded[0m heck v0.5.0
+[1m[92m  Downloaded[0m pkcs8 v0.10.2
+[1m[92m  Downloaded[0m tinystr v0.8.5
 [1m[92m  Downloaded[0m whoami v1.6.1
 [1m[92m  Downloaded[0m writeable v0.6.4
-[1m[92m  Downloaded[0m litemap v0.8.3
+[1m[92m  Downloaded[0m idna_adapter v1.2.2
 [1m[92m  Downloaded[0m lock_api v0.4.14
-[1m[92m  Downloaded[0m mime v0.3.18
-[1m[92m  Downloaded[0m parking_lot_core v0.9.12
-[1m[92m  Downloaded[0m ppv-lite86 v0.2.21
-[1m[92m  Downloaded[0m rand_core v0.10.1
-[1m[92m  Downloaded[0m sqlx-mysql v0.8.6
-[1m[92m  Downloaded[0m syn v3.0.10
-[1m[92m  Downloaded[0m time v0.3.55
-[1m[92m  Downloaded[0m yoke-derive v0.8.4
-[1m[92m  Downloaded[0m pem-rfc7468 v0.7.0
-[1m[92m  Downloaded[0m pin-project-lite v0.2.17
-[1m[92m  Downloaded[0m quote v1.0.47
-[1m[92m  Downloaded[0m regex-syntax v0.8.11
-[1m[92m  Downloaded[0m rustls v0.23.46
-[1m[92m  Downloaded[0m shlex v2.0.1
-[1m[92m  Downloaded[0m encoding_rs v0.8.44
-[1m[92m  Downloaded[0m subtle v2.6.1
 [1m[92m  Downloaded[0m zerovec-derive v0.11.7
-[1m[92m  Downloaded[0m brotli v9.1.3
-[1m[92m  Downloaded[0m local-channel v0.1.7
-[1m[92m  Downloaded[0m time-core v0.1.9
-[1m[92m  Downloaded[0m simdutf8 v0.1.5
+[1m[92m  Downloaded[0m form_urlencoded v1.2.2
+[1m[92m  Downloaded[0m futures-io v0.3.34
+[1m[92m  Downloaded[0m impl-more v0.3.10
+[1m[92m  Downloaded[0m mime v0.3.18
+[1m[92m  Downloaded[0m num-integer v0.1.47
+[1m[92m  Downloaded[0m pin-project-lite v0.2.17
+[1m[92m  Downloaded[0m actix-web-codegen v4.6.0
+[1m[92m  Downloaded[0m tracing-core v0.1.36
+[1m[92m  Downloaded[0m unicode-bidi v0.3.18
+[1m[92m  Downloaded[0m adler2 v2.0.1
+[1m[92m  Downloaded[0m autocfg v1.5.1
 [1m[92m  Downloaded[0m mime_guess v2.0.5
-[1m[92m  Downloaded[0m once_cell v1.21.4
-[1m[92m  Downloaded[0m pkcs1 v0.7.5
-[1m[92m  Downloaded[0m rustls-pki-types v1.16.0
-[1m[92m  Downloaded[0m sqlx v0.8.6
-[1m[92m  Downloaded[0m sqlx-core v0.8.6
-[1m[92m  Downloaded[0m sqlx-macros-core v0.8.6
-[1m[92m  Downloaded[0m syn v2.0.119
-[1m[92m  Downloaded[0m serde v1.0.229
-[1m[92m  Downloaded[0m simd-adler32 v0.3.10
-[1m[92m  Downloaded[0m icu_provider v2.4.0
-[1m[92m  Downloaded[0m log v0.4.35
-[1m[92m  Downloaded[0m rustls-webpki v0.103.17
+[1m[92m  Downloaded[0m quote v1.0.47
+[1m[92m  Downloaded[0m httpdate v1.0.3
+[1m[92m  Downloaded[0m jobserver v0.1.35
+[1m[92m  Downloaded[0m num-iter v0.1.46
+[1m[92m  Downloaded[0m ppv-lite86 v0.2.21
 [1m[92m  Downloaded[0m signature v2.2.0
-[1m[92m  Downloaded[0m sqlx-postgres v0.8.6
-[1m[92m  Downloaded[0m ring v0.17.14
+[1m[92m  Downloaded[0m zmij v1.0.23
+[1m[92m  Downloaded[0m pkg-config v0.3.34
+[1m[92m  Downloaded[0m once_cell v1.21.4
+[1m[92m  Downloaded[0m subtle v2.6.1
+[1m[92m  Downloaded[0m rustc_version v0.4.1
+[1m[92m  Downloaded[0m serde_urlencoded v0.7.1
+[1m[92m  Downloaded[0m sqlx-macros v0.8.6
+[1m[92m  Downloaded[0m tinyvec v1.13.3
 [1m[92m  Downloaded[0m yoke v0.8.4
-[1m[92m  Downloaded[0m num-traits v0.2.19
+[1m[92m  Downloaded[0m convert_case v0.10.0
+[1m[92m  Downloaded[0m hashlink v0.10.0
+[1m[92m  Downloaded[0m parking_lot_core v0.9.12
+[1m[92m  Downloaded[0m rand_core v0.6.4
+[1m[92m  Downloaded[0m either v1.19.0
+[1m[92m  Downloaded[0m futures-executor v0.3.34
 [1m[92m  Downloaded[0m parking_lot v0.12.5
-[1m[92m  Downloaded[0m proc-macro2 v1.0.107
-[1m[92m  Downloaded[0m tokio-util v0.7.20
-[1m[92m  Downloaded[0m typenum v1.20.1
-[1m[92m  Downloaded[0m zstd-safe v8.3.0
+[1m[92m  Downloaded[0m pkcs1 v0.7.5
+[1m[92m  Downloaded[0m foldhash v0.1.5
+[1m[92m  Downloaded[0m foldhash v0.2.0
+[1m[92m  Downloaded[0m deranged v0.5.9
+[1m[92m  Downloaded[0m digest v0.11.3
+[1m[92m  Downloaded[0m displaydoc v0.2.7
+[1m[92m  Downloaded[0m dotenvy v0.15.7
+[1m[92m  Downloaded[0m url v2.5.8
+[1m[92m  Downloaded[0m actix-router v0.5.5
+[1m[92m  Downloaded[0m actix-server v2.10.0
+[1m[92m  Downloaded[0m const-oid v0.9.6
+[1m[92m  Downloaded[0m cookie v0.16.2
+[1m[92m  Downloaded[0m crc32fast v1.5.5
+[1m[92m  Downloaded[0m iana-time-zone v0.1.65
+[1m[92m  Downloaded[0m base64 v0.23.1
+[1m[92m  Downloaded[0m simd-adler32 v0.3.10
+[1m[92m  Downloaded[0m bytes v1.12.1
+[1m[92m  Downloaded[0m crossbeam-utils v0.8.23
+[1m[92m  Downloaded[0m icu_provider v2.4.0
+[1m[92m  Downloaded[0m sqlx-macros-core v0.8.6
+[1m[92m  Downloaded[0m synstructure v0.14.0
+[1m[92m  Downloaded[0m rustversion v1.0.23
+[1m[92m  Downloaded[0m signal-hook-registry v1.4.8
+[1m[92m  Downloaded[0m simdutf8 v0.1.5
+[1m[92m  Downloaded[0m actix-files v0.6.10
 [1m[92m  Downloaded[0m language-tags v0.3.2
-[1m[92m  Downloaded[0m smallvec v1.16.5
+[1m[92m  Downloaded[0m zstd-safe v8.3.0
+[1m[92m  Downloaded[0m num-traits v0.2.19
+[1m[92m  Downloaded[0m proc-macro2 v1.0.107
+[1m[92m  Downloaded[0m zstd v0.14.4
+[1m[92m  Downloaded[0m rand_core v0.10.1
+[1m[92m  Downloaded[0m event-listener v5.4.2
+[1m[92m  Downloaded[0m httparse v1.10.1
+[1m[92m  Downloaded[0m stable_deref_trait v1.2.1
+[1m[92m  Downloaded[0m futures-channel v0.3.34
+[1m[92m  Downloaded[0m hmac v0.12.1
+[1m[92m  Downloaded[0m uuid v1.29.3
+[1m[92m  Downloaded[0m serde_core v1.0.229
+[1m[92m  Downloaded[0m actix v0.13.6
+[1m[92m  Downloaded[0m spki v0.7.3
+[1m[92m  Downloaded[0m litemap v0.8.3
+[1m[92m  Downloaded[0m miniz_oxide v0.9.1
+[1m[92m  Downloaded[0m stringprep v0.1.5
+[1m[92m  Downloaded[0m log v0.4.35
 [1m[92m  Downloaded[0m zerotrie v0.2.5
 [1m[92m  Downloaded[0m icu_normalizer_data v2.4.0
-[1m[92m  Downloaded[0m uuid v1.29.3
-[1m[92m  Downloaded[0m miniz_oxide v0.9.1
-[1m[92m  Downloaded[0m serde_core v1.0.229
-[1m[92m  Downloaded[0m socket2 v0.6.5
-[1m[92m  Downloaded[0m rand v0.8.8
-[1m[92m  Downloaded[0m unicode-segmentation v1.13.3
-[1m[92m  Downloaded[0m regex-lite v0.1.9
-[1m[92m  Downloaded[0m rand v0.10.4
-[1m[92m  Downloaded[0m url v2.5.8
-[1m[92m  Downloaded[0m memchr v2.8.3
-[1m[92m  Downloaded[0m indexmap v2.14.2
+[1m[92m  Downloaded[0m typenum v1.20.1
 [1m[92m  Downloaded[0m unicode-normalization v0.1.26
-[1m[92m  Downloaded[0m zerovec v0.11.9
-[1m[92m  Downloaded[0m idna v1.1.0
+[1m[92m  Downloaded[0m unicode-segmentation v1.13.3
+[1m[92m  Downloaded[0m const-oid v0.10.3
+[1m[92m  Downloaded[0m serde_derive v1.0.229
+[1m[92m  Downloaded[0m sha2 v0.10.9
+[1m[92m  Downloaded[0m shlex v2.0.1
+[1m[92m  Downloaded[0m allocator-api2 v0.2.21
+[1m[92m  Downloaded[0m crossbeam-channel v0.5.17
+[1m[92m  Downloaded[0m rand v0.8.8
+[1m[92m  Downloaded[0m getrandom v0.4.3
+[1m[92m  Downloaded[0m regex-lite v0.1.9
+[1m[92m  Downloaded[0m indexmap v2.14.2
+[1m[92m  Downloaded[0m rand v0.10.4
+[1m[92m  Downloaded[0m rustls-pki-types v1.16.0
+[1m[92m  Downloaded[0m ryu v1.0.23
+[1m[92m  Downloaded[0m sha1 v0.11.0
+[1m[92m  Downloaded[0m socket2 v0.6.5
+[1m[92m  Downloaded[0m sqlx-mysql v0.8.6
+[1m[92m  Downloaded[0m rsa v0.9.10
+[1m[92m  Downloaded[0m memchr v2.8.3
 [1m[92m  Downloaded[0m mio v1.2.5
+[1m[92m  Downloaded[0m rustls-webpki v0.103.17
+[1m[92m  Downloaded[0m smallvec v1.16.5
+[1m[92m  Downloaded[0m flate2 v1.1.11
+[1m[92m  Downloaded[0m futures-intrusive v0.5.0
 [1m[92m  Downloaded[0m num-bigint-dig v0.8.6
-[1m[92m  Downloaded[0m libm v0.2.16
+[1m[92m  Downloaded[0m sqlx-sqlite v0.8.6
+[1m[92m  Downloaded[0m tokio-util v0.7.20
+[1m[92m  Downloaded[0m der v0.7.10
 [1m[92m  Downloaded[0m icu_properties v2.4.0
+[1m[92m  Downloaded[0m zerovec v0.11.9
+[1m[92m  Downloaded[0m scopeguard v1.2.0
+[1m[92m  Downloaded[0m serde v1.0.229
+[1m[92m  Downloaded[0m time-core v0.1.9
+[1m[92m  Downloaded[0m http v0.2.12
+[1m[92m  Downloaded[0m idna v1.1.0
+[1m[92m  Downloaded[0m icu_collections v2.4.0
+[1m[92m  Downloaded[0m sqlx-core v0.8.6
 [1m[92m  Downloaded[0m regex v1.13.1
-[1m[92m  Downloaded[0m icu_properties_data v2.4.0
+[1m[92m  Downloaded[0m libm v0.2.16
+[1m[92m  Downloaded[0m sqlx-postgres v0.8.6
 [1m[92m  Downloaded[0m webpki-roots v1.0.12
-[1m[92m  Downloaded[0m zlib-rs v0.6.8
+[1m[92m  Downloaded[0m slab v0.4.12
+[1m[92m  Downloaded[0m spin v0.9.9
+[1m[92m  Downloaded[0m thiserror-impl v2.0.21
+[1m[92m  Downloaded[0m derive_more-impl v2.1.1
+[1m[92m  Downloaded[0m flume v0.11.1
+[1m[92m  Downloaded[0m icu_properties_data v2.4.0
+[1m[92m  Downloaded[0m thiserror v2.0.21
 [1m[92m  Downloaded[0m vcpkg v0.2.15
+[1m[92m  Downloaded[0m zlib-rs v0.6.8
+[1m[92m  Downloaded[0m cc v1.11.2
+[1m[92m  Downloaded[0m semver v1.0.28
+[1m[92m  Downloaded[0m hashbrown v0.15.5
+[1m[92m  Downloaded[0m sqlx v0.8.6
+[1m[92m  Downloaded[0m aho-corasick v1.1.5
+[1m[92m  Downloaded[0m futures-util v0.3.34
+[1m[92m  Downloaded[0m hashbrown v0.17.1
+[1m[92m  Downloaded[0m h2 v0.3.27
+[1m[92m  Downloaded[0m hkdf v0.12.4
+[1m[92m  Downloaded[0m time v0.3.55
+[1m[92m  Downloaded[0m serde_json v1.0.154
+[1m[92m  Downloaded[0m actix-http v3.22.0
+[1m[92m  Downloaded[0m chrono v0.4.45
 [1m[92m  Downloaded[0m zerocopy v0.8.63
+[1m[92m  Downloaded[0m brotli-decompressor v6.3.2
+[1m[92m  Downloaded[0m actix-web v4.20.0
+[1m[92m  Downloaded[0m regex-syntax v0.8.11
+[1m[92m  Downloaded[0m syn v3.0.10
 [1m[92m  Downloaded[0m tracing v0.1.44
+[1m[92m  Downloaded[0m rustls v0.23.46
+[1m[92m  Downloaded[0m syn v2.0.119
 [1m[92m  Downloaded[0m icu_normalizer v2.4.0
 [1m[92m  Downloaded[0m regex-automata v0.4.18
+[1m[92m  Downloaded[0m encoding_rs v0.8.44
+[1m[92m  Downloaded[0m brotli v9.1.3
 [1m[92m  Downloaded[0m zstd-sys v2.1.3+zstd.1.5.7
 [1m[92m  Downloaded[0m libc v0.2.191
+[1m[92m  Downloaded[0m ring v0.17.14
 [1m[92m  Downloaded[0m tokio v1.54.1
 [1m[92m  Downloaded[0m libsqlite3-sys v0.30.1
 [1m[92m   Compiling[0m proc-macro2 v1.0.107
-[1m[92m   Compiling[0m quote v1.0.47
 [1m[92m   Compiling[0m unicode-ident v1.0.27
+[1m[92m   Compiling[0m quote v1.0.47
 [1m[92m   Compiling[0m libc v0.2.191
 [1m[92m    Checking[0m cfg-if v1.0.5
 [1m[92m   Compiling[0m shlex v2.0.1
@@ -257,32 +257,32 @@
 [1m[92m   Compiling[0m serde_core v1.0.229
 [1m[92m   Compiling[0m version_check v0.9.5
 [1m[92m    Checking[0m smallvec v1.16.5
+[1m[92m    Checking[0m pin-project-lite v0.2.17
+[1m[92m   Compiling[0m icu_properties_data v2.4.0
 [1m[92m   Compiling[0m syn v3.0.10
 [1m[92m   Compiling[0m syn v2.0.119
 [1m[92m   Compiling[0m jobserver v0.1.35
-[1m[92m    Checking[0m pin-project-lite v0.2.17
-[1m[92m   Compiling[0m serde v1.0.229
-[1m[92m   Compiling[0m cc v1.11.2
-[1m[92m    Checking[0m scopeguard v1.2.0
-[1m[92m   Compiling[0m icu_properties_data v2.4.0
 [1m[92m    Checking[0m futures-core v0.3.34
+[1m[92m    Checking[0m scopeguard v1.2.0
 [1m[92m   Compiling[0m icu_normalizer_data v2.4.0
+[1m[92m   Compiling[0m cc v1.11.2
+[1m[92m   Compiling[0m serde v1.0.229
 [1m[92m    Checking[0m lock_api v0.4.14
 [1m[92m    Checking[0m stable_deref_trait v1.2.1
 [1m[92m   Compiling[0m pkg-config v0.3.34
 [1m[92m   Compiling[0m generic-array v0.14.7
-[1m[92m    Checking[0m memchr v2.8.3
-[1m[92m    Checking[0m log v0.4.35
 [1m[92m    Checking[0m bytes v1.12.1
-[1m[92m    Checking[0m typenum v1.20.1
+[1m[92m    Checking[0m log v0.4.35
+[1m[92m    Checking[0m memchr v2.8.3
 [1m[92m    Checking[0m futures-sink v0.3.34
+[1m[92m    Checking[0m typenum v1.20.1
 [1m[92m    Checking[0m parking_lot v0.12.5
 [1m[92m    Checking[0m errno v0.3.15
 [1m[92m    Checking[0m signal-hook-registry v1.4.8
 [1m[92m   Compiling[0m ring v0.17.14
-[1m[92m   Compiling[0m synstructure v0.14.0
 [1m[92m    Checking[0m mio v1.2.5
 [1m[92m    Checking[0m socket2 v0.6.5
+[1m[92m   Compiling[0m synstructure v0.14.0
 [1m[92m    Checking[0m once_cell v1.21.4
 [1m[92m   Compiling[0m crossbeam-utils v0.8.23
 [1m[92m   Compiling[0m autocfg v1.5.1
@@ -302,23 +302,23 @@
 [1m[92m    Checking[0m litemap v0.8.3
 [1m[92m    Checking[0m writeable v0.6.4
 [1m[92m    Checking[0m utf_types v1.0.0
-[1m[92m    Checking[0m icu_locale_core v2.4.0
 [1m[92m    Checking[0m utf8_iter v1.1.0
+[1m[92m    Checking[0m icu_locale_core v2.4.0
 [1m[92m    Checking[0m potential_utf v0.1.6
 [1m[92m    Checking[0m zerotrie v0.2.5
 [1m[92m   Compiling[0m futures-macro v0.3.34
 [1m[92m    Checking[0m tracing-core v0.1.36
 [1m[92m    Checking[0m futures-task v0.3.34
-[1m[92m    Checking[0m futures-io v0.3.34
 [1m[92m    Checking[0m slab v0.4.12
+[1m[92m    Checking[0m futures-io v0.3.34
 [1m[92m    Checking[0m futures-util v0.3.34
 [1m[92m    Checking[0m tracing v0.1.44
 [1m[92m    Checking[0m icu_provider v2.4.0
 [1m[92m    Checking[0m icu_collections v2.4.0
-[1m[92m    Checking[0m percent-encoding v2.3.2
 [1m[92m   Compiling[0m zmij v1.0.23
 [1m[92m    Checking[0m equivalent v1.0.3
 [1m[92m    Checking[0m itoa v1.0.19
+[1m[92m    Checking[0m percent-encoding v2.3.2
 [1m[92m   Compiling[0m thiserror v2.0.21
 [1m[92m   Compiling[0m zeroize v1.9.2
 [1m[92m   Compiling[0m rustls v0.23.46
@@ -328,23 +328,22 @@
 [1m[92m   Compiling[0m thiserror-impl v2.0.21
 [1m[92m   Compiling[0m zstd-sys v2.1.3+zstd.1.5.7
 [1m[92m    Checking[0m getrandom v0.2.17
-[1m[92m   Compiling[0m serde_json v1.0.154
 [1m[92m   Compiling[0m vcpkg v0.2.15
 [1m[92m    Checking[0m hashbrown v0.17.1
 [1m[92m   Compiling[0m rustversion v1.0.23
-[1m[92m    Checking[0m idna_adapter v1.2.2
+[1m[92m   Compiling[0m serde_json v1.0.154
 [1m[92m    Checking[0m indexmap v2.14.2
 [1m[92m   Compiling[0m libsqlite3-sys v0.30.1
+[1m[92m    Checking[0m idna_adapter v1.2.2
 [1m[92m    Checking[0m form_urlencoded v1.2.2
 [1m[92m    Checking[0m hybrid-array v0.4.15
 [1m[92m    Checking[0m rand_core v0.10.1
 [1m[92m   Compiling[0m getrandom v0.4.3
 [1m[92m   Compiling[0m untrusted v0.9.0
 [1m[92m    Checking[0m idna v1.1.0
-[1m[92m   Compiling[0m crypto-common v0.1.7
 [1m[92m   Compiling[0m block-buffer v0.10.4
+[1m[92m   Compiling[0m crypto-common v0.1.7
 [1m[92m    Checking[0m tokio-util v0.7.20
-[1m[92m   Compiling[0m crc32fast v1.5.5
 [1m[92m   Compiling[0m allocator-api2 v0.2.21
 [1m[92m    Checking[0m cpufeatures v0.3.1
 [1m[92m   Compiling[0m zstd-safe v8.3.0
@@ -352,48 +351,49 @@
 [1m[92m    Checking[0m alloc-no-stdlib v3.0.0
 [1m[92m   Compiling[0m unicode-segmentation v1.13.3
 [1m[92m    Checking[0m fnv v1.0.7
+[1m[92m   Compiling[0m crc32fast v1.5.5
 [1m[92m    Checking[0m http v0.2.12
 [1m[92m   Compiling[0m convert_case v0.10.0
 [1m[92m    Checking[0m alloc-stdlib v0.3.0
 [1m[92m   Compiling[0m hashbrown v0.15.5
-[1m[92m   Compiling[0m rustls-webpki v0.103.17
 [1m[92m   Compiling[0m digest v0.10.7
-[1m[92m    Checking[0m url v2.5.8
 [1m[92m   Compiling[0m encoding_rs v0.8.44
+[1m[92m    Checking[0m url v2.5.8
 [1m[92m    Checking[0m crypto-common v0.2.2
 [1m[92m    Checking[0m block-buffer v0.12.1
 [1m[92m   Compiling[0m webpki-roots v1.0.12
 [1m[92m    Checking[0m aho-corasick v1.1.5
-[1m[92m   Compiling[0m parking v2.2.1
-[1m[92m   Compiling[0m time-core v0.1.9
 [1m[92m   Compiling[0m subtle v2.6.1
-[1m[92m    Checking[0m bitflags v2.13.2
 [1m[92m   Compiling[0m unicode-xid v0.2.6
 [1m[92m    Checking[0m adler2 v2.0.1
-[1m[92m    Checking[0m local-waker v0.1.5
 [1m[92m    Checking[0m simd-adler32 v0.3.10
 [1m[92m   Compiling[0m httparse v1.10.1
 [1m[92m   Compiling[0m num-conv v0.2.2
+[1m[92m    Checking[0m local-waker v0.1.5
 [1m[92m   Compiling[0m cpufeatures v0.2.17
+[1m[92m    Checking[0m bitflags v2.13.2
 [1m[92m    Checking[0m const-oid v0.10.3
 [1m[92m    Checking[0m regex-syntax v0.8.11
 [1m[92m   Compiling[0m iana-time-zone v0.1.65
 [1m[92m    Checking[0m ryu v1.0.23
 [1m[92m   Compiling[0m crc-catalog v2.5.0
+[1m[92m   Compiling[0m parking v2.2.1
+[1m[92m   Compiling[0m time-core v0.1.9
+[1m[92m   Compiling[0m time-macros v0.2.32
+[1m[92m    Checking[0m regex-automata v0.4.18
+[1m[92m   Compiling[0m event-listener v5.4.2
+[1m[92m   Compiling[0m rustls-webpki v0.103.17
 [1m[92m   Compiling[0m crc v3.4.0
 [1m[92m    Checking[0m serde_urlencoded v0.7.1
 [1m[92m   Compiling[0m chrono v0.4.45
 [1m[92m    Checking[0m digest v0.11.3
-[1m[92m   Compiling[0m time-macros v0.2.32
 [1m[92m   Compiling[0m sha2 v0.10.9
 [1m[92m    Checking[0m miniz_oxide v0.9.1
-[1m[92m    Checking[0m regex-automata v0.4.18
 [1m[92m   Compiling[0m derive_more-impl v2.1.1
 [1m[92m   Compiling[0m crossbeam-queue v0.3.14
-[1m[92m   Compiling[0m event-listener v5.4.2
 [1m[92m   Compiling[0m webpki-roots v0.26.11
-[1m[92m   Compiling[0m tokio-stream v0.1.19
 [1m[92m   Compiling[0m futures-intrusive v0.5.0
+[1m[92m   Compiling[0m tokio-stream v0.1.19
 [1m[92m   Compiling[0m hashlink v0.10.0
 [1m[92m    Checking[0m brotli-decompressor v6.3.2
 [1m[92m    Checking[0m chacha20 v0.10.2
@@ -403,8 +403,6 @@
 [1m[92m   Compiling[0m bytestring v1.6.0
 [1m[92m    Checking[0m actix-service v2.0.3
 [1m[92m   Compiling[0m cookie v0.16.2
-[1m[92m    Checking[0m core_detect v1.0.0
-[1m[92m    Checking[0m mime v0.3.18
 [1m[92m    Checking[0m simdutf8 v0.1.5
 [1m[92m   Compiling[0m multiversion_no_op v1.0.0
 [1m[92m    Checking[0m powerfmt v0.2.1
@@ -412,64 +410,58 @@
 [1m[92m   Compiling[0m base64 v0.22.1
 [1m[92m    Checking[0m deranged v0.5.9
 [1m[92m   Compiling[0m regex-lite v0.1.9
-[1m[92m   Compiling[0m sqlx-core v0.8.6
+[1m[92m    Checking[0m core_detect v1.0.0
+[1m[92m    Checking[0m mime v0.3.18
 [1m[92m   Compiling[0m actix-router v0.5.5
 [1m[92m    Checking[0m time v0.3.55
+[1m[92m   Compiling[0m sqlx-core v0.8.6
+[1m[92m    Checking[0m derive_more v2.1.1
 [1m[92m    Checking[0m brotli v9.1.3
 [1m[92m   Compiling[0m flume v0.11.1
 [1m[92m    Checking[0m rand v0.10.4
-[1m[92m    Checking[0m derive_more v2.1.1
 [1m[92m    Checking[0m flate2 v1.1.11
 [1m[92m    Checking[0m regex v1.13.1
-[1m[92m    Checking[0m zstd v0.14.4
 [1m[92m    Checking[0m sha1 v0.11.0
-[1m[92m    Checking[0m local-channel v0.1.7
-[1m[92m    Checking[0m actix-utils v3.0.2
+[1m[92m    Checking[0m zstd v0.14.4
 [1m[92m    Checking[0m actix-codec v0.5.4
-[1m[92m   Compiling[0m futures-executor v0.3.34
+[1m[92m    Checking[0m actix-utils v3.0.2
+[1m[92m    Checking[0m local-channel v0.1.7
 [1m[92m    Checking[0m h2 v0.3.27
+[1m[92m   Compiling[0m futures-executor v0.3.34
 [1m[92m   Compiling[0m atoi v2.0.0
 [1m[92m   Compiling[0m futures-channel v0.3.34
 [1m[92m   Compiling[0m actix-macros v0.2.5
-[1m[92m   Compiling[0m unicase v2.10.0
 [1m[92m    Checking[0m base64 v0.23.1
 [1m[92m    Checking[0m language-tags v0.3.2
 [1m[92m    Checking[0m httpdate v1.0.3
 [1m[92m    Checking[0m foldhash v0.2.0
+[1m[92m   Compiling[0m unicase v2.10.0
 [1m[92m   Compiling[0m mime_guess v2.0.5
-[1m[92m    Checking[0m actix-http v3.22.0
 [1m[92m   Compiling[0m sqlx-sqlite v0.8.6
+[1m[92m    Checking[0m actix-http v3.22.0
 [1m[92m   Compiling[0m actix-web-codegen v4.6.0
 [1m[92m    Checking[0m actix-server v2.10.0
-[1m[92m    Checking[0m impl-more v0.3.10
 [1m[92m   Compiling[0m hex v0.4.3
-[1m[92m   Compiling[0m dotenvy v0.15.7
 [1m[92m   Compiling[0m v_htmlescape v0.15.8
+[1m[92m   Compiling[0m dotenvy v0.15.7
+[1m[92m    Checking[0m impl-more v0.3.10
 [1m[92m   Compiling[0m heck v0.5.0
-[1m[92m   Compiling[0m sqlx-macros-core v0.8.6
 [1m[92m    Checking[0m actix-web v4.20.0
+[1m[92m   Compiling[0m sqlx-macros-core v0.8.6
 [1m[92m    Checking[0m ppv-lite86 v0.2.21
 [1m[92m    Checking[0m crossbeam-channel v0.5.17
 [1m[92m    Checking[0m rand_core v0.6.4
 [1m[92m   Compiling[0m actix_derive v0.6.2
-[1m[92m    Checking[0m actix v0.13.6
 [1m[92m    Checking[0m rand_chacha v0.3.1
+[1m[92m    Checking[0m actix v0.13.6
 [1m[92m   Compiling[0m sqlx-macros v0.8.6
 [1m[92m    Checking[0m http-range v0.1.6
 [1m[92m    Checking[0m actix-files v0.6.10
-[1m[92m    Checking[0m actix-web-actors v4.3.1+deprecated
 [1m[92m    Checking[0m rand v0.8.8
+[1m[92m    Checking[0m actix-web-actors v4.3.1+deprecated
 [1m[92m    Checking[0m uuid v1.29.3
 [1m[92m    Checking[0m sqlx v0.8.6
 [1m[92m    Checking[0m room v0.1.0 (/home/runner/work/room/room)
-[1m[91merror[0m[1m: positional arguments cannot follow named arguments[0m
-   [1m[94m--> [0msrc/templates/calls.rs:123:9
-    [1m[94m|[0m
-[1m[94m122[0m [1m[94m|[0m         opts = opts,
-    [1m[94m|[0m         [1m[94m-----------[0m [1m[94mnamed argument[0m
-[1m[94m123[0m [1m[94m|[0m         icon("mic", "h-4 w-4"),
-    [1m[94m|[0m         [1m[91m^^^^^^^^^^^^^^^^^^^^^^[0m [1m[91mpositional arguments must be before named arguments[0m
-
 [1m[91merror[0m[1m: named argument never used[0m
    [1m[94m--> [0msrc/templates/calls.rs:165:19
     [1m[94m|[0m
@@ -485,66 +477,6 @@
 [1m[94m165[0m [1m[94m|[0m           call_id = call.id,
     [1m[94m|[0m                     [1m[91m^^^^^^^[0m [1m[91mnamed argument never used[0m
 
-[1m[91merror[E0659][0m[1m: `Message` is ambiguous[0m
-  [1m[94m--> [0msrc/api.rs:91:13
-   [1m[94m|[0m
-[1m[94m91[0m [1m[94m|[0m     msgs: &[Message],
-   [1m[94m|[0m             [1m[91m^^^^^^^[0m [1m[91mambiguous name[0m
-   [1m[94m|[0m
-   [1m[94m= [0m[1mnote[0m: ambiguous because of multiple glob imports of a name in the same module
-[1m[92mnote[0m: `Message` could refer to the trait imported here
-  [1m[94m--> [0msrc/api.rs:1:5
-   [1m[94m|[0m
-[1m[94m 1[0m [1m[94m|[0m use actix::prelude::*;
-   [1m[94m|[0m     [1m[92m^^^^^^^^^^^^^^^^^[0m
-   [1m[94m= [0m[1mhelp[0m: consider adding an explicit import of `Message` to disambiguate
-[1m[92mnote[0m: `Message` could also refer to the struct imported here
-  [1m[94m--> [0msrc/api.rs:13:5
-   [1m[94m|[0m
-[1m[94m13[0m [1m[94m|[0m use crate::models::*;
-   [1m[94m|[0m     [1m[92m^^^^^^^^^^^^^^^^[0m
-   [1m[94m= [0m[1mhelp[0m: consider adding an explicit import of `Message` to disambiguate
-
-[1m[91merror[E0659][0m[1m: `Message` is ambiguous[0m
-   [1m[94m--> [0msrc/api.rs:493:19
-    [1m[94m|[0m
-[1m[94m493[0m [1m[94m|[0m     let msgs: Vec<Message> = sqlx::query_as::<_, Message>(
-    [1m[94m|[0m                   [1m[91m^^^^^^^[0m [1m[91mambiguous name[0m
-    [1m[94m|[0m
-    [1m[94m= [0m[1mnote[0m: ambiguous because of multiple glob imports of a name in the same module
-[1m[92mnote[0m: `Message` could refer to the trait imported here
-   [1m[94m--> [0msrc/api.rs:1:5
-    [1m[94m|[0m
-[1m[94m  1[0m [1m[94m|[0m use actix::prelude::*;
-    [1m[94m|[0m     [1m[92m^^^^^^^^^^^^^^^^^[0m
-    [1m[94m= [0m[1mhelp[0m: consider adding an explicit import of `Message` to disambiguate
-[1m[92mnote[0m: `Message` could also refer to the struct imported here
-   [1m[94m--> [0msrc/api.rs:13:5
-    [1m[94m|[0m
-[1m[94m 13[0m [1m[94m|[0m use crate::models::*;
-    [1m[94m|[0m     [1m[92m^^^^^^^^^^^^^^^^[0m
-    [1m[94m= [0m[1mhelp[0m: consider adding an explicit import of `Message` to disambiguate
-
-[1m[91merror[E0659][0m[1m: `Message` is ambiguous[0m
-   [1m[94m--> [0msrc/api.rs:493:50
-    [1m[94m|[0m
-[1m[94m493[0m [1m[94m|[0m     let msgs: Vec<Message> = sqlx::query_as::<_, Message>(
-    [1m[94m|[0m                                                  [1m[91m^^^^^^^[0m [1m[91mambiguous name[0m
-    [1m[94m|[0m
-    [1m[94m= [0m[1mnote[0m: ambiguous because of multiple glob imports of a name in the same module
-[1m[92mnote[0m: `Message` could refer to the trait imported here
-   [1m[94m--> [0msrc/api.rs:1:5
-    [1m[94m|[0m
-[1m[94m  1[0m [1m[94m|[0m use actix::prelude::*;
-    [1m[94m|[0m     [1m[92m^^^^^^^^^^^^^^^^^[0m
-    [1m[94m= [0m[1mhelp[0m: consider adding an explicit import of `Message` to disambiguate
-[1m[92mnote[0m: `Message` could also refer to the struct imported here
-   [1m[94m--> [0msrc/api.rs:13:5
-    [1m[94m|[0m
-[1m[94m 13[0m [1m[94m|[0m use crate::models::*;
-    [1m[94m|[0m     [1m[92m^^^^^^^^^^^^^^^^[0m
-    [1m[94m= [0m[1mhelp[0m: consider adding an explicit import of `Message` to disambiguate
-
 [1m[33mwarning[0m[1m: unused import: `UserDto`[0m
  [1m[94m--> [0msrc/templates/admin.rs:1:71
   [1m[94m|[0m
@@ -552,111 +484,6 @@
   [1m[94m|[0m                                                                       [1m[33m^^^^^^^[0m
   [1m[94m|[0m
   [1m[94m= [0m[1mnote[0m: `#[warn(unused_imports)]` (part of `#[warn(unused)]`) on by default
-
-[1m[33mwarning[0m[1m: unused import: `actix_web::http::header::ContentType`[0m
-  [1m[94m--> [0msrc/main.rs:14:5
-   [1m[94m|[0m
-[1m[94m14[0m [1m[94m|[0m use actix_web::http::header::ContentType;
-   [1m[94m|[0m     [1m[33m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
-
-[1m[91merror[E0782][0m[1m: expected a type, found a trait[0m
-  [1m[94m--> [0msrc/api.rs:91:13
-   [1m[94m|[0m
-[1m[94m91[0m [1m[94m|[0m     msgs: &[Message],
-   [1m[94m|[0m             [1m[91m^^^^^^^[0m
-   [1m[94m|[0m
-[1m[96mhelp[0m: you can add the `dyn` keyword if you want a trait object
-   [1m[94m|[0m
-[1m[94m91[0m [1m[94m| [0m    msgs: &[[92mdyn [0mMessage],
-   [1m[94m|[0m             [92m+++[0m
-
-[1m[91merror[E0782][0m[1m: expected a type, found a trait[0m
-   [1m[94m--> [0msrc/api.rs:493:19
-    [1m[94m|[0m
-[1m[94m493[0m [1m[94m|[0m     let msgs: Vec<Message> = sqlx::query_as::<_, Message>(
-    [1m[94m|[0m                   [1m[91m^^^^^^^[0m
-    [1m[94m|[0m
-[1m[96mhelp[0m: you can add the `dyn` keyword if you want a trait object
-    [1m[94m|[0m
-[1m[94m493[0m [1m[94m| [0m    let msgs: Vec<[92mdyn [0mMessage> = sqlx::query_as::<_, Message>(
-    [1m[94m|[0m                   [92m+++[0m
-
-[1m[91merror[E0782][0m[1m: expected a type, found a trait[0m
-   [1m[94m--> [0msrc/api.rs:493:50
-    [1m[94m|[0m
-[1m[94m493[0m [1m[94m|[0m     let msgs: Vec<Message> = sqlx::query_as::<_, Message>(
-    [1m[94m|[0m                                                  [1m[91m^^^^^^^[0m
-    [1m[94m|[0m
-[1m[96mhelp[0m: you can add the `dyn` keyword if you want a trait object
-    [1m[94m|[0m
-[1m[94m493[0m [1m[94m| [0m    let msgs: Vec<Message> = sqlx::query_as::<_, [92mdyn [0mMessage>(
-    [1m[94m|[0m                                                  [92m+++[0m
-
-[1m[91merror[E0277][0m[1m: a value of type `str` cannot be built from an iterator over elements of type `char`[0m
-   [1m[94m--> [0msrc/api.rs:927:59
-    [1m[94m|[0m
-[1m[94m927[0m [1m[94m|[0m     let bio = f.bio.unwrap_or_default().chars().take(240).collect();
-    [1m[94m|[0m                                                           [1m[91m^^^^^^^[0m [1m[91mvalue of type `str` cannot be built from `std::iter::Iterator<Item=char>`[0m
-    [1m[94m|[0m
-    [1m[94m= [0m[1mhelp[0m: the trait `FromIterator<char>` is not implemented for `str`
-[1m[96mhelp[0m: the trait `FromIterator<char>` [1m[35mis[0m implemented for `[1m[35mstd::string::String[0m`
-   [1m[94m--> [0m/rustc/0ef1bc386059596dada8fb65b50425aab2ea637a/library/alloc/src/string.rs:2444:0
-[1m[92mnote[0m: required by a bound in `std::iter::Iterator::collect`
-   [1m[94m--> [0m/rustc/0ef1bc386059596dada8fb65b50425aab2ea637a/library/core/src/iter/traits/iterator.rs:2087:4
-
-[1m[91merror[E0277][0m[1m: the size for values of type `str` cannot be known at compilation time[0m
-   [1m[94m--> [0msrc/api.rs:927:9
-    [1m[94m|[0m
-[1m[94m927[0m [1m[94m|[0m     let bio = f.bio.unwrap_or_default().chars().take(240).collect();
-    [1m[94m|[0m         [1m[91m^^^[0m [1m[91mdoesn't have a size known at compile-time[0m
-    [1m[94m|[0m
-    [1m[94m= [0m[1mhelp[0m: the trait `std::marker::Sized` is not implemented for `str`
-    [1m[94m= [0m[1mnote[0m: all local variables must have a statically known size
-
-[1m[91merror[E0277][0m[1m: the size for values of type `str` cannot be known at compilation time[0m
-   [1m[94m--> [0msrc/api.rs:927:59
-    [1m[94m|[0m
-[1m[94m927[0m [1m[94m|[0m     let bio = f.bio.unwrap_or_default().chars().take(240).collect();
-    [1m[94m|[0m                                                           [1m[91m^^^^^^^[0m [1m[91mdoesn't have a size known at compile-time[0m
-    [1m[94m|[0m
-    [1m[94m= [0m[1mhelp[0m: the trait `std::marker::Sized` is not implemented for `str`
-[1m[92mnote[0m: required by an implicit `Sized` bound in `std::iter::Iterator::collect`
-   [1m[94m--> [0m/rustc/0ef1bc386059596dada8fb65b50425aab2ea637a/library/core/src/iter/traits/iterator.rs:2087:4
-
-[1m[91merror[E0382][0m[1m: use of moved value: `d`[0m
-   [1m[94m--> [0msrc/auth.rs:130:23
-    [1m[94m|[0m
-[1m[94m114[0m [1m[94m|[0m     let (device, user, token, approved) = if let Some(d) = existing {
-    [1m[94m|[0m                                                       [1m[94m-[0m [1m[94mmove occurs because `d` has type `models::Device`, which does not implement the `Copy` trait[0m
-[1m[94m...[0m
-[1m[94m130[0m [1m[94m|[0m         (d, u, token, d.approved == 1)
-    [1m[94m|[0m          [1m[94m-[0m            [1m[91m^^^^^^^^^^[0m [1m[91mvalue used here after move[0m
-    [1m[94m|[0m          [1m[94m|[0m
-    [1m[94m|[0m          [1m[94mvalue moved here[0m
-    [1m[94m|[0m
-[1m[96mhelp[0m: consider cloning the value if the performance cost is acceptable
-    [1m[94m|[0m
-[1m[94m130[0m [1m[94m| [0m        (d[92m.clone()[0m, u, token, d.approved == 1)
-    [1m[94m|[0m           [92m++++++++[0m
-
-[1m[91merror[E0308][0m[1m: mismatched types[0m
-   [1m[94m--> [0msrc/pages.rs:72:56
-    [1m[94m|[0m
-[1m[94m 72[0m [1m[94m|[0m     let main = chat::main_column(&boot, conv.as_ref(), &dto, &boot.users);
-    [1m[94m|[0m                [1m[94m-----------------[0m                       [1m[91m^^^^[0m [1m[91mexpected `&[MsgDto]`, found `&Result<Vec<MsgDto>, Error>`[0m
-    [1m[94m|[0m                [1m[94m|[0m
-    [1m[94m|[0m                [1m[94marguments to this function are incorrect[0m
-    [1m[94m|[0m
-    [1m[94m= [0m[1mnote[0m: expected reference `&[1m[35m[models::MsgDto][0m`
-               found reference `&[1m[35mResult<Vec<models::MsgDto>, sqlx::Error>[0m`
-[1m[92mnote[0m: function defined here
-   [1m[94m--> [0msrc/templates/chat.rs:257:8
-    [1m[94m|[0m
-[1m[94m257[0m [1m[94m|[0m pub fn main_column(
-    [1m[94m|[0m        [1m[92m^^^^^^^^^^^[0m
-[1m[94m...[0m
-[1m[94m260[0m [1m[94m|[0m     msgs: &[MsgDto],
-    [1m[94m|[0m     [1m[94m---------------[0m
 
 [1m[91merror[E0308][0m[1m: mismatched types[0m
     [1m[94m--> [0msrc/store.rs:1176:14
@@ -679,83 +506,15 @@
      [1m[94m|[0m                            [92m++++++++++++[0m
 
 [1m[91merror[E0308][0m[1m: mismatched types[0m
-   [1m[94m--> [0msrc/api.rs:556:38
+   [1m[94m--> [0msrc/templates/files.rs:195:17
     [1m[94m|[0m
-[1m[94m556[0m [1m[94m|[0m             .and_then(|id| by_id.get(id))
-    [1m[94m|[0m                                  [1m[94m---[0m [1m[91m^^[0m [1m[91mexpected `&i64`, found `i64`[0m
-    [1m[94m|[0m                                  [1m[94m|[0m
-    [1m[94m|[0m                                  [1m[94marguments to this method are incorrect[0m
-    [1m[94m|[0m
-[1m[92mnote[0m: method defined here
-   [1m[94m--> [0m/rustc/0ef1bc386059596dada8fb65b50425aab2ea637a/library/std/src/collections/hash/map.rs:1034:11
-[1m[96mhelp[0m: consider using `as_ref` instead
-    [1m[94m|[0m
-[1m[94m556[0m [1m[94m| [0m            .[92mas_ref().[0mand_then(|id| by_id.get(id))
-    [1m[94m|[0m              [92m+++++++++[0m
-
-[1m[91merror[E0593][0m[1m: closure is expected to take 1 argument, but it takes 0 arguments[0m
-  [1m[94m--> [0msrc/config.rs:22:14
-   [1m[94m|[0m
-[1m[94m22[0m [1m[94m|[0m             .unwrap_or_else(|| data_dir.join("files"));
-   [1m[94m|[0m              [1m[91m^^^^^^^^^^^^^^[0m [1m[94m--[0m [1m[94mtakes 0 arguments[0m
-   [1m[94m|[0m              [1m[91m|[0m
-   [1m[94m|[0m              [1m[91mexpected closure that takes 1 argument[0m
-   [1m[94m|[0m
-[1m[96mhelp[0m: consider changing the closure to take and ignore the expected argument
-   [1m[94m|[0m
-[1m[94m22[0m [1m[94m| [0m            .unwrap_or_else(|[92m_[0m| data_dir.join("files"));
-   [1m[94m|[0m                              [92m+[0m
-
-[1m[91merror[E0308][0m[1m: `if` and `else` have incompatible types[0m
-   [1m[94m--> [0msrc/templates/calls.rs:205:9
-    [1m[94m|[0m
-[1m[94m202[0m [1m[94m|[0m       let ring = if t.speaking {
-    [1m[94m|[0m [1m[94m ________________-[0m
-[1m[94m203[0m [1m[94m|[0m [1m[94m|[0m         "box-shadow:0 0 0 2px #10b981"
-    [1m[94m|[0m [1m[94m|[0m         [1m[94m------------------------------[0m [1m[94mexpected because of this[0m
-[1m[94m204[0m [1m[94m|[0m [1m[94m|[0m     } else {
-[1m[94m205[0m [1m[94m|[0m [1m[94m|[0m         String::new()
-    [1m[94m|[0m [1m[94m|[0m         [1m[91m^^^^^^^^^^^^^[0m [1m[91mexpected `&str`, found `String`[0m
-[1m[94m206[0m [1m[94m|[0m [1m[94m|[0m     };
-    [1m[94m|[0m [1m[94m|_____-[0m [1m[94m`if` and `else` have incompatible types[0m
+[1m[94m195[0m [1m[94m|[0m                 String::new()
+    [1m[94m|[0m                 [1m[91m^^^^^^^^^^^^^[0m [1m[91mexpected `&str`, found `String`[0m
     [1m[94m|[0m
 [1m[96mhelp[0m: consider borrowing here
     [1m[94m|[0m
-[1m[94m205[0m [1m[94m| [0m        [92m&[0mString::new()
-    [1m[94m|[0m         [92m+[0m
-
-[1m[91merror[E0061][0m[1m: this function takes 4 arguments but 5 arguments were supplied[0m
-   [1m[94m--> [0msrc/templates/chat.rs:273:17
-    [1m[94m|[0m
-[1m[94m273[0m [1m[94m|[0m                 topbar(
-    [1m[94m|[0m                 [1m[91m^^^^^^[0m
-[1m[94m...[0m
-[1m[94m278[0m [1m[94m|[0m                     icon("edit", "h-4 w-4")
-    [1m[94m|[0m                     [1m[94m-----------------------[0m [1m[94munexpected argument #5 of type `std::string::String`[0m
-    [1m[94m|[0m
-[1m[92mnote[0m: function defined here
-   [1m[94m--> [0msrc/templates/mod.rs:397:8
-    [1m[94m|[0m
-[1m[94m397[0m [1m[94m|[0m pub fn topbar(back: &str, title: &str, subtitle: &str, actions: &str) -> String {
-    [1m[94m|[0m        [1m[92m^^^^^^[0m
-[1m[96mhelp[0m: remove the extra argument
-    [1m[94m|[0m
-[1m[94m277[0m [91m- [0m                    "<button class=\"btn btn-ghost btn-icon\" data-new-chat type=\"button\" title=\"New conversation\">{}</button>"[91m,[0m
-[1m[94m278[0m [91m-                     icon("edit", "h-4 w-4")[0m
-[1m[94m277[0m [92m+ [0m                    "<button class=\"btn btn-ghost btn-icon\" data-new-chat type=\"button\" title=\"New conversation\">{}</button>"
-    [1m[94m|[0m
-
-[1m[91merror[E0308][0m[1m: mismatched types[0m
-   [1m[94m--> [0msrc/templates/files.rs:195:17
-    [1m[94m|[0m
-[1m[94m195[0m [1m[94m|[0m                 "Nothing has been deleted recently.".to_string()
-    [1m[94m|[0m                 [1m[91m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m [1m[91mexpected `&str`, found `String`[0m
-    [1m[94m|[0m
-[1m[96mhelp[0m: try removing the method call
-    [1m[94m|[0m
-[1m[94m195[0m [91m- [0m                "Nothing has been deleted recently."[91m.to_string()[0m
-[1m[94m195[0m [92m+ [0m                "Nothing has been deleted recently."
-    [1m[94m|[0m
+[1m[94m195[0m [1m[94m| [0m                [92m&[0mString::new()
+    [1m[94m|[0m                 [92m+[0m
 
 [1m[91merror[E0308][0m[1m: mismatched types[0m
    [1m[94m--> [0msrc/templates/files.rs:197:17
@@ -792,34 +551,6 @@
 [1m[94m207[0m [1m[94m|[0m [1m[91m|[0m [1m[94m...[0m   )
     [1m[94m|[0m [1m[91m|_______^[0m [1m[91mexpected `&str`, found `String`[0m
 
-[1m[91merror[E0599][0m[1m: no method named `start` found for struct `Hub` in the current scope[0m
-   [1m[94m--> [0m/home/runner/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/actix-0.13.6/src/actor.rs:122:8
-    [1m[94m|[0m
-[1m[94m122[0m [1m[94m|[0m     fn start(self) -> Addr<Self>
-    [1m[94m|[0m        [1m[94m-----[0m [1m[94mthe method is available for `Hub` here[0m
-    [1m[94m|[0m
-   [1m[94m::: [0msrc/realtime.rs:44:1
-    [1m[94m|[0m
-[1m[94m 44[0m [1m[94m|[0m pub struct Hub {
-    [1m[94m|[0m [1m[94m--------------[0m [1m[94mmethod `start` not found for this struct[0m
-    [1m[94m|[0m
-   [1m[94m::: [0msrc/main.rs:51:36
-    [1m[94m|[0m
-[1m[94m 51[0m [1m[94m|[0m     let hub = realtime::Hub::new().start();
-    [1m[94m|[0m                                    [1m[91m^^^^^[0m
-    [1m[94m|[0m
-    [1m[94m= [0m[1mhelp[0m: items from traits can only be used if the trait is in scope
-[1m[96mhelp[0m: there is a method `started` with a similar name, but with different arguments
-   [1m[94m--> [0m/home/runner/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/actix-0.13.6/src/actor.rs:80:5
-    [1m[94m|[0m
-[1m[94m 80[0m [1m[94m|[0m     fn started(&mut self, ctx: &mut Self::Context) {}
-    [1m[94m|[0m     [1m[96m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
-[1m[96mhelp[0m: trait `Actor` which provides `start` is implemented but not in scope; perhaps you want to import it
-   [1m[94m--> [0msrc/main.rs:1:1
-    [1m[94m|[0m
-[1m[94m  1[0m [92m+ use actix::Actor;[0m
-    [1m[94m|[0m
-
 [1m[33mwarning[0m[1m: unused import: `futures_util::StreamExt`[0m
  [1m[94m--> [0msrc/realtime.rs:4:5
   [1m[94m|[0m
@@ -827,59 +558,30 @@
   [1m[94m|[0m     [1m[33m^^^^^^^^^^^^^^^^^^^^^^^[0m
 
 [1m[33mwarning[0m[1m: unused variable: `c`[0m
-   [1m[94m--> [0msrc/api.rs:213:14
+   [1m[94m--> [0msrc/api.rs:214:14
     [1m[94m|[0m
-[1m[94m213[0m [1m[94m|[0m         Some(c) => {
+[1m[94m214[0m [1m[94m|[0m         Some(c) => {
     [1m[94m|[0m              [1m[33m^[0m [1m[33mhelp: if this is intentional, prefix it with an underscore: `_c`[0m
     [1m[94m|[0m
     [1m[94m= [0m[1mnote[0m: `#[warn(unused_variables)]` (part of `#[warn(unused)]`) on by default
 
 [1m[33mwarning[0m[1m: unused variable: `a`[0m
-   [1m[94m--> [0msrc/api.rs:457:9
+   [1m[94m--> [0msrc/api.rs:458:9
     [1m[94m|[0m
-[1m[94m457[0m [1m[94m|[0m     let a = require(&req, &state).await?;
+[1m[94m458[0m [1m[94m|[0m     let a = require(&req, &state).await?;
     [1m[94m|[0m         [1m[33m^[0m [1m[33mhelp: if this is intentional, prefix it with an underscore: `_a`[0m
 
 [1m[33mwarning[0m[1m: unused variable: `a`[0m
-   [1m[94m--> [0msrc/api.rs:571:9
+   [1m[94m--> [0msrc/api.rs:572:9
     [1m[94m|[0m
-[1m[94m571[0m [1m[94m|[0m     let a = require(&req, &state).await?;
+[1m[94m572[0m [1m[94m|[0m     let a = require(&req, &state).await?;
     [1m[94m|[0m         [1m[33m^[0m [1m[33mhelp: if this is intentional, prefix it with an underscore: `_a`[0m
-
-[1m[33mwarning[0m[1m: unused variable: `id`[0m
-   [1m[94m--> [0msrc/store.rs:834:45
-    [1m[94m|[0m
-[1m[94m834[0m [1m[94m|[0m pub async fn child_count(pool: &SqlitePool, id: i64) -> Result<i64, sqlx::Error> {
-    [1m[94m|[0m                                             [1m[33m^^[0m [1m[33mhelp: if this is intentional, prefix it with an underscore: `_id`[0m
 
 [1m[33mwarning[0m[1m: unused variable: `a`[0m
-   [1m[94m--> [0msrc/api.rs:702:9
+   [1m[94m--> [0msrc/api.rs:703:9
     [1m[94m|[0m
-[1m[94m702[0m [1m[94m|[0m     let a = require(&req, &state).await?;
+[1m[94m703[0m [1m[94m|[0m     let a = require(&req, &state).await?;
     [1m[94m|[0m         [1m[33m^[0m [1m[33mhelp: if this is intentional, prefix it with an underscore: `_a`[0m
-
-[1m[91merror[E0382][0m[1m: use of moved value: `cfg`[0m
-  [1m[94m--> [0msrc/state.rs:34:40
-   [1m[94m|[0m
-[1m[94m24[0m [1m[94m|[0m     pub fn new(pool: SqlitePool, hub: Addr<Hub>, cfg: Config) -> Self {
-   [1m[94m|[0m                                                  [1m[94m---[0m [1m[94mmove occurs because `cfg` has type `config::Config`, which does not implement the `Copy` trait[0m
-[1m[94m...[0m
-[1m[94m29[0m [1m[94m|[0m             cfg,
-   [1m[94m|[0m             [1m[94m---[0m [1m[94mvalue moved here[0m
-[1m[94m...[0m
-[1m[94m34[0m [1m[94m|[0m             max_upload: AtomicU64::new(cfg.max_upload),
-   [1m[94m|[0m                                        [1m[91m^^^^^^^^^^^^^^[0m [1m[91mvalue used here after move[0m
-   [1m[94m|[0m
-[1m[96mhelp[0m: consider cloning the value if the performance cost is acceptable
-   [1m[94m|[0m
-[1m[94m29[0m [1m[94m| [0m            cfg[92m: cfg.clone()[0m,
-   [1m[94m|[0m                [92m+++++++++++++[0m
-
-[1m[33mwarning[0m[1m: unused variable: `cid`[0m
-   [1m[94m--> [0msrc/store.rs:577:47
-    [1m[94m|[0m
-[1m[94m577[0m [1m[94m|[0m pub async fn message_count(pool: &SqlitePool, cid: i64) -> Result<i64, sqlx::Error> {
-    [1m[94m|[0m                                               [1m[33m^^^[0m [1m[33mhelp: if this is intentional, prefix it with an underscore: `_cid`[0m
 
 [1m[33mwarning[0m[1m: unused variable: `title`[0m
   [1m[94m--> [0msrc/templates/chat.rs:24:9
@@ -887,10 +589,9 @@
 [1m[94m24[0m [1m[94m|[0m     let title = c.title.clone();
    [1m[94m|[0m         [1m[33m^^^^^[0m [1m[33mhelp: if this is intentional, prefix it with an underscore: `_title`[0m
 
-[1mSome errors have detailed explanations: E0061, E0277, E0308, E0382, E0593, E0599, E0659, E0782.[0m
-[1mFor more information about an error, try `rustc --explain E0061`.[0m
-[1m[33mwarning[0m: `room` (bin "room" test) generated 10 warnings (6 duplicates)
-[1m[91merror[0m: could not compile `room` (bin "room" test) due to 24 previous errors; 10 warnings emitted
+[1mFor more information about this error, try `rustc --explain E0308`.[0m
+[1m[33mwarning[0m: `room` (bin "room") generated 7 warnings (1 duplicate)
+[1m[91merror[0m: could not compile `room` (bin "room") due to 6 previous errors; 7 warnings emitted
 [1m[33mwarning[0m: build failed, waiting for other jobs to finish...
-[1m[33mwarning[0m: `room` (bin "room") generated 10 warnings (4 duplicates)
-[1m[91merror[0m: could not compile `room` (bin "room") due to 24 previous errors; 10 warnings emitted
+[1m[33mwarning[0m: `room` (bin "room" test) generated 7 warnings (6 duplicates)
+[1m[91merror[0m: could not compile `room` (bin "room" test) due to 6 previous errors; 7 warnings emitted
