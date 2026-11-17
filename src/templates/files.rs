@@ -188,24 +188,25 @@ pub fn main_column(boot: &Boot, v: &FileView, selected: Option<&FileDto>) -> Str
     );
 
     let body = if v.items.is_empty() {
+        let msg = if v.trashed {
+            ""
+        } else {
+            "Drop files here, or use the upload button to add documents, photos and archives."
+        };
+        let action = if v.trashed {
+            String::new()
+        } else {
+            format!(
+                "<div class=\"flex gap-2\"><button class=\"btn btn-brand\" data-act=\"upload\" type=\"button\">{} Upload files</button><button class=\"btn btn-ghost\" data-act=\"new-folder\" type=\"button\">{} New folder</button></div>",
+                icon("upload", "h-4 w-4"),
+                icon("folder-plus", "h-4 w-4")
+            )
+        };
         empty_state(
             if v.trashed { "trash" } else { "folder" },
             if v.trashed { "Trash is empty" } else { "This folder is empty" },
-            if v.trashed {
-                String::new()
-            } else {
-                "Drop files here, or use the upload button to add documents, photos and archives."
-                    .to_string()
-            },
-            if v.trashed {
-                String::new()
-            } else {
-                format!(
-                    "<div class=\"flex gap-2\"><button class=\"btn btn-brand\" data-act=\"upload\" type=\"button\">{} Upload files</button><button class=\"btn btn-ghost\" data-act=\"new-folder\" type=\"button\">{} New folder</button></div>",
-                    icon("upload", "h-4 w-4"),
-                    icon("folder-plus", "h-4 w-4")
-                )
-            },
+            msg,
+            &action,
         )
     } else if v.view == "grid" {
         let mut cards = String::new();
