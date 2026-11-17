@@ -139,7 +139,7 @@ fn audit_row(a: &AuditDto) -> String {
     format!(
         "<div class=\"flex items-center gap-3 border-b line py-2 last:border-0\">\
 <span class=\"grid h-8 w-8 shrink-0 place-items-center rounded-lg\" style=\"color:{color};background:color-mix(in srgb, {color} 12%, transparent)\">{}</span>\
-<div class=\"min-w-0 flex-1\"><div class=\"truncate text-[12.5px font-medium]\">{}</div><div class=\"truncate text-[11px] ink3\">{} · {}</div></div>\
+<div class=\"min-w-0 flex-1\"><div class=\"truncate text-[12.5px] font-medium\">{}</div><div class=\"truncate text-[11px] ink3\">{} · {}</div></div>\
 <span class=\"shrink-0 text-[10.5px] ink3\">{time}</span></div>",
         icon(ic, "h-4 w-4"),
         esc(&a.detail),
@@ -274,7 +274,7 @@ pub fn audit(boot: &Boot, entries: &[AuditDto]) -> String {
     for a in entries {
         rows.push_str(&format!(
             "<div class=\"tile flex items-center gap-3 p-3\">\
-<div class=\"min-w-0 flex-1\"><div class=\"flex flex-wrap items-center gap-2\"><span class=\"text-[12.5px font-semibold]\">{}</span><span class=\"chip\">{}</span><span class=\"text-[11px] ink3\">{}</span></div><div class=\"mt-0.5 truncate text-[11.5px] ink2\">{}</div></div>\
+<div class=\"min-w-0 flex-1\"><div class=\"flex flex-wrap items-center gap-2\"><span class=\"text-[12.5px] font-semibold\">{}</span><span class=\"chip\">{}</span><span class=\"text-[11px] ink3\">{}</span></div><div class=\"mt-0.5 truncate text-[11.5px] ink2\">{}</div></div>\
 <span class=\"shrink-0 text-[10.5px] ink3\">{}</span></div>",
             esc(&a.actor_name),
             esc(&a.action),

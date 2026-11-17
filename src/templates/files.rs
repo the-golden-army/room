@@ -102,7 +102,7 @@ fn row_html(f: &FileDto, selected: bool) -> String {
         human_bytes(f.size)
     };
     format!(
-        "<div class=\"list-item list-row{sel}\" data-file=\"{id}\" data-kind=\"{kind}\" draggable=\"true\">\
+        "<div class=\"list-item list-row group{sel}\" data-file=\"{id}\" data-kind=\"{kind}\" draggable=\"true\">\
 {icon}\
 <span class=\"min-w-0 flex-1\"><span class=\"block truncate text-[13.5px] font-medium\">{name}</span><span class=\"block text-[11px] ink3\">{owner} · {updated}</span></span>\
 <span class=\"shrink-0 text-[11px] ink3\">{size}</span>\

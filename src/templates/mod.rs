@@ -1,5 +1,5 @@
 use crate::models::{Boot, UserDto};
-use crate::util::{esc, human_duration, js_str};
+use crate::util::{esc, human_duration, js_literal, js_str};
 
 pub mod account;
 pub mod admin;
@@ -379,7 +379,7 @@ pub fn page(
         title = esc(doc_title),
         name = esc(&boot.server.name),
         css = CSS_PATH,
-        boot = js_str(&boot_json),
+        boot = js_literal(&boot_json),
         theme = js_str(&theme),
         logo = logo_mark("h-11 w-11 drop-shadow-sm"),
         nav = nav_buttons(boot, section),

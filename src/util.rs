@@ -127,6 +127,25 @@ pub fn esc(s: &str) -> String {
     out
 }
 
+/// Validate a JSON payload and return it as a raw JS object literal for embedding
+/// inside a `<script>` block (already JSON-escaped, so no extra JS quoting).
+pub fn js_literal(json: &str) -> String {
+    if serde_json::from_str::<serde_json::Value>(json).is_err() {
+        return "{}".to_string();
+    }
+    let mut out = String::with_capacity(json.len());
+    for c in json.chars() {
+        match c {
+            '<' => out.push_str("\\u003c"),
+            '>' => out.push_str("\\u003e"),
+            '&' => out.push_str("\\u0026"),
+            '\u{2028}' => out.push_str("\\u2028"),
+            '\u{2029}' => out.push_str("\\u2029"),
+            _ => out.push(c),
+        }
+    }
+    out
+}
 /// Escape for safe inclusion inside a double-quoted JS string literal in a `<script>` block.
 pub fn js_str(s: &str) -> String {
     let mut out = String::with_capacity(s.len() + 2);

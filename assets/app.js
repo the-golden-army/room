@@ -533,7 +533,7 @@
           `<div class="flex items-center gap-2 border-b line px-4 py-3"><h2 class="flex-1 truncate text-[13px] font-bold uppercase tracking-[0.06em] ink2">Details</h2></div>` +
           `<div class="min-h-0 flex-1 overflow-y-auto p-3"><div class="flex items-center gap-3 px-1 pb-3">${avatarHtml({ id: 0, initials: c.initials, color: c.color, presence: '' }, 'h-12 w-12 text-base', false)}<div><div class="text-sm font-bold">${esc(c.title)}</div><div class="text-xs ink3">Group · ${c.members.length} members</div></div></div>` +
           c.members.map((id) => { const u = userById(id); return `<div class="navlink">${avatarHtml(u, 'h-8 w-8 text-[11px]', true)}<span class="min-w-0 flex-1 truncate">${esc(u.name)}</span><span class="text-[11px] ink3">${u.presence === 'online' ? 'online' : 'offline'}</span></div>`; }).join('') +
-          `<div class="mt-3 flex flex-col gap-1 px-1"><button class="navlink" data-act="mute-conv" type="button">${icon('bell', 'h-4 w-4')}<span>Mute notifications</span><span class="ml-auto chip">${c.muted ? 'Muted' : 'On'}</span></button>
+          `<div class="mt-3 flex flex-col gap-1 px-1"><button class="navlink" data-act="mute-conv" type="button">${icon('bell', 'h-4 w-4')}<span>Mute notifications</span><span class="ml-auto chip" data-muted="${c.muted ? '1' : '0'}">${c.muted ? 'Muted' : 'On'}</span></button>
            <button class="navlink" data-act="mark-read" type="button">${icon('check', 'h-4 w-4')}<span>Mark as read</span></button>
            <a class="navlink" href="/files?conv=${c.id}">${icon('folder', 'h-4 w-4')}<span>Shared files</span>${icon('chev-right', 'h-3.5 w-3.5 ml-auto')}</a></div></div>`;
       }
@@ -1302,7 +1302,7 @@
       `<div class="space-y-3">
         ${group ? `<label class="block"><span class="mb-1.5 block text-xs font-semibold ink2">Group name</span><input class="input" id="nc-name" maxlength="60" placeholder="e.g. Design team"></label>` : ''}
         <div class="max-h-64 overflow-y-auto">
-          ${users.map((u) => `<label class="navlink" style="cursor:pointer"><input type="checkbox" class="nc-check" value="${u.id}" ${group ? '' : 'class="hidden"'} style="accent-color:var(--color-brand-600)">${avatarHtml(u, 'h-8 w-8 text-[11px]', true)}<span class="min-w-0 flex-1 truncate">${esc(u.name)}</span><span class="text-[11px] ink3">${u.presence === 'online' ? 'online' : 'offline'}</span></label>`).join('') || '<div class="text-[12.5px] ink3">No other members yet.</div>'}
+          ${users.map((u) => `<label class="navlink" style="cursor:pointer"><input type="${group ? 'checkbox' : 'radio'}" name="nc-pick" class="nc-check" value="${u.id}" style="accent-color:var(--color-brand-600)">${avatarHtml(u, 'h-8 w-8 text-[11px]', true)}<span class="min-w-0 flex-1 truncate">${esc(u.name)}</span><span class="text-[11px] ink3">${u.presence === 'online' ? 'online' : 'offline'}</span></label>`).join('') || '<div class="text-[12.5px] ink3">No other members yet.</div>'}
         </div>
       </div>`,
       `<button class="btn btn-ghost" data-close type="button">Cancel</button><button class="btn btn-brand" id="nc-go" type="button">Create</button>`
@@ -1318,7 +1318,7 @@
           if (!checked.length) { toast('Pick at least one member', 'error'); return; }
           d = await api('/api/conversations', { method: 'POST', body: { kind: 'group', name, members: checked } });
         } else {
-          const target = checked[0] || (checks[0] ? +checks[0].value : 0);
+          const target = checked[0] || 0;
           if (!target) { toast('Pick a member', 'error'); return; }
           d = await api('/api/conversations', { method: 'POST', body: { kind: 'direct', user_id: target } });
         }
