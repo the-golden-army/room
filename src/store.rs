@@ -412,7 +412,7 @@ pub async fn create_direct(
     }
     let now = now_ms();
     let id = sqlx::query(
-        "INSERT INTO conversations (kind, name, created_by, created_at) VALUES ('direct','',?,?,?)",
+        "INSERT INTO conversations (kind, name, created_by, created_at) VALUES ('direct','',?,?)",
     )
     .bind(a)
     .bind(now)
