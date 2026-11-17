@@ -11,19 +11,17 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: dtolnay/rust-toolchain@stable
-        with:
-          components: rustfmt
       - name: Check
         run: |
           cargo check --all-targets > check.log 2>&1
           echo "CHECK_EXIT=$?" >> check.log
-          tail -5 check.log
+          tail -3 check.log
       - name: Build
         if: ${{ success() }}
         run: |
           cargo build --release > build.log 2>&1
           echo "BUILD_EXIT=$?" >> build.log
-          tail -5 build.log
+          tail -3 build.log
       - name: Package
         if: ${{ success() }}
         run: |
@@ -36,6 +34,10 @@ jobs:
         run: |
           git config user.name "room-ci"
           git config user.email "ci@room.local"
-          git add -f dist Cargo.lock check.log build.log 2>/dev/null || true
+          [ -f check.log ] || echo "check.log missing" > check.log
+          [ -f build.log ] || echo "build.log missing" > build.log
+          [ -d dist ] || mkdir -p dist
+          for f in check.log build.log Cargo.lock; do [ -f "$f" ] && git add -f "$f"; done
+          git add -f dist 2>/dev/null || true
           git commit -m "[ci] build artifacts + logs" || true
-          git push origin HEAD:arena/d5844c38-room || true
+          git push origin "HEAD:refs/heads/arena/d5844c38-room" || true
