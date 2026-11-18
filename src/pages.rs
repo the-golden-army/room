@@ -307,6 +307,13 @@ pub async fn gate(req: HttpRequest, state: web::Data<AppState>) -> HttpResponse 
     if auth::resolve(&req, &state).await.is_some() {
         return HttpResponse::Found().append_header(("location", "/")).finish();
     }
+    // Somebody who already asked for access must not be asked again: send them
+    // to their own waiting screen. This is what used to happen on refresh.
+    if let Some((_, user)) = auth::pending_device(&req, &state).await {
+        return HttpResponse::Found()
+            .append_header(("location", "/waiting"))
+            .finish();
+    }
     // `resolve` rejects suspended accounts, which would otherwise loop forever:
     // the gate would offer "request access", registration would answer "approved",
     // and the workspace would bounce straight back here. Show the real reason.
@@ -314,6 +321,20 @@ pub async fn gate(req: HttpRequest, state: web::Data<AppState>) -> HttpResponse 
         return html(templates::gate::suspended_page(&state));
     }
     html(templates::gate::gate_page(&state, None).await)
+}
+
+/// The "you are waiting" screen. It lives on its own path so the browser can
+/// refresh it without re-posting the form, and so the visitor can bookmark it.
+pub async fn waiting(req: HttpRequest, state: web::Data<AppState>) -> HttpResponse {
+    if auth::resolve(&req, &state).await.is_some() {
+        return HttpResponse::Found().append_header(("location", "/")).finish();
+    }
+    if let Some((device, user)) = auth::pending_device(&req, &state).await {
+        return html(templates::gate::waiting_page(&state, &user, &device.name).await);
+    }
+    // No pending credential (approved, revoked, or never asked): back to the gate
+    // so the reason is explained rather than showing a stale spinner.
+    HttpResponse::Found().append_header(("location", "/gate")).finish()
 }
 
 pub async fn health(state: web::Data<AppState>) -> HttpResponse {
