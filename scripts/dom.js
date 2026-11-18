@@ -327,6 +327,20 @@ function shutdown(code) {
 
   {
     const w = await bootPage('/files', aCookie);
+    // The upload input used to live inside the chat composer, so on /files the
+    // "Upload" buttons called .click() on nothing and did nothing.
+    const input = w.document.querySelector('#file-input');
+    check('file page has an upload input', !!input, input ? input.type : 'missing');
+    check('upload input accepts several files', !!input && input.multiple);
+    const uploadBtn = w.document.querySelector('[data-act="upload"]');
+    check('file page has an upload button', !!uploadBtn);
+    let clicked = false;
+    if (input) input.addEventListener('click', () => { clicked = true; });
+    if (uploadBtn) {
+      uploadBtn.dispatchEvent(new w.MouseEvent('click', { bubbles: true }));
+      await tick(80);
+    }
+    check('upload button opens the file picker', clicked);
     const menu = w.document.querySelector('[data-act="file-menu"]');
     if (menu) {
       menu.dispatchEvent(new w.MouseEvent('click', { bubbles: true }));

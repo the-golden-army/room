@@ -654,6 +654,19 @@ pub async fn upload_file(
         let _ = tokio::fs::remove_file(&tmp).await;
         return Err(err(400, "empty file"));
     }
+    // A binary body that was accidentally JSON-encoded arrives as exactly "{}".
+    // Storing that would look like a successful upload of a corrupt file.
+    if size == 2 {
+        if let Ok(bytes) = tokio::fs::read(&tmp).await {
+            if bytes == b"{}" {
+                let _ = tokio::fs::remove_file(&tmp).await;
+                return Err(err(
+                    400,
+                    "the request body was JSON-encoded instead of sent as raw bytes",
+                ));
+            }
+        }
+    }
     let dest = state.blob_path(&key);
     tokio::fs::rename(&tmp, &dest).await.map_err(|e| {
         let _ = std::fs::remove_file(&tmp);

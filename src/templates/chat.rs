@@ -388,7 +388,6 @@ pub fn main_column(
 <button type=\"button\" id=\"emoji-btn\" class=\"btn btn-ghost btn-icon !h-9 !w-9 !rounded-full\" title=\"Emoji\">{smile}</button>\
 <button type=\"submit\" id=\"send-btn\" class=\"btn btn-brand btn-icon !h-9 !w-9 !rounded-full\" title=\"Send\">{send}</button>\
 </div>\
-<input type=\"file\" id=\"file-input\" class=\"hidden\" multiple>\
 </form>",
                 id = c.id,
                 lock = icon("lock", "h-3 w-3"),

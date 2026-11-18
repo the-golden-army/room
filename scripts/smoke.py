@@ -249,6 +249,24 @@ def main():
     st, d = alice.json("/api/files?parent=0")
     check("file is back in the drive", any(f["id"] == fid for f in d.get("items", [])), d.get("items"))
 
+    # Binary uploads must arrive byte-for-byte. A JSON-encoding client used to
+    # send "{}" instead of the file, which stored two meaningless bytes.
+    blob = bytes(range(256)) * 8
+    st, body, _ = alice.raw(
+        "POST", "/api/files/upload?name=binary.bin", blob, ctype="application/octet-stream"
+    )
+    check("binary upload accepted", st == 200, (st, body[:120]))
+    up = json.loads(body or b"null") if st == 200 else {}
+    bin_id = up.get("file", {}).get("id", 0)
+    check("binary upload keeps its size", up.get("file", {}).get("size") == len(blob),
+          up.get("file", {}).get("size"))
+    st, payload, _ = alice.raw("GET", f"/api/files/{bin_id}/download")
+    check("binary upload round-trips exactly", payload == blob, len(payload or b""))
+    st, body, _ = alice.raw(
+        "POST", "/api/files/upload?name=stub.png", b"{}", ctype="image/png"
+    )
+    check("JSON-encoded body is rejected, not stored", st == 400, (st, body[:120]))
+
     section("calls")
     st, d = alice.json("/api/calls", {"conversation_id": gid, "kind": "video"})
     check("start call", st == 200 and d.get("call_id"), (st, d))
