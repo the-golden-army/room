@@ -1,7 +1,7 @@
 use crate::models::{Boot, FileDto, FileNode, User, UserDto};
 use crate::util::{esc, ext_of, human_bytes};
 
-use super::{avatar, empty_state, icon, skeleton_grid, skeleton_rows, topbar};
+use super::{avatar, empty_state, icon, topbar};
 
 pub fn file_dto_pub(f: &FileNode, by_id: &std::collections::HashMap<i64, User>, children: i64) -> FileDto {
     crate::api::file_dto(f, by_id, false, children)
@@ -158,7 +158,6 @@ pub struct FileView {
     pub items: Vec<FileDto>,
     pub trashed: bool,
     pub view: String,
-    pub query: String,
 }
 
 pub fn main_column(boot: &Boot, v: &FileView, selected: Option<&FileDto>) -> String {
@@ -305,12 +304,4 @@ pub fn details_panel(f: &FileDto, boot: &Boot, shares: &[(UserDto, String)]) -> 
     let _ = boot;
     out.push_str(&super::scroll_area("file-details", &body, "p-3"));
     out
-}
-
-pub fn skeleton_files() -> String {
-    format!(
-        "{}{}",
-        skeleton_rows(6),
-        skeleton_grid(8)
-    )
 }

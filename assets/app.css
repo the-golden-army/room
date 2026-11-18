@@ -177,16 +177,6 @@ html.dark {
   .chip-brand { background: color-mix(in srgb, var(--color-brand-600) 10%, transparent); color: var(--color-brand-700); border-color: color-mix(in srgb, var(--color-brand-600) 24%, transparent); }
   html.dark .chip-brand { color: #c3b6ff; }
 
-  .skel { position: relative; overflow: hidden; background: var(--color-panel3); border-radius: 8px; }
-  .skel::after {
-    content: ""; position: absolute; inset: 0; transform: translateX(-100%);
-    background: linear-gradient(90deg, transparent, color-mix(in srgb, var(--color-panel) 62%, transparent), transparent);
-    animation: skel-sweep 1.35s ease-in-out infinite;
-  }
-  html.dark .skel::after { background: linear-gradient(90deg, transparent, rgb(255 255 255 / .06), transparent); }
-  @keyframes skel-sweep { 100% { transform: translateX(100%); } }
-  @media (prefers-reduced-motion: reduce) { .skel::after { animation: none; opacity: 0; } }
-
   .msg-body { word-break: break-word; overflow-wrap: anywhere; }
   .msg-body a { color: var(--color-brand-600); text-decoration: underline; text-underline-offset: 2px; }
   html.dark .msg-body a { color: #a99bff; }

@@ -131,13 +131,6 @@ pub async fn list_devices(pool: &SqlitePool) -> Result<Vec<Device>, sqlx::Error>
         .await
 }
 
-pub async fn devices_for_user(pool: &SqlitePool, uid: i64) -> Result<Vec<Device>, sqlx::Error> {
-    sqlx::query_as::<_, Device>("SELECT * FROM devices WHERE user_id = ? ORDER BY requested_at DESC")
-        .bind(uid)
-        .fetch_all(pool)
-        .await
-}
-
 #[allow(clippy::too_many_arguments)]
 pub async fn create_device(
     pool: &SqlitePool,
@@ -267,6 +260,9 @@ pub async fn all_settings(pool: &SqlitePool) -> Result<std::collections::BTreeMa
 
 // ------------------------------------------------------------------ conversations
 
+// `created_by` and `created_at` are not read by the UI, but sqlx's derived FromRow
+// maps by column name: the query is `SELECT c.*`, so every column must have a field.
+#[allow(dead_code)]
 #[derive(FromRow)]
 struct ConvRow {
     id: i64,
@@ -519,21 +515,6 @@ pub async fn update_conversation(
 }
 
 // ------------------------------------------------------------------ messages
-
-#[derive(FromRow)]
-struct MsgRow {
-    id: i64,
-    conversation_id: i64,
-    sender_id: Option<i64>,
-    body: String,
-    reply_to_id: i64,
-    edited_at: i64,
-    deleted_at: i64,
-    created_at: i64,
-    sender_name: Option<String>,
-    sender_avatar: Option<String>,
-    sender_color: Option<String>,
-}
 
 pub async fn get_message(pool: &SqlitePool, id: i64) -> Result<Option<Message>, sqlx::Error> {
     sqlx::query_as::<_, Message>("SELECT * FROM messages WHERE id = ?")
@@ -936,32 +917,6 @@ pub async fn share_counts(pool: &SqlitePool, ids: &[i64]) -> Result<std::collect
     Ok(map)
 }
 
-pub async fn set_share(
-    pool: &SqlitePool,
-    fid: i64,
-    uid: i64,
-    perm: &str,
-    on: bool,
-) -> Result<(), sqlx::Error> {
-    if on {
-        sqlx::query(
-            "INSERT OR REPLACE INTO file_shares (file_id, user_id, permission) VALUES (?,?,?)",
-        )
-        .bind(fid)
-        .bind(uid)
-        .bind(perm)
-        .execute(pool)
-        .await?;
-    } else {
-        sqlx::query("DELETE FROM file_shares WHERE file_id = ? AND user_id = ?")
-            .bind(fid)
-            .bind(uid)
-            .execute(pool)
-            .await?;
-    }
-    Ok(())
-}
-
 pub async fn storage_used(pool: &SqlitePool) -> Result<i64, sqlx::Error> {
     let r = sqlx::query_as::<_, (i64,)>(
         "SELECT COALESCE(SUM(size),0) FROM files WHERE kind = 'file' AND trashed = 0",
@@ -986,22 +941,7 @@ pub async fn search_files(
     .await
 }
 
-pub async fn all_files(pool: &SqlitePool) -> Result<Vec<FileNode>, sqlx::Error> {
-    sqlx::query_as::<_, FileNode>("SELECT * FROM files ORDER BY id").fetch_all(pool).await
-}
-
 // ------------------------------------------------------------------ calls
-
-#[derive(FromRow)]
-struct CallRow {
-    id: i64,
-    kind: String,
-    conversation_id: Option<i64>,
-    started_by: Option<i64>,
-    status: String,
-    started_at: i64,
-    ended_at: i64,
-}
 
 pub async fn create_call(
     pool: &SqlitePool,

@@ -273,6 +273,26 @@ def main():
     st, d = alice.json("/api/search?q=hello")
     check("search finds messages", len(d.get("messages", [])) >= 1, d)
 
+    section("suspended accounts")
+    st, _ = alice.json(f"/api/admin/users/{bob_id}", {"state": "suspended"}, "PATCH")
+    check("admin suspends a member", st == 200, st)
+    st, _, hdrs = bob.get("/")
+    check("suspended member is gated", st in (301, 302, 303), (st, hdrs.get("location")))
+    st, body, _ = bob.get("/gate")
+    text = body.decode(errors="replace")
+    check("gate explains the suspension", st == 200 and "suspended" in text.lower(), st)
+    check("suspended member is not offered the request form", "Request access" not in text)
+    st, body, _ = bob.form("/api/request-access", {"name": "Bob", "device": "bob-phone"})
+    check(
+        "re-requesting access does not claim approval",
+        st == 200 and "suspended" in body.decode(errors="replace").lower(),
+        st,
+    )
+    st, _ = alice.json(f"/api/admin/users/{bob_id}", {"state": "active"}, "PATCH")
+    check("admin restores the member", st == 200, st)
+    st, _, _ = bob.get("/")
+    check("restored member reaches the app", st == 200, st)
+
     section("pages")
     for path, needle in [
         ("/", "Chat"),

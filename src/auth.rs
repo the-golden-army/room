@@ -36,6 +36,28 @@ pub async fn resolve(req: &HttpRequest, state: &AppState) -> Option<Auth> {
     Some(Auth { user, device })
 }
 
+/// Like `resolve`, but reports a credential that is otherwise valid whose account
+/// the host has suspended. Used to explain the refusal instead of silently
+/// treating the visitor as a stranger.
+pub async fn suspended_user(req: &HttpRequest, state: &AppState) -> Option<User> {
+    let token = req.cookie(COOKIE)?.value().to_string();
+    if token.len() < 16 {
+        return None;
+    }
+    let device = store::device_by_hash(&state.pool, &hash_token(&token))
+        .await
+        .ok()
+        .flatten()?;
+    if device.approved != 1 || device.revoked == 1 {
+        return None;
+    }
+    let user = store::get_user(&state.pool, device.user_id).await.ok()?;
+    if user.state == "active" {
+        return None;
+    }
+    Some(user)
+}
+
 pub fn device_cookie(token: &str) -> Cookie<'static> {
     Cookie::build(COOKIE, token.to_string())
         .path("/")
@@ -52,13 +74,6 @@ pub fn clear_cookie() -> Cookie<'static> {
         .same_site(SameSite::Lax)
         .max_age(actix_web::cookie::time::Duration::seconds(0))
         .finish()
-}
-
-pub fn public(path: &str) -> bool {
-    matches!(
-        path,
-        "/gate" | "/api/request-access" | "/api/health" | "/api/server-info"
-    ) || path.starts_with("/assets/")
 }
 
 fn clean_display_name(name: &str) -> String {
@@ -127,6 +142,11 @@ pub async fn request_access(
         };
         let token = req.cookie(COOKIE).map(|c| c.value().to_string()).unwrap_or_default();
         let _ = store::touch_device(&state.pool, d.id).await;
+        if u.state != "active" {
+            return HttpResponse::Ok()
+                .content_type("text/html")
+                .body(crate::templates::gate::suspended_page(&state));
+        }
         let approved = d.approved == 1;
         (d, u, token, approved)
     } else {

@@ -71,10 +71,6 @@ fn j<T: serde::Serialize>(v: &T) -> ApiResult {
     Ok(HttpResponse::Ok().json(v))
 }
 
-fn jval(v: Value) -> ApiResult {
-    Ok(HttpResponse::Ok().json(v))
-}
-
 // ------------------------------------------------------------------ helpers
 
 async fn users_map(pool: &SqlitePool) -> std::collections::HashMap<i64, User> {
@@ -211,7 +207,7 @@ pub async fn conversation_detail(
         }
     }
     let conv_dto = match conv {
-        Some(c) => {
+        Some(_) => {
             let list = store::list_conversations(&state.pool, a.user.id).await?;
             list.into_iter().find(|x| x.id == id)
         }
@@ -459,6 +455,9 @@ pub async fn patch_conversation(
     let cid = path.into_inner();
     let conv = store::get_conversation(&state.pool, cid).await?
         .ok_or_else(|| err(404, "conversation not found"))?;
+    if !store::is_member(&state.pool, cid, a.user.id).await? {
+        return Err(err(403, "you are not a member of this conversation"));
+    }
     if conv.kind != "group" {
         return Err(err(400, "only group details are editable"));
     }
@@ -569,7 +568,8 @@ pub async fn browse_files(
     state: web::Data<AppState>,
     q: web::Query<BrowseQuery>,
 ) -> ApiResult {
-    let a = require(&req, &state).await?;
+    // Approved members only; browsing does not depend on who is asking.
+    require(&req, &state).await?;
     let parent = q.parent.unwrap_or(0);
     let trashed = q.trash.unwrap_or(0) == 1;
     let mut path = Vec::new();
@@ -700,7 +700,8 @@ pub async fn file_raw(
     state: web::Data<AppState>,
     path: web::Path<i64>,
 ) -> ApiResult {
-    let a = require(&req, &state).await?;
+    // Approved members only; serving bytes does not depend on who is asking.
+    require(&req, &state).await?;
     let id = path.into_inner();
     let node = store::get_file(&state.pool, id).await?
         .ok_or_else(|| err(404, "file not found"))?;
@@ -740,7 +741,6 @@ pub async fn file_download(
 pub struct NodeForm {
     pub parent: Option<i64>,
     pub name: Option<String>,
-    pub kind: Option<String>,
 }
 
 pub async fn create_folder(
@@ -1529,8 +1529,4 @@ pub fn server_info(state: &AppState) -> Value {
         "uptime_ms": state.uptime_ms(),
         "network": state.cfg.lan_ssid_hint,
     })
-}
-
-pub fn gate_redirect() -> HttpResponse {
-    HttpResponse::Found().append_header(("location", "/gate")).finish()
 }

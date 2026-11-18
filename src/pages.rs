@@ -133,7 +133,6 @@ pub async fn files_page(req: HttpRequest, state: web::Data<AppState>, q: web::Qu
         items: dtos.clone(),
         trashed,
         view: "list".into(),
-        query: String::new(),
     };
     let main = files::main_column(&boot, &view, selected.as_ref());
     let side = match selected {
@@ -305,9 +304,14 @@ pub async fn account_page(
 }
 
 pub async fn gate(req: HttpRequest, state: web::Data<AppState>) -> HttpResponse {
-    if let Some(a) = auth::resolve(&req, &state).await {
-        let _ = a;
+    if auth::resolve(&req, &state).await.is_some() {
         return HttpResponse::Found().append_header(("location", "/")).finish();
+    }
+    // `resolve` rejects suspended accounts, which would otherwise loop forever:
+    // the gate would offer "request access", registration would answer "approved",
+    // and the workspace would bounce straight back here. Show the real reason.
+    if auth::suspended_user(&req, &state).await.is_some() {
+        return html(templates::gate::suspended_page(&state));
     }
     html(templates::gate::gate_page(&state, None).await)
 }
@@ -326,4 +330,3 @@ pub async fn health(state: web::Data<AppState>) -> HttpResponse {
 pub async fn server_info(state: web::Data<AppState>) -> HttpResponse {
     HttpResponse::Ok().json(crate::api::server_info(&state))
 }
-

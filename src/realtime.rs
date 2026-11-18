@@ -1,7 +1,6 @@
 use actix::prelude::*;
 use actix_web::{web, Error, HttpRequest};
 use actix_web_actors::ws;
-use futures_util::StreamExt;
 use serde_json::{json, Value};
 
 use std::time::Instant;
@@ -48,13 +47,6 @@ pub struct Hub {
 impl Hub {
     pub fn new() -> Self {
         Hub { sessions: Vec::new() }
-    }
-
-    pub fn online_ids(&self) -> Vec<i64> {
-        let mut v: Vec<i64> = self.sessions.iter().map(|(_, u)| *u).collect();
-        v.sort_unstable();
-        v.dedup();
-        v
     }
 }
 
@@ -116,7 +108,6 @@ pub struct Session {
     pub hub: Addr<Hub>,
     pub state: web::Data<AppState>,
     pub hb: Instant,
-    pub authed: bool,
 }
 
 impl Session {
@@ -126,7 +117,6 @@ impl Session {
             hub,
             state,
             hb: Instant::now(),
-            authed: false,
         }
     }
 
@@ -168,9 +158,7 @@ impl Actor for Session {
 impl Handler<WsPush> for Session {
     type Result = ();
     fn handle(&mut self, msg: WsPush, ctx: &mut Self::Context) {
-        if let Ok(s) = serde_json::to_string(&msg.0) {
-            ctx.text(s);
-        }
+        self.send_json(ctx, msg.0);
     }
 }
 

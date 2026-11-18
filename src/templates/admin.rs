@@ -1,7 +1,7 @@
-use crate::models::{AuditDto, BackupDto, Boot, DeviceDto, ServerInfo, UserDto};
+use crate::models::{AuditDto, BackupDto, Boot, DeviceDto, ServerInfo};
 use crate::util::{clock, esc, human_bytes, human_duration};
 
-use super::{avatar, empty_state, icon, skeleton_rows, topbar};
+use super::{avatar, empty_state, icon, topbar};
 
 pub const TABS: &[(&str, &str, &str)] = &[
     ("overview", "Overview", "activity"),
@@ -162,7 +162,7 @@ pub fn requests(boot: &Boot, pending: &[DeviceDto]) -> String {
         for d in pending {
             out.push_str(&format!(
                 "<div class=\"tile p-3.5\">\
-<div class=\"flex items-center gap-3\">{}<div class=\"min-w-0 flex-1\"><div class=\"truncate text-[13.5px] font-semibold\">{}</div><div class=\"truncate text-[11.5px] ink3\">{} · {} · {}</div></div></div>\
+<div class=\"flex items-center gap-3\">{}<div class=\"min-w-0 flex-1\"><div class=\"truncate text-[13.5px] font-semibold\">{}</div><div class=\"truncate text-[11.5px] ink3\">{} · {} · {} · requested {}</div></div></div>\
 <div class=\"mt-3 flex gap-2\">\
 <button class=\"btn btn-brand btn-xs\" data-approve=\"{}\" type=\"button\">{} Approve</button>\
 <button class=\"btn btn-danger btn-xs\" data-reject=\"{}\" type=\"button\">{} Reject</button>\
@@ -172,6 +172,7 @@ pub fn requests(boot: &Boot, pending: &[DeviceDto]) -> String {
                 esc(&d.owner),
                 esc(&d.platform),
                 esc(&d.ip),
+                super::gate::age(d.requested_at),
                 d.id,
                 icon("check", "h-3.5 w-3.5"),
                 d.id,
@@ -395,8 +396,4 @@ pub fn config(boot: &Boot, msg: &str) -> String {
         topbar("", "Configuration", "Server settings", ""),
         super::scroll_area("admin-scroll", &body, "")
     )
-}
-
-pub fn skeleton_admin() -> String {
-    skeleton_rows(5)
 }
