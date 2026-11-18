@@ -150,6 +150,7 @@ async fn main() -> std::io::Result<()> {
             .route("/favicon.svg", web::get().to(favicon))
             .route("/ws", web::get().to(realtime::ws_index))
             .route("/gate", web::get().to(pages::gate))
+            .route("/waiting", web::get().to(pages::waiting))
             .route("/api/request-access", web::post().to(auth::request_access))
             .route("/api/logout", web::get().to(auth::logout))
             .route("/", web::get().to(pages::chat_index))

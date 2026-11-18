@@ -58,6 +58,25 @@ pub async fn suspended_user(req: &HttpRequest, state: &AppState) -> Option<User>
     Some(user)
 }
 
+/// A device that registered but is still waiting for approval, together with
+/// its user. Lets `/waiting` show the real state instead of re-offering the
+/// form to somebody who already filled it in.
+pub async fn pending_device(req: &HttpRequest, state: &AppState) -> Option<(crate::models::Device, User)> {
+    let token = req.cookie(COOKIE)?.value().to_string();
+    if token.len() < 16 {
+        return None;
+    }
+    let device = store::device_by_hash(&state.pool, &hash_token(&token))
+        .await
+        .ok()
+        .flatten()?;
+    if device.approved == 1 || device.revoked == 1 {
+        return None;
+    }
+    let user = store::get_user(&state.pool, device.user_id).await.ok()?;
+    Some((device, user))
+}
+
 pub fn device_cookie(token: &str) -> Cookie<'static> {
     Cookie::build(COOKIE, token.to_string())
         .path("/")
@@ -216,11 +235,10 @@ pub async fn request_access(
                 &ip,
             )
             .await;
-            let html = crate::templates::gate::approved_page(&state, &u).await;
-            return HttpResponse::Ok()
-                .content_type("text/html")
+            return HttpResponse::SeeOther()
+                .append_header(("location", "/"))
                 .cookie(device_cookie(&token))
-                .body(html);
+                .finish();
         }
         let user = match store::create_user(&state.pool, &name, &handle, role).await {
             Ok(u) => u,
@@ -269,11 +287,12 @@ pub async fn request_access(
             &ip,
         )
         .await;
-        let html = crate::templates::gate::waiting_page(&state, &user).await;
-        return HttpResponse::Ok()
-            .content_type("text/html")
+        // Redirect instead of rendering here: the form posts to an API path,
+        // and leaving the browser on it made a refresh re-submit the form.
+        return HttpResponse::SeeOther()
+            .append_header(("location", "/waiting"))
             .cookie(device_cookie(&token))
-            .body(html);
+            .finish();
     }
 
     let _ = store::audit(
@@ -292,11 +311,11 @@ pub async fn request_access(
     )
     .await;
 
-    let html = crate::templates::gate::approved_page(&state, &user).await;
-    HttpResponse::Ok()
-        .content_type("text/html")
+    // Same reasoning: put the browser on the workspace, not on the API path.
+    HttpResponse::SeeOther()
+        .append_header(("location", "/"))
         .cookie(device_cookie(&token))
-        .body(html)
+        .finish()
 }
 
 /// Sign out: drop the local credential and deactivate the device record.

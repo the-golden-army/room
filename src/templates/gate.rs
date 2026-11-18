@@ -63,6 +63,20 @@ pub async fn gate_page(state: &AppState, error: Option<&str>) -> String {
     // back in for the owner, and the way in for everyone else is approval.
     let claims = store::has_owner(&state.pool).await.unwrap_or(true);
     let code_available = !state.cfg.setup_code.is_empty();
+    // Name the person who will approve you. "Ask the host" means nothing to a
+    // first-time visitor who does not yet know who the host is.
+    let owner = if claims {
+        store::first_owner(&state.pool).await.ok().flatten()
+    } else {
+        None
+    };
+    let who_approves = match &owner {
+        Some(o) => format!(
+            "This ROOM server is private. Enter your name to ask {} for access — they approve new devices from ROOM's admin console on their own device.",
+            esc(&o.name)
+        ),
+        None => "This ROOM server is private. Enter your name to ask the host for access.".to_string(),
+    };
     let (heading, intro, submit, footnote, code_field) = if !claims {
         (
             "Set up ROOM",
@@ -74,7 +88,7 @@ pub async fn gate_page(state: &AppState, error: Option<&str>) -> String {
     } else {
         (
             "Request access",
-            "This ROOM server is private. Enter your name to ask the host for access — the device must be approved before you can open the workspace.",
+            who_approves.as_str(),
             "Send request",
             "Approval is asked once per device and stays valid across restarts. The host can revoke it at any time from the admin console.",
             if code_available {
@@ -114,44 +128,60 @@ pub async fn gate_page(state: &AppState, error: Option<&str>) -> String {
     shell(if claims { "Request access" } else { "Set up ROOM" }, &body, state)
 }
 
-pub async fn waiting_page(state: &AppState, user: &User) -> String {
+pub async fn waiting_page(state: &AppState, user: &User, device: &str) -> String {
+    // Tell the visitor exactly who can approve them and where that happens.
+    // "Waiting for the host" is useless if you cannot see that the host is the
+    // person who set the server up, and that the approval happens in their
+    // admin console.
+    let owner = store::first_owner(&state.pool).await.ok().flatten();
+    let admin_url = state
+        .cfg
+        .lan_url()
+        .map(|u| format!("{u}/admin?tab=requests"))
+        .unwrap_or_else(|| "/admin?tab=requests".to_string());
+    let who = match &owner {
+        Some(o) => format!(
+            "Ask <span class=\"font-semibold ink\">{}</span> to open ROOM on their own device and approve you.",
+            esc(&o.name)
+        ),
+        None => "Ask the person who set this server up to approve you.".to_string(),
+    };
     let body = format!(
-        r#"<div class="panel rounded-2xl p-5 shadow-soft text-center">
+        r#"<div class="panel rounded-2xl p-5 shadow-soft">
   <div class="mx-auto mb-3 grid h-12 w-12 place-items-center rounded-2xl panel2 ink3">{icon}</div>
-  <h1 class="text-[15px] font-bold">Request sent</h1>
-  <p class="mt-1.5 text-[13px] leading-relaxed ink2">Hi {name}, your device <span class="font-semibold ink">{device}</span> is waiting for the host to approve it. This page will refresh automatically.</p>
-  <div class="mt-4 flex items-center justify-center gap-2 text-xs ink3">{spin}<span>Waiting for approval…</span></div>
-  <div class="mt-4 border-t line pt-3 text-[11px] ink3">Signed in as {handle}</div>
+  <h1 class="text-center text-[15px] font-bold">Waiting for approval</h1>
+  <p class="mt-1.5 text-center text-[13px] leading-relaxed ink2">Hi {name}, this device is not approved yet. Keep this page open — it checks again every few seconds and takes you in as soon as you are approved.</p>
+  <div class="mt-4 rounded-xl panel2 px-3.5 py-3 text-[13px] leading-relaxed ink2">{who}</div>
+  <div class="mt-3 flex items-center justify-center gap-2 text-xs ink3">{spin}<span>Waiting for approval…</span></div>
+  <dl class="mt-4 space-y-2 border-t line pt-3 text-[12px]">
+    <div class="flex items-baseline justify-between gap-3"><dt class="ink3">Your device</dt><dd class="font-semibold ink">{device}</dd></div>
+    <div class="flex items-baseline justify-between gap-3"><dt class="ink3">Requested as</dt><dd class="font-semibold ink">{name2}</dd></div>
+    <div class="flex items-baseline justify-between gap-3"><dt class="ink3">Approved by</dt><dd class="font-semibold ink">{approver}</dd></div>
+  </dl>
+  <div class="mt-3 border-t line pt-3 text-[11px] leading-relaxed ink3">
+    The approval happens in the host's admin console. If you are the host, sign in on the device that already has access — or enter the setup code on the previous screen to add this one.
+  </div>
+</div>
+<div class="flex items-start gap-2.5 rounded-xl border line panel2 px-3.5 py-3">
+  <span class="mt-0.5 ink3">{lock}</span>
+  <div class="text-[12px] leading-relaxed ink2">Nobody else on this network can read your messages until you are let in.<br><span class="ink3">{admin}</span></div>
 </div>"#,
         icon = super::icon("clock", "h-6 w-6"),
         name = esc(&user.name),
-        device = esc(&user.handle),
+        name2 = esc(&user.name),
+        device = esc(device),
+        who = who,
+        approver = owner.as_ref().map(|o| esc(&o.name)).unwrap_or_else(|| "the host".to_string()),
         spin = super::spinner(""),
-        handle = esc(&user.handle),
+        lock = super::icon("lock", "h-4 w-4"),
+        admin = esc(&admin_url),
     );
     let mut html = shell("Waiting for approval", &body, state);
+    // Refresh a real page, not the form endpoint, so the browser never has to
+    // re-POST and the visitor never sees the form again by accident.
     html = html.replace(
         "</head>",
-        "<meta http-equiv=\"refresh\" content=\"6\">\n</head>",
-    );
-    html
-}
-
-pub async fn approved_page(state: &AppState, user: &User) -> String {
-    let body = format!(
-        r#"<div class="panel rounded-2xl p-5 shadow-soft text-center">
-  <div class="mx-auto mb-3 grid h-12 w-12 place-items-center rounded-2xl" style="background:color-mix(in srgb, var(--color-brand-600) 12%, transparent);color:var(--color-brand-600)">{icon}</div>
-  <h1 class="text-[15px] font-bold">Welcome, {name}</h1>
-  <p class="mt-1.5 text-[13px] ink2">Your device is authorised. Taking you to the workspace…</p>
-  <a href="/" class="btn btn-brand mt-4 w-full">Open ROOM</a>
-</div>"#,
-        icon = super::icon("check", "h-6 w-6"),
-        name = esc(&user.name),
-    );
-    let mut html = shell("Approved", &body, state);
-    html = html.replace(
-        "</head>",
-        "<meta http-equiv=\"refresh\" content=\"1;url=/\">\n</head>",
+        "<meta http-equiv=\"refresh\" content=\"5;url=/waiting\">\n</head>",
     );
     html
 }
