@@ -309,7 +309,7 @@ pub async fn gate(req: HttpRequest, state: web::Data<AppState>) -> HttpResponse 
     }
     // Somebody who already asked for access must not be asked again: send them
     // to their own waiting screen. This is what used to happen on refresh.
-    if let Some((_, user)) = auth::pending_device(&req, &state).await {
+    if auth::pending_device(&req, &state).await.is_some() {
         return HttpResponse::Found()
             .append_header(("location", "/waiting"))
             .finish();
