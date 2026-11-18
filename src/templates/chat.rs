@@ -1,7 +1,7 @@
 use crate::models::{Boot, ConvDto, MsgDto, UserDto};
 use crate::util::{esc, hhmm};
 
-use super::{avatar, empty_state, icon, skeleton_list, topbar};
+use super::{avatar, empty_state, icon, topbar};
 
 pub fn conv_item(c: &ConvDto, active: bool, users: &[UserDto]) -> String {
     let _ = users;
@@ -21,7 +21,6 @@ pub fn conv_item(c: &ConvDto, active: bool, users: &[UserDto]) -> String {
     } else {
         String::new()
     };
-    let title = c.title.clone();
     let preview = if c.last_preview.is_empty() {
         "No messages yet".to_string()
     } else {
@@ -512,8 +511,4 @@ fn member_row(u: &UserDto) -> String {
         esc(&u.name),
         if u.online { "online" } else { "offline" }
     )
-}
-
-pub fn skeleton_convs() -> String {
-    skeleton_list(8)
 }

@@ -72,7 +72,7 @@ database (the first device to register becomes the owner). Pass a base URL to te
 is already running instead.
 
 ```bash
-# end-to-end API + WebSocket coverage (67 checks)
+# end-to-end API + WebSocket coverage (74 checks)
 pip install websocket-client
 python3 scripts/smoke.py                # or: python3 scripts/smoke.py http://host:8080
 

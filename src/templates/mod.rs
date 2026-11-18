@@ -114,12 +114,7 @@ pub fn logo_mark(cls: &str) -> String {
 
 pub fn avatar(u: &UserDto, cls: &str, presence: bool) -> String {
     let dot = if presence {
-        let c = match u.presence.as_str() {
-            "online" => "on",
-            "away" => "away",
-            _ => "",
-        };
-        format!("<span class=\"presence {c}\"></span>")
+        presence_dot(&u.presence)
     } else {
         String::new()
     };
@@ -143,69 +138,6 @@ pub fn presence_dot(p: &str) -> String {
         _ => "",
     };
     format!("<span class=\"presence {c}\"></span>")
-}
-
-pub fn skel(w: &str, h: &str, r: &str) -> String {
-    format!("<div class=\"skel\" style=\"width:{w};height:{h};border-radius:{r}\"></div>")
-}
-
-pub fn skeleton_list(n: usize) -> String {
-    let mut out = String::new();
-    for _ in 0..n {
-        out.push_str(
-            "<div class=\"flex items-center gap-3 px-3 py-2.5\">\
-<div class=\"skel\" style=\"width:38px;height:38px;border-radius:999px\"></div>\
-<div class=\"flex-1 space-y-2\">\
-<div class=\"skel\" style=\"width:52%;height:12px\"></div>\
-<div class=\"skel\" style=\"width:78%;height:10px\"></div>\
-</div></div>",
-        );
-    }
-    out
-}
-
-pub fn skeleton_msgs(n: usize) -> String {
-    let mut out = String::new();
-    for i in 0..n {
-        let (w1, w2) = if i % 3 == 0 {
-            ("38%", "26%")
-        } else if i % 3 == 1 {
-            ("62%", "30%")
-        } else {
-            ("48%", "22%")
-        };
-        out.push_str(&format!(
-            "<div class=\"flex gap-3\"><div class=\"skel\" style=\"width:36px;height:36px;border-radius:999px\"></div>\
-<div class=\"flex-1 space-y-2\"><div class=\"skel\" style=\"width:{w1};height:11px\"></div>\
-<div class=\"skel\" style=\"width:{w2};height:11px\"></div></div></div>"
-        ));
-    }
-    out
-}
-
-pub fn skeleton_grid(n: usize) -> String {
-    let mut out = String::new();
-    for _ in 0..n {
-        out.push_str(
-            "<div class=\"tile p-3 space-y-3\"><div class=\"skel\" style=\"width:100%;height:96px;border-radius:10px\"></div>\
-<div class=\"skel\" style=\"width:64%;height:11px\"></div><div class=\"skel\" style=\"width:38%;height:9px\"></div></div>",
-        );
-    }
-    out
-}
-
-pub fn skeleton_rows(n: usize) -> String {
-    let mut out = String::new();
-    for _ in 0..n {
-        out.push_str(
-            "<div class=\"flex items-center gap-3 px-3 py-2.5\">\
-<div class=\"skel\" style=\"width:22px;height:22px;border-radius:6px\"></div>\
-<div class=\"skel\" style=\"width:34%;height:12px\"></div>\
-<div class=\"skel ml-auto\" style=\"width:60px;height:10px\"></div>\
-<div class=\"skel\" style=\"width:70px;height:10px\"></div></div>",
-        );
-    }
-    out
 }
 
 pub fn empty_state(icon_name: &str, title: &str, body: &str, action: &str) -> String {
@@ -452,41 +384,6 @@ pub fn filter_tabs(id: &str, tabs: &[(&str, &str, bool)]) -> String {
 pub fn scroll_area(id: &str, inner: &str, extra: &str) -> String {
     format!(
         "<div id=\"{id}\" class=\"min-h-0 flex-1 overflow-y-auto overscroll-contain {extra}\">{inner}</div>"
-    )
-}
-
-pub fn toast(kind: &str, msg: &str) -> String {
-    let ic = match kind {
-        "error" => "warning",
-        "ok" => "check",
-        _ => "info",
-    };
-    let color = match kind {
-        "error" => "#ef4444",
-        "ok" => "#10b981",
-        _ => "#5333f4",
-    };
-    format!(
-        "<div class=\"toast pointer-events-auto\" role=\"status\"><span style=\"color:{color}\" class=\"mt-0.5\">{}</span><div class=\"flex-1 text-[13px] leading-snug\">{}</div></div>",
-        icon(ic, "h-4 w-4"),
-        esc(msg)
-    )
-}
-
-pub fn modal(id: &str, title: &str, body: &str, footer: &str) -> String {
-    format!(
-        "<div class=\"modal-backdrop\" id=\"{id}\" data-modal>\
-<div class=\"modal-card max-h-[88dvh] flex flex-col\">\
-<div class=\"flex items-start gap-3 border-b line px-5 py-4\">\
-<div class=\"flex-1 text-[15px] font-bold\">{}</div>\
-<button class=\"btn btn-ghost btn-icon\" data-close type=\"button\" aria-label=\"Close\">{}</button></div>\
-<div class=\"min-h-0 flex-1 overflow-y-auto px-5 py-4\">{}</div>\
-<div class=\"flex items-center justify-end gap-2 border-t line px-5 py-3.5\">{}</div>\
-</div></div>",
-        esc(title),
-        icon("x", "h-4 w-4"),
-        body,
-        footer
     )
 }
 

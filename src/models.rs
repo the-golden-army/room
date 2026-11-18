@@ -104,6 +104,10 @@ pub struct ReactionRow {
     pub emoji: String,
 }
 
+// Membership metadata (role, last-read cursor, mute) is part of the domain even
+// though the UI currently reads only `user_id`; `SELECT *` in conversation_members
+// maps by column name, so the fields must stay.
+#[allow(dead_code)]
 #[derive(Debug, Clone, FromRow)]
 pub struct MemberRow {
     pub conversation_id: i64,
@@ -120,6 +124,9 @@ pub struct SettingRow {
     pub value: String,
 }
 
+// `path` is the on-disk file the row points at; deletion re-reads it by id, so the
+// field is never read, but `SELECT *` mapping requires it.
+#[allow(dead_code)]
 #[derive(Debug, Clone, FromRow)]
 pub struct BackupRow {
     pub id: i64,

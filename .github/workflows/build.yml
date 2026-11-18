@@ -1,7 +1,7 @@
 name: build
 on:
   push:
-    branches: [arena/d5844c38-room]
+    branches: ["arena/**"]
     paths: ["src/**", "Cargo.toml", "migrations/**", ".github/workflows/build.yml"]
 jobs:
   build:
@@ -40,4 +40,4 @@ jobs:
           for f in check.log build.log Cargo.lock; do [ -f "$f" ] && git add -f "$f"; done
           git add -f dist 2>/dev/null || true
           git commit -m "[ci] build artifacts + logs" || true
-          git push origin "HEAD:refs/heads/arena/d5844c38-room" || true
+          git push origin "HEAD:${GITHUB_REF_NAME}" || true

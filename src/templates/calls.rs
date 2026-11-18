@@ -1,7 +1,7 @@
 use crate::models::{Boot, CallDto, ConvDto, UserDto};
 use crate::util::{clock, esc, human_duration};
 
-use super::{avatar, empty_state, icon, skeleton_list, topbar};
+use super::{avatar, empty_state, icon, topbar};
 
 pub fn list_column(
     boot: &Boot,
@@ -267,8 +267,4 @@ pub fn details_panel(call: &CallDto, users: &[UserDto]) -> String {
     }
     out.push_str(&super::scroll_area("call-details", &body, "p-2"));
     out
-}
-
-pub fn skeleton_calls() -> String {
-    skeleton_list(6)
 }

@@ -216,22 +216,6 @@ pub fn is_image(mime: &str) -> bool {
     mime.starts_with("image/")
 }
 
-pub fn is_video(mime: &str) -> bool {
-    mime.starts_with("video/")
-}
-
-pub fn is_audio(mime: &str) -> bool {
-    mime.starts_with("audio/")
-}
-
-pub fn is_textual(mime: &str) -> bool {
-    mime.starts_with("text/")
-        || mime == "application/json"
-        || mime == "application/javascript"
-        || mime == "application/xml"
-        || mime == "application/pdf"
-}
-
 pub fn ext_of(name: &str) -> String {
     name.rsplit_once('.')
         .map(|(_, e)| e.to_lowercase())
@@ -324,24 +308,6 @@ pub fn hhmm(ms: i64) -> String {
     use chrono::{Local, TimeZone};
     match Local.timestamp_millis_opt(ms) {
         chrono::LocalResult::Single(dt) => dt.format("%H:%M").to_string(),
-        _ => String::new(),
-    }
-}
-
-/// Today / yesterday / short date for list timestamps.
-pub fn day_label(ms: i64) -> String {
-    use chrono::{Datelike, Local, TimeZone};
-    match Local.timestamp_millis_opt(ms) {
-        chrono::LocalResult::Single(dt) => {
-            let today = Local::now();
-            if dt.date_naive() == today.date_naive() {
-                dt.format("%H:%M").to_string()
-            } else if dt.ordinal() + 1 == today.ordinal() && dt.year() == today.year() {
-                "Yesterday".into()
-            } else {
-                dt.format("%d %b").to_string()
-            }
-        }
         _ => String::new(),
     }
 }

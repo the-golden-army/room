@@ -60,10 +60,3 @@ pub async fn set_setting(pool: &SqlitePool, key: &str, value: &str) -> Result<()
     .await?;
     Ok(())
 }
-
-pub async fn setting_bool(pool: &SqlitePool, key: &str, default: bool) -> bool {
-    match setting(pool, key).await {
-        Some(v) => v == "1" || v.eq_ignore_ascii_case("true") || v.eq_ignore_ascii_case("yes"),
-        None => default,
-    }
-}

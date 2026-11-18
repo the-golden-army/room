@@ -1,6 +1,5 @@
 use std::path::PathBuf;
 use std::sync::atomic::AtomicU64;
-use std::sync::Arc;
 
 use actix::prelude::*;
 use serde_json::Value;
@@ -16,7 +15,6 @@ pub struct AppState {
     pub start_ms: i64,
     pub version: &'static str,
     pub hostname: String,
-    pub build: String,
     pub max_upload: AtomicU64,
 }
 
@@ -31,7 +29,6 @@ impl AppState {
             start_ms: crate::util::now_ms(),
             version: env!("CARGO_PKG_VERSION"),
             hostname,
-            build: "release".into(),
             max_upload: AtomicU64::new(max_upload),
         }
     }
@@ -100,5 +97,3 @@ pub fn hostname() -> String {
         })
         .unwrap_or_else(|| "local".into())
 }
-
-pub type Shared = Arc<AppState>;

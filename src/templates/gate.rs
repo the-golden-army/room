@@ -120,13 +120,15 @@ pub fn suspended_page(state: &AppState) -> String {
         r#"<div class="panel rounded-2xl p-5 shadow-soft text-center">
   <div class="mx-auto mb-3 grid h-12 w-12 place-items-center rounded-2xl bg-red-50 text-red-500 dark:bg-red-950/50">{icon}</div>
   <h1 class="text-[15px] font-bold">Account suspended</h1>
-  <p class="mt-1.5 text-[13px] ink2">Your account has been suspended by the host. Contact the administrator if you think this is a mistake.</p>
+  <p class="mt-1.5 text-[13px] leading-relaxed ink2">Your account has been suspended by the host. Ask the administrator to restore it, then reload this page.</p>
+  <a href="/gate" class="btn btn-ghost mt-4 w-full">Back to sign in</a>
 </div>"#,
         icon = super::icon("warning", "h-6 w-6"),
     );
     shell("Suspended", &body, state)
 }
 
-pub fn age(ms: i64) -> String {
-    human_duration(ms)
+/// Short "how long ago" label for a timestamp in ms since the epoch.
+pub fn age(ts: i64) -> String {
+    human_duration(chrono::Utc::now().timestamp_millis() - ts)
 }
