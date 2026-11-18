@@ -10,6 +10,9 @@ pub struct Config {
     pub max_upload: u64,
     pub page_size: i64,
     pub lan_ssid_hint: String,
+    /// Host-issued code that lets the first device in, or gets the owner back in
+    /// after losing every approved device. Empty = feature off.
+    pub setup_code: String,
 }
 
 impl Config {
@@ -33,6 +36,7 @@ impl Config {
             .filter(|v| *v > 0)
             .unwrap_or(60);
         let lan_ssid_hint = env::var("ROOM_NETWORK_NAME").unwrap_or_default();
+        let setup_code = env::var("ROOM_SETUP_CODE").unwrap_or_default().trim().to_string();
         Config {
             bind,
             data_dir,
@@ -41,6 +45,7 @@ impl Config {
             max_upload,
             page_size,
             lan_ssid_hint,
+            setup_code,
         }
     }
 

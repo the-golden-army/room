@@ -15,6 +15,38 @@ pub fn random_token() -> String {
     hex::encode(buf)
 }
 
+/// A short code a person can read off a console and type on a phone.
+/// Avoids look-alike characters (0/O, 1/I/L) so it survives being retyped.
+pub fn pairing_code() -> String {
+    const ALPHABET: &[u8] = b"ABCDEFGHJKMNPQRSTUVWXYZ23456789";
+    let mut buf = [0u8; 8];
+    rand::thread_rng().fill_bytes(&mut buf);
+    let chars: String = buf
+        .iter()
+        .map(|b| ALPHABET[(*b as usize) % ALPHABET.len()] as char)
+        .collect();
+    format!("{}-{}", &chars[..4], &chars[4..])
+}
+
+/// Compare a typed code against the expected one without leaking timing.
+pub fn code_matches(expected: &str, given: &str) -> bool {
+    let norm = |s: &str| -> String {
+        s.chars()
+            .filter(|c| c.is_ascii_alphanumeric())
+            .map(|c| c.to_ascii_uppercase())
+            .collect()
+    };
+    let (a, b) = (norm(expected), norm(given));
+    if a.is_empty() || a.len() != b.len() {
+        return false;
+    }
+    let mut diff = 0u8;
+    for (x, y) in a.bytes().zip(b.bytes()) {
+        diff |= x ^ y;
+    }
+    diff == 0
+}
+
 pub fn hash_token(token: &str) -> String {
     let mut h = Sha256::new();
     h.update(b"room-device-token::");

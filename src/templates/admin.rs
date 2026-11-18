@@ -99,6 +99,9 @@ fn server_status(info: ServerInfo, boot: &Boot) -> String {
     if let Some(url) = info.url.clone() {
         rows.push(("Open on your network".to_string(), url));
     }
+    if let Some(code) = boot.settings.get("setup_code").filter(|c| !c.is_empty()) {
+        rows.push(("Setup code".to_string(), code.clone()));
+    }
     let rows = rows.into_iter().chain([
         ("Uptime".to_string(), clock(info.uptime_ms)),
         ("Hostname".to_string(), info.host.clone()),

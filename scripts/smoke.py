@@ -34,6 +34,10 @@ SELF_HOSTED = len(sys.argv) <= 1
 FAILS = []
 CHECKS = 0
 SERVER = None
+# A fixed code so the recovery path is testable. Self-hosted runs set this env
+# var; against an external server it must match that server's configuration.
+SETUP_CODE = "SMOKE-TEST"
+WORKDIR = None
 
 
 def start_server():
@@ -47,12 +51,15 @@ def start_server():
     if not os.path.exists(bin_path):
         sys.exit(f"missing {bin_path} — run `cargo build --release` or fetch the CI artifact")
     work = tempfile.mkdtemp(prefix="room-smoke-")
+    global WORKDIR
+    WORKDIR = work
     env = dict(os.environ)
     env.update(
         ROOM_BIND=f"127.0.0.1:{PORT}",
         ROOM_DATA_DIR=os.path.join(work, "data"),
         ROOM_FILES_DIR=os.path.join(work, "files"),
         ROOM_NAME="ROOM Smoke",
+        ROOM_SETUP_CODE=SETUP_CODE,
     )
     proc = subprocess.Popen([bin_path], env=env, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
     for _ in range(100):
@@ -172,6 +179,12 @@ def main():
     check("GET /gate 200", st == 200, st)
     st, _, hdrs = anon.get("/")
     check("GET / redirects to /gate", st in (301, 302, 303) and "/gate" in hdrs.get("location", ""), (st, hdrs.get("location")))
+    # Before any owner exists nobody could approve anyone, so the gate must
+    # offer setup rather than asking permission from a host who isn't there.
+    st, first_page, _ = anon.get("/gate")
+    first = first_page.decode(errors="replace")
+    check("first run offers host setup", "Set up ROOM" in first, st)
+    check("first run does not ask for approval", "Request access" not in first)
 
     section("device authorisation")
     alice = Client("alice")
@@ -290,6 +303,59 @@ def main():
     check("profile update", st == 200 and d["me"]["name"] == "Alice A.", (st, d))
     st, d = alice.json("/api/search?q=hello")
     check("search finds messages", len(d.get("messages", [])) >= 1, d)
+
+    section("lockout recovery")
+    # Simulate the owner losing every approved device.
+    import sqlite3
+
+    db = os.path.join(WORKDIR, "data", "room.db")
+    con = sqlite3.connect(db)
+    con.execute("UPDATE devices SET approved = 0, revoked = 1")
+    con.commit()
+    con.close()
+    st, page, _ = alice.get("/gate")
+    check("locked-out owner sees the recovery form", st == 200, st)
+    check("gate still reads as a request form", "Request access" in page.decode(errors="replace"))
+    rescue = Client("rescue")
+    st, body, _ = rescue.form(
+        "/api/request-access",
+        {"name": "Alice", "device": "recovery-laptop", "code": "WRONG-CODE"},
+    )
+    check("a wrong setup code is refused", st == 400, st)
+    check("wrong code explains itself", "not correct" in body.decode(errors="replace"))
+    st, page, _ = rescue.get("/")
+    check("wrong code leaves you gated", st in (301, 302, 303), st)
+    st, body, _ = rescue.form(
+        "/api/request-access",
+        {"name": "Alice", "device": "recovery-laptop", "code": SETUP_CODE},
+    )
+    check("the right setup code gets back in", st == 200, st)
+    st, page, _ = rescue.get("/")
+    check("recovered device reaches the app", st == 200, st)
+    check("recovered device is the owner again", page and b"Admin" in page)
+    # The code must be forgiving about formatting but strict about value, and
+    # a plain request without it must still land in the queue.
+    norm = SETUP_CODE.lower().replace("-", " ")
+    st, _, _ = rescue.form(
+        "/api/request-access", {"name": "Alice", "device": "recovery-case", "code": norm}
+    )
+    check("code ignores case and dashes", st == 200, st)
+    st, _, _ = rescue.form(
+        "/api/request-access", {"name": "Alice", "device": "recovery-blank", "code": "   "}
+    )
+    check("blank code is not treated as a match", st == 200, st)
+    # Restore the fixtures the rest of the suite depends on: the lockout
+    # revoked every device above, including Alice's and Bob's.
+    con = sqlite3.connect(db)
+    con.execute(
+        "UPDATE devices SET approved = 1, revoked = 0 WHERE name IN ('alice-laptop','bob-phone')"
+    )
+    con.commit()
+    con.close()
+    st, _, _ = alice.get("/")
+    check("owner is back after recovery", st == 200, st)
+    st, _, _ = bob.get("/")
+    check("peer is back after recovery", st == 200, st)
 
     section("suspended accounts")
     st, _ = alice.json(f"/api/admin/users/{bob_id}", {"state": "suspended"}, "PATCH")

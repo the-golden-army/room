@@ -46,12 +46,39 @@ Environment variables:
 | `ROOM_NAME`          | `ROOM`         | Server name shown in the UI              |
 | `ROOM_MAX_UPLOAD_MB` | `2048`         | Per-file upload limit                    |
 | `ROOM_NETWORK_NAME`  | –              | Wi-Fi name hint on the sign-in screen    |
+| `ROOM_SETUP_CODE`    | generated      | Recovery code; see *First run* below     |
 
 ## First run
 
-The first device that requests access becomes the **owner** (host). Every later device must be
-approved from the host console (`/admin?tab=requests`). Approvals persist across restarts;
-revoking a device invalidates its credential immediately.
+The **first** device to open the server becomes the **owner** (host) with no code and no
+approval — before an owner exists there is nobody who could approve anyone, so the gate reads
+"Set up ROOM" instead of asking for permission. Every later device must be approved from the
+host console (`/admin?tab=requests`). Approvals persist across restarts; revoking a device
+invalidates its credential immediately.
+
+### Setup code (lockout recovery)
+
+On first start ROOM generates a setup code and prints it:
+
+```
+   +--------------------------------------------+
+   |  Setup code: K7QM-3XR9                     |
+   +--------------------------------------------+
+```
+
+It is also shown in the admin overview. Typing it on the gate signs you in as the **owner**,
+without approval, and is the only way back in if every approved device is lost — a stolen
+laptop, cleared cookies, or a device revoked by mistake. Without it, a server whose owner has
+no approved device has no way in at all, short of editing the database by hand.
+
+To pin your own code, set `ROOM_SETUP_CODE` before starting:
+
+```bash
+ROOM_SETUP_CODE="my-recovery-code" ./room
+```
+
+The code is case-insensitive and ignores dashes. Treat it like a password: anyone who has it
+and can reach the server becomes the owner.
 
 ## Development
 

@@ -1,5 +1,6 @@
 use crate::models::User;
 use crate::state::AppState;
+use crate::store;
 use crate::util::{esc, human_duration};
 
 fn shell(title: &str, body: &str, state: &AppState) -> String {
@@ -57,28 +58,60 @@ pub async fn gate_page(state: &AppState, error: Option<&str>) -> String {
         ),
         None => String::new(),
     };
+    // Before the first owner exists nobody could approve anyone, so the first
+    // device forms the owner without a code. Afterwards the code is the way
+    // back in for the owner, and the way in for everyone else is approval.
+    let claims = store::has_owner(&state.pool).await.unwrap_or(true);
+    let code_available = !state.cfg.setup_code.is_empty();
+    let (heading, intro, submit, footnote, code_field) = if !claims {
+        (
+            "Set up ROOM",
+            "You are the first device here, so this account becomes the host. Pick a name and you are in — you can approve everyone else afterwards.",
+            "Create the host account",
+            "This server has no accounts yet. The first device becomes the owner.",
+            String::new(),
+        )
+    } else {
+        (
+            "Request access",
+            "This ROOM server is private. Enter your name to ask the host for access — the device must be approved before you can open the workspace.",
+            "Send request",
+            "Approval is asked once per device and stays valid across restarts. The host can revoke it at any time from the admin console.",
+            if code_available {
+                "<label class=\"block\"><span class=\"mb-1.5 block text-xs font-semibold ink2\">Setup code <span class=\"font-normal ink3\">(only if the host gave you one)</span></span><input class=\"input\" name=\"code\" maxlength=\"24\" placeholder=\"ABCD-EFGH\" autocomplete=\"off\" spellcheck=\"false\"></label>".to_string()
+            } else {
+                String::new()
+            },
+        )
+    };
     let body = format!(
         r#"<div class="panel rounded-2xl p-5 shadow-soft">
-  <h1 class="text-[15px] font-bold">Request access</h1>
-  <p class="mt-1 text-[13px] leading-relaxed ink2">This ROOM server is private. Enter your name to ask the host for access — the device must be approved before you can open the workspace.</p>
+  <h1 class="text-[15px] font-bold">{heading}</h1>
+  <p class="mt-1 text-[13px] leading-relaxed ink2">{intro}</p>
   {err}
   <form method="post" action="/api/request-access" class="mt-4 space-y-3">
     <label class="block">
       <span class="mb-1.5 block text-xs font-semibold ink2">Your name</span>
       <input class="input" name="name" maxlength="60" placeholder="e.g. Nour Yahyaoui" required autocomplete="name">
     </label>
+    {code_field}
     <input type="hidden" name="device" value="">
-    <button class="btn btn-brand w-full" type="submit">Send request</button>
+    <button class="btn btn-brand w-full" type="submit">{submit}</button>
   </form>
 </div>
 <div class="flex items-start gap-2.5 rounded-xl border line panel2 px-3.5 py-3">
   <span class="mt-0.5 ink3">{icon}</span>
-  <div class="text-[12px] leading-relaxed ink2">Approval is asked once per device and stays valid across restarts. The host can revoke it at any time from the admin console.</div>
+  <div class="text-[12px] leading-relaxed ink2">{footnote}</div>
 </div>"#,
         err = err,
         icon = super::icon("lock", "h-4 w-4"),
+        heading = heading,
+        intro = intro,
+        code_field = code_field,
+        submit = submit,
+        footnote = footnote,
     );
-    shell("Request access", &body, state)
+    shell(if claims { "Request access" } else { "Set up ROOM" }, &body, state)
 }
 
 pub async fn waiting_page(state: &AppState, user: &User) -> String {

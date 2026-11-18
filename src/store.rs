@@ -208,6 +208,19 @@ pub async fn count_pending(pool: &SqlitePool) -> Result<i64, sqlx::Error> {
     Ok(r.0)
 }
 
+/// True once the very first account exists. Before that there is nobody who
+/// could approve anyone, so the server must let the first device in.
+pub async fn has_owner(pool: &SqlitePool) -> Result<bool, sqlx::Error> {
+    Ok(owner_count(pool).await? > 0)
+}
+
+/// The single owner account, if one exists.
+pub async fn first_owner(pool: &SqlitePool) -> Result<Option<User>, sqlx::Error> {
+    sqlx::query_as::<_, User>("SELECT * FROM users WHERE role = 'owner' ORDER BY id LIMIT 1")
+        .fetch_optional(pool)
+        .await
+}
+
 pub async fn owner_count(pool: &SqlitePool) -> Result<i64, sqlx::Error> {
     let r = sqlx::query_as::<_, (i64,)>("SELECT COUNT(*) FROM users WHERE role = 'owner'")
         .fetch_one(pool)
