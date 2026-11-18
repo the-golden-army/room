@@ -179,6 +179,12 @@ def main():
     check("GET /gate 200", st == 200, st)
     st, _, hdrs = anon.get("/")
     check("GET / redirects to /gate", st in (301, 302, 303) and "/gate" in hdrs.get("location", ""), (st, hdrs.get("location")))
+    # Before any owner exists nobody could approve anyone, so the gate must
+    # offer setup rather than asking permission from a host who isn't there.
+    st, first_page, _ = anon.get("/gate")
+    first = first_page.decode(errors="replace")
+    check("first run offers host setup", "Set up ROOM" in first, st)
+    check("first run does not ask for approval", "Request access" not in first)
 
     section("device authorisation")
     alice = Client("alice")
@@ -192,13 +198,6 @@ def main():
     check("user directory readable", st == 200 and len(all_users["users"]) >= 1, len(all_users["users"]) if all_users else None)
     st, _, _ = alice.get("/")
     check("owner reaches the app", st == 200, st)
-
-    # --- bootstrap: the gate must not claim approval is needed before any
-    # owner exists, or the very first visitor is stuck behind a queue that
-    # nobody can work.
-    st, anon_page, _ = Client("firstlook").get("/gate")
-    first = anon_page.decode(errors="replace")
-    check("first run offers host setup", "Set up ROOM" in first, st)
 
     bob = Client("bob")
     bob.form("/api/request-access", {"name": "Bob", "device": "bob-phone"})
@@ -334,6 +333,29 @@ def main():
     st, page, _ = rescue.get("/")
     check("recovered device reaches the app", st == 200, st)
     check("recovered device is the owner again", page and b"Admin" in page)
+    # The code must be forgiving about formatting but strict about value, and
+    # a plain request without it must still land in the queue.
+    norm = SETUP_CODE.lower().replace("-", " ")
+    st, _, _ = rescue.form(
+        "/api/request-access", {"name": "Alice", "device": "recovery-case", "code": norm}
+    )
+    check("code ignores case and dashes", st == 200, st)
+    st, _, _ = rescue.form(
+        "/api/request-access", {"name": "Alice", "device": "recovery-blank", "code": "   "}
+    )
+    check("blank code is not treated as a match", st == 200, st)
+    # Restore the fixtures the rest of the suite depends on: the lockout
+    # revoked every device above, including Alice's and Bob's.
+    con = sqlite3.connect(db)
+    con.execute(
+        "UPDATE devices SET approved = 1, revoked = 0 WHERE name IN ('alice-laptop','bob-phone')"
+    )
+    con.commit()
+    con.close()
+    st, _, _ = alice.get("/")
+    check("owner is back after recovery", st == 200, st)
+    st, _, _ = bob.get("/")
+    check("peer is back after recovery", st == 200, st)
 
     section("suspended accounts")
     st, _ = alice.json(f"/api/admin/users/{bob_id}", {"state": "suspended"}, "PATCH")
