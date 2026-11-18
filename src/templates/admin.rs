@@ -111,7 +111,7 @@ fn server_status(info: ServerInfo, boot: &Boot) -> String {
     for (k, v) in rows {
         out.push_str(&format!(
             "<div class=\"flex items-center justify-between border-b line py-2 text-[12.5px]\"><span class=\"ink3\">{}</span><span class=\"font-semibold\">{}</span></div>",
-            esc(k),
+            esc(&k),
             esc(&v)
         ));
     }
