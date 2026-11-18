@@ -41,12 +41,54 @@ pub async fn favicon() -> HttpResponse {
         .body(FAVICON)
 }
 
+/// Resolve the code that lets the host in when nobody is approved yet.
+///
+/// Returns the code plus whether it was generated just now (so it is worth
+/// printing loudly), and writes it into `cfg` for the request handlers.
+async fn resolve_setup_code(
+    pool: &sqlx::SqlitePool,
+    cfg: &mut config::Config,
+) -> Result<Option<(String, bool)>, sqlx::Error> {
+    use crate::util::pairing_code;
+
+    // An explicit env var wins and is not written to the database, but it is
+    // still the active code, so mirror it into settings for the admin page to
+    // display. (It is re-derived from the env var on every start.)
+    if !cfg.setup_code.is_empty() {
+        let code = cfg.setup_code.clone();
+        let _ = db::set_setting(pool, "setup_code", &code).await;
+        return Ok(Some((code, false)));
+    }
+    if let Some(saved) = db::setting(pool, "setup_code").await {
+        let saved = saved.trim().to_string();
+        if !saved.is_empty() {
+            cfg.setup_code = saved.clone();
+            return Ok(Some((saved, false)));
+        }
+    }
+    let code = pairing_code();
+    db::set_setting(pool, "setup_code", &code).await?;
+    cfg.setup_code = code.clone();
+    Ok(Some((code, true)))
+}
+
 #[actix_web::main]
 async fn main() -> std::io::Result<()> {
-    let cfg = config::Config::from_env();
+    let mut cfg = config::Config::from_env();
     let pool = db::connect(&cfg).await.expect("database init failed");
     db::migrate(&pool).await.expect("migration failed");
     seed(&pool).await;
+
+    // Resolve the host's setup code before anything can serve a request.
+    // Priority: explicit ROOM_SETUP_CODE, then the code stored from first run,
+    // then a freshly generated one persisted for future restarts.
+    let boot_notice = match resolve_setup_code(&pool, &mut cfg).await {
+        Ok(n) => n,
+        Err(e) => {
+            eprintln!("warning: could not persist the setup code: {e}");
+            None
+        }
+    };
 
     let hub = realtime::Hub::new().start();
     let state = web::Data::new(AppState::new(pool, hub, cfg));
@@ -81,6 +123,19 @@ async fn main() -> std::io::Result<()> {
             "   open on your network: http://<this-computer's-LAN-IP>:{} (no LAN address detected)",
             state.cfg.port().unwrap_or(8080)
         ),
+    }
+    if let Some((code, fresh)) = boot_notice {
+        if fresh {
+            // Generated on this run: show it prominently, it is the only way in.
+            println!();
+            println!("   +--------------------------------------------+");
+            println!("   |  Setup code: {:<30}|", code);
+            println!("   +--------------------------------------------+");
+            println!("   Type this on the first device you connect, or any time");
+            println!("   the owner has no approved device. It never expires.");
+        } else {
+            println!("   setup code: {code}  (host override, ROOM_SETUP_CODE)");
+        }
     }
 
     HttpServer::new(move || {

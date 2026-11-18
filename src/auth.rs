@@ -93,6 +93,9 @@ fn clean_display_name(name: &str) -> String {
 pub struct AccessForm {
     pub name: String,
     pub device: Option<String>,
+    /// Host-issued code, typed on the gate when nobody approved is left to
+    /// approve you — the very first connection, or the owner's recovery.
+    pub code: Option<String>,
 }
 
 fn client_hashes(req: &HttpRequest) -> Option<String> {
@@ -151,8 +154,74 @@ pub async fn request_access(
         (d, u, token, approved)
     } else {
         let handle = make_handle(&state.pool, &name).await;
-        let owner_exists = store::owner_count(&state.pool).await.unwrap_or(0) > 0;
+        let owner_exists = store::has_owner(&state.pool).await.unwrap_or(true);
+        // Nobody can approve anything until the first owner exists, so the first
+        // device forms the owner with no code. After that a code is required to
+        // mint a new owner — that is the recovery path when every approved
+        // device is gone (lost laptop, cleared cookies, revoked by mistake).
+        let given_code = form.code.as_deref().unwrap_or("").trim();
+        let code_ok = !state.cfg.setup_code.is_empty()
+            && crate::util::code_matches(&state.cfg.setup_code, given_code);
+        if owner_exists && !given_code.is_empty() && !code_ok {
+            return HttpResponse::BadRequest()
+                .content_type("text/html")
+                .body(
+                    crate::templates::gate::gate_page(&state, Some("That setup code is not correct."))
+                        .await,
+                );
+        }
+        // With the host's code, reuse the existing owner instead of minting a
+        // second one (the app deliberately supports a single owner). This is the
+        // recovery path: it adds an approved device back to that account.
+        let recovering = owner_exists && code_ok;
+        let existing_owner = if recovering {
+            store::first_owner(&state.pool).await.ok().flatten()
+        } else {
+            None
+        };
         let role = if !owner_exists { "owner" } else { "member" };
+        if let Some(u) = existing_owner {
+            // Skip provisioning a user record entirely and continue with theirs.
+            let token = random_token();
+            let device = match store::create_device(
+                &state.pool,
+                u.id,
+                &ua_name,
+                &platform,
+                &hash_token(&token),
+                "",
+                &ip,
+                true,
+            )
+            .await
+            {
+                Ok(d) => d,
+                Err(_) => {
+                    return HttpResponse::InternalServerError()
+                        .content_type("text/html")
+                        .body(
+                            crate::templates::gate::gate_page(&state, Some("Could not register device."))
+                                .await,
+                        )
+                }
+            };
+            let _ = store::audit(
+                &state.pool,
+                u.id,
+                &u.name,
+                "device.recover",
+                "device",
+                device.id,
+                &format!("{} · {}", device.name, device.platform),
+                &ip,
+            )
+            .await;
+            let html = crate::templates::gate::approved_page(&state, &u).await;
+            return HttpResponse::Ok()
+                .content_type("text/html")
+                .cookie(device_cookie(&token))
+                .body(html);
+        }
         let user = match store::create_user(&state.pool, &name, &handle, role).await {
             Ok(u) => u,
             Err(_) => {

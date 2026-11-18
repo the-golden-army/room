@@ -34,6 +34,10 @@ SELF_HOSTED = len(sys.argv) <= 1
 FAILS = []
 CHECKS = 0
 SERVER = None
+# A fixed code so the recovery path is testable. Self-hosted runs set this env
+# var; against an external server it must match that server's configuration.
+SETUP_CODE = "SMOKE-TEST"
+WORKDIR = None
 
 
 def start_server():
@@ -47,12 +51,15 @@ def start_server():
     if not os.path.exists(bin_path):
         sys.exit(f"missing {bin_path} — run `cargo build --release` or fetch the CI artifact")
     work = tempfile.mkdtemp(prefix="room-smoke-")
+    global WORKDIR
+    WORKDIR = work
     env = dict(os.environ)
     env.update(
         ROOM_BIND=f"127.0.0.1:{PORT}",
         ROOM_DATA_DIR=os.path.join(work, "data"),
         ROOM_FILES_DIR=os.path.join(work, "files"),
         ROOM_NAME="ROOM Smoke",
+        ROOM_SETUP_CODE=SETUP_CODE,
     )
     proc = subprocess.Popen([bin_path], env=env, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
     for _ in range(100):
@@ -186,6 +193,13 @@ def main():
     st, _, _ = alice.get("/")
     check("owner reaches the app", st == 200, st)
 
+    # --- bootstrap: the gate must not claim approval is needed before any
+    # owner exists, or the very first visitor is stuck behind a queue that
+    # nobody can work.
+    st, anon_page, _ = Client("firstlook").get("/gate")
+    first = anon_page.decode(errors="replace")
+    check("first run offers host setup", "Set up ROOM" in first, st)
+
     bob = Client("bob")
     bob.form("/api/request-access", {"name": "Bob", "device": "bob-phone"})
     st, users = alice.json("/api/users")
@@ -290,6 +304,36 @@ def main():
     check("profile update", st == 200 and d["me"]["name"] == "Alice A.", (st, d))
     st, d = alice.json("/api/search?q=hello")
     check("search finds messages", len(d.get("messages", [])) >= 1, d)
+
+    section("lockout recovery")
+    # Simulate the owner losing every approved device.
+    import sqlite3
+
+    db = os.path.join(WORKDIR, "data", "room.db")
+    con = sqlite3.connect(db)
+    con.execute("UPDATE devices SET approved = 0, revoked = 1")
+    con.commit()
+    con.close()
+    st, page, _ = alice.get("/gate")
+    check("locked-out owner sees the recovery form", st == 200, st)
+    check("gate still reads as a request form", "Request access" in page.decode(errors="replace"))
+    rescue = Client("rescue")
+    st, body, _ = rescue.form(
+        "/api/request-access",
+        {"name": "Alice", "device": "recovery-laptop", "code": "WRONG-CODE"},
+    )
+    check("a wrong setup code is refused", st == 400, st)
+    check("wrong code explains itself", "not correct" in body.decode(errors="replace"))
+    st, page, _ = rescue.get("/")
+    check("wrong code leaves you gated", st in (301, 302, 303), st)
+    st, body, _ = rescue.form(
+        "/api/request-access",
+        {"name": "Alice", "device": "recovery-laptop", "code": SETUP_CODE},
+    )
+    check("the right setup code gets back in", st == 200, st)
+    st, page, _ = rescue.get("/")
+    check("recovered device reaches the app", st == 200, st)
+    check("recovered device is the owner again", page and b"Admin" in page)
 
     section("suspended accounts")
     st, _ = alice.json(f"/api/admin/users/{bob_id}", {"state": "suspended"}, "PATCH")
