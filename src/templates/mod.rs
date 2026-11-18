@@ -280,7 +280,7 @@ pub fn page_opts(
         String::new()
     } else {
         format!(
-            "<aside id=\"sidecol\" class=\"w-[320px] shrink-0 border-l line panel hidden xl:flex flex-col min-h-0\">{}</aside>",
+            "<aside id=\"sidecol\" class=\"w-[320px] shrink-0 overflow-hidden border-l line panel hidden xl:flex flex-col min-h-0\">{}</aside>",
             side
         )
     };

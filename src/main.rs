@@ -73,6 +73,15 @@ async fn main() -> std::io::Result<()> {
         state.cfg.data_dir.display(),
         state.cfg.files_dir.display()
     );
+    // The whole point of ROOM is reaching it from other devices; print the
+    // address a phone on the same network should open.
+    match state.cfg.lan_url() {
+        Some(url) => println!("   open on your network: {url}"),
+        None => println!(
+            "   open on your network: http://<this-computer's-LAN-IP>:{} (no LAN address detected)",
+            state.cfg.port().unwrap_or(8080)
+        ),
+    }
 
     HttpServer::new(move || {
         App::new()

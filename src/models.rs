@@ -299,6 +299,8 @@ pub struct ServerInfo {
     pub uptime_ms: i64,
     pub host: String,
     pub lan_hint: String,
+    /// Address other devices on the same network can open, when detectable.
+    pub url: Option<String>,
 }
 
 #[derive(Debug, Clone, Serialize)]

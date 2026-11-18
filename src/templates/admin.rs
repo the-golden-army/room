@@ -95,14 +95,18 @@ pub fn overview(
 }
 
 fn server_status(info: ServerInfo, boot: &Boot) -> String {
-    let rows = [
-        ("Uptime", clock(info.uptime_ms)),
-        ("Hostname", info.host.clone()),
-        ("Version", format!("ROOM {}", info.version)),
-        ("Members online", boot.users.iter().filter(|u| u.online).count().to_string()),
-        ("Pending approvals", boot.pending_requests.to_string()),
-        ("Audit entries", boot.devices.len().to_string()),
-    ];
+    let mut rows = Vec::new();
+    if let Some(url) = info.url.clone() {
+        rows.push(("Open on your network".to_string(), url));
+    }
+    let rows = rows.into_iter().chain([
+        ("Uptime".to_string(), clock(info.uptime_ms)),
+        ("Hostname".to_string(), info.host.clone()),
+        ("Version".to_string(), format!("ROOM {}", info.version)),
+        ("Members online".to_string(), boot.users.iter().filter(|u| u.online).count().to_string()),
+        ("Pending approvals".to_string(), boot.pending_requests.to_string()),
+        ("Audit entries".to_string(), boot.devices.len().to_string()),
+    ]);
     let mut out = String::new();
     for (k, v) in rows {
         out.push_str(&format!(

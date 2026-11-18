@@ -29,6 +29,7 @@ fn shell(title: &str, body: &str, state: &AppState) -> String {
 </div>
 {body}
 <div class="text-center text-[11px] ink3">Server <span class="font-semibold ink2">{host}</span> · {net}</div>
+{lan}
 </main>
 </body>
 </html>"#,
@@ -38,6 +39,13 @@ fn shell(title: &str, body: &str, state: &AppState) -> String {
         body = body,
         host = esc(&state.hostname),
         net = esc(&net),
+        lan = match state.cfg.lan_url() {
+            Some(url) => format!(
+                "<div class=\"text-center text-[11px] ink3\">On another device, open <span class=\"font-semibold ink2\">{}</span></div>",
+                esc(&url)
+            ),
+            None => String::new(),
+        },
     )
 }
 

@@ -42,6 +42,7 @@ pub async fn build(state: &AppState, auth: &Auth, section: &str) -> Boot {
             uptime_ms: state.uptime_ms(),
             host: state.hostname.clone(),
             lan_hint: state.cfg.lan_ssid_hint.clone(),
+            url: state.cfg.lan_url(),
         },
         is_admin: auth.user.role == "owner" || auth.user.role == "admin",
         section: section.to_string(),

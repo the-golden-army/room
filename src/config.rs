@@ -47,4 +47,25 @@ impl Config {
     pub fn db_path(&self) -> PathBuf {
         self.data_dir.join("room.db")
     }
+
+    /// The port this server listens on, e.g. 8080.
+    pub fn port(&self) -> Option<u16> {
+        self.bind.rsplit_once(':')?.1.parse().ok()
+    }
+
+    /// A URL other devices on the same network can open.
+    ///
+    /// A UDP socket "connect" sends no packets; it only asks the OS which local
+    /// address it would use to reach a peer. That is the LAN address of the
+    /// machine running ROOM, which is exactly what a phone needs to type in.
+    pub fn lan_url(&self) -> Option<String> {
+        let port = self.port()?;
+        let sock = std::net::UdpSocket::bind("0.0.0.0:0").ok()?;
+        sock.connect("8.8.8.8:80").ok()?;
+        let ip = sock.local_addr().ok()?.ip();
+        if ip.is_loopback() || ip.is_unspecified() {
+            return None;
+        }
+        Some(format!("http://{}:{}", ip, port))
+    }
 }

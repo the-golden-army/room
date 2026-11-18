@@ -425,7 +425,7 @@
         : c.muted
         ? `<span class="ml-auto ink3">${icon('bell-off', 'h-3.5 w-3.5')}</span>`
         : '';
-    return `<a href="/chat/${c.id}" class="list-item ${c.id === state.convId ? 'active' : ''}" data-conv="${c.id}" data-kind="${c.kind}" data-unread="${c.unread > 0 ? '1' : '0'}">
+    return `<a href="/chat/${c.id}" class="conv-item ${c.id === state.convId ? 'active' : ''}" data-conv="${c.id}" data-kind="${c.kind}" data-unread="${c.unread > 0 ? '1' : '0'}">
       ${avatarHtml({ id: 0, initials: c.initials, color: c.color, presence: '' }, 'h-10 w-10 text-[13px]', false)}
       <span class="min-w-0 flex-1"><span class="flex items-center gap-1.5">
         <span class="truncate text-[13.5px] font-semibold">${esc(c.title)}</span>
@@ -473,7 +473,7 @@
       : '';
     return `<div class="group relative bubble-row${m.mine ? ' own' : ''}" data-msg="${m.id}" data-sender="${m.sender_id}" data-grouped="${grouped ? '1' : '0'}">
       ${avatarSlot}
-      <div class="flex min-w-0 flex-col ${m.mine ? 'items-end' : 'items-start'}">${head}
+      <div class="flex min-w-0 flex-1 flex-col ${m.mine ? 'items-end' : 'items-start'}">${head}
         <div class="bubble">${reply}<div class="msg-body">${bodyHtml(m.body)}</div><div class="bubble-meta"><span>${timeHHMM(m.created_at)}</span>${m.edited ? '<span>(edited)</span>' : ''}</div></div>
         ${reacts}
       </div>

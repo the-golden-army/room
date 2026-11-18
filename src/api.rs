@@ -1528,5 +1528,6 @@ pub fn server_info(state: &AppState) -> Value {
         "host": state.hostname,
         "uptime_ms": state.uptime_ms(),
         "network": state.cfg.lan_ssid_hint,
+        "url": state.cfg.lan_url(),
     })
 }
