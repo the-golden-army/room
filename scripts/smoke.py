@@ -189,7 +189,7 @@ def main():
     section("device authorisation")
     alice = Client("alice")
     st, body, _ = alice.form("/api/request-access", {"name": "Alice", "device": "alice-laptop"})
-    check("first device registers", st == 200, (st, body[:120]))
+    check("first device registers", st in (200, 303), (st, body[:120]))
     check("device cookie set", bool(alice.device))
     st, boot = alice.json("/api/users")
     me = next(u for u in boot["users"] if u["name"] == "Alice" and u["role"] == "owner")
@@ -205,6 +205,20 @@ def main():
     bob_id = next(u["id"] for u in users["users"] if u["name"] == "Bob")
     st, _, hdrs = bob.get("/")
     check("pending device is gated", st in (301, 302, 303) and "/gate" in hdrs.get("location", ""), (st, hdrs.get("location")))
+    # The waiting screen must live on its own URL so a refresh cannot re-post
+    # the form (that loop bounced visitors straight back to the sign-in form).
+    st, page, _ = bob.get("/waiting")
+    wpage = page.decode(errors="replace")
+    check("pending device reaches waiting screen", st == 200, st)
+    check("waiting screen names the approver", "Alice" in wpage, wpage[:160])
+    check("waiting screen points at the admin console", "/admin" in wpage)
+    check("waiting screen refreshes itself", "url=/waiting" in wpage)
+    st, _, hdrs = bob.get("/gate")
+    check(
+        "gate sends a pending device to /waiting",
+        st in (301, 302, 303) and "/waiting" in hdrs.get("location", ""),
+        (st, hdrs.get("location")),
+    )
     st, reqs = alice.json("/api/admin/requests")
     check("approval request listed", st == 200 and len(reqs.get("pending", [])) >= 1, body[:100])
     rid = reqs["pending"][0]["id"]
@@ -212,6 +226,12 @@ def main():
     check("admin approves device", st == 200, st)
     st, _, _ = bob.get("/")
     check("approved device reaches the app", st == 200, st)
+    st, _, hdrs = bob.get("/waiting")
+    check(
+        "waiting screen hands off once approved",
+        st in (301, 302, 303) and hdrs.get("location") == "/",
+        (st, hdrs.get("location")),
+    )
 
     section("conversations")
     st, d = alice.json("/api/conversations", {"kind": "group", "name": "General", "members": [me["id"], 2]})
@@ -329,7 +349,7 @@ def main():
         "/api/request-access",
         {"name": "Alice", "device": "recovery-laptop", "code": SETUP_CODE},
     )
-    check("the right setup code gets back in", st == 200, st)
+    check("the right setup code gets back in", st in (200, 303), st)
     st, page, _ = rescue.get("/")
     check("recovered device reaches the app", st == 200, st)
     check("recovered device is the owner again", page and b"Admin" in page)
@@ -339,11 +359,11 @@ def main():
     st, _, _ = rescue.form(
         "/api/request-access", {"name": "Alice", "device": "recovery-case", "code": norm}
     )
-    check("code ignores case and dashes", st == 200, st)
+    check("code ignores case and dashes", st in (200, 303), st)
     st, _, _ = rescue.form(
         "/api/request-access", {"name": "Alice", "device": "recovery-blank", "code": "   "}
     )
-    check("blank code is not treated as a match", st == 200, st)
+    check("blank code is not treated as a match", st in (200, 303), st)
     # Restore the fixtures the rest of the suite depends on: the lockout
     # revoked every device above, including Alice's and Bob's.
     con = sqlite3.connect(db)
