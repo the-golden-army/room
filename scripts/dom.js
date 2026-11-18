@@ -223,6 +223,31 @@ function shutdown(code) {
     check('bubbles carry timestamps', w.document.querySelectorAll('#messages .bubble-meta').length >= 2);
     check('conversation filters render', w.document.querySelectorAll('[data-filter]').length === 4,
       w.document.querySelectorAll('[data-filter]').length);
+    // The content column must be able to grow: a shrink-to-fit column with a
+    // percentage-width child collapsed bubbles to one character per line.
+    check('bubble content column can grow',
+      Array.from(w.document.querySelectorAll('#messages .bubble-row'))
+        .every((r) => {
+          const col = Array.from(r.children).find((c) => c.querySelector('.bubble'));
+          return !!col && col.classList.contains('flex-1');
+        }));
+    // The avatar must sit outside the hover toolbar, not be swallowed by it.
+    check('bubble avatar is outside the action toolbar',
+      Array.from(w.document.querySelectorAll('#messages .bubble-row'))
+        .every((r) => {
+          const bar = r.querySelector(':scope > .absolute');
+          return !bar || !bar.querySelector('.rounded-full');
+        }));
+    w.close();
+  }
+
+  {
+    // Conversation rows must keep flex layout; a Tailwind utility named
+    // `list-item` (display:list-item) once overrode the component class here.
+    const w = await bootPage('/', aCookie);
+    const rows = Array.from(w.document.querySelectorAll('#conv-list > a'));
+    check('conversation rows use the conv-item class',
+      rows.length >= 1 && rows.every((r) => r.classList.contains('conv-item')));
     w.close();
   }
 
