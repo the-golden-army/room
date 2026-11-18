@@ -139,10 +139,10 @@ html.dark {
   }
 
   /* message bubbles — sender on the left, own messages on the right */
-  .bubble-row { display: flex; gap: .55rem; padding: 2px 0; }
+  .bubble-row { position: relative; display: flex; gap: .55rem; padding: 2px 0; }
   .bubble-row.own { flex-direction: row-reverse; }
   .bubble {
-    max-width: min(78%, 560px); padding: .5rem .8rem; border-radius: 14px;
+    max-width: min(78%, 560px); min-width: 2.75rem; padding: .5rem .8rem; border-radius: 14px;
     background: var(--color-panel); border: 1px solid var(--color-line);
     color: var(--color-ink); font-size: .875rem; line-height: 1.5;
     overflow-wrap: anywhere;
@@ -152,26 +152,26 @@ html.dark {
   }
   html.dark .bubble-row.own .bubble { background: #6b4dff; }
   .bubble-row.own .bubble a { color: #fff; text-decoration: underline; }
-  .bubble .bubble-meta { margin-top: .2rem; font-size: .625rem; opacity: .62; display: flex; gap: .3rem; align-items: center; justify-content: flex-end; }
+  .bubble .bubble-meta { margin-top: .2rem; font-size: .625rem; opacity: .62; display: flex; gap: .3rem; align-items: center; justify-content: flex-end; white-space: nowrap; }
   .day-divider { display: flex; justify-content: center; padding: .65rem 0 .5rem; }
   .day-divider > span { padding: .15rem .7rem; border-radius: 999px; background: var(--color-panel2); color: var(--color-ink3); font-size: .6875rem; font-weight: 600; }
   .file-card { display: flex; align-items: center; gap: .6rem; margin-top: .4rem; padding: .5rem .6rem; border-radius: 12px; background: color-mix(in srgb, var(--color-ink) 6%, transparent); }
   html.dark .file-card { background: rgb(255 255 255 / .08); }
 
-  .list-item {
+  .conv-item {
     display: flex; align-items: center; gap: .7rem; width: 100%; padding: .6rem .7rem;
     border-radius: 12px; border: 1px solid transparent; cursor: pointer; text-align: left;
     color: var(--color-ink); background: transparent;
     transition: background-color .12s ease, border-color .12s ease;
   }
-  .list-item:hover { background: var(--color-panel2); }
-  .list-item.active { background: color-mix(in srgb, var(--color-brand-600) 9%, transparent); border-color: color-mix(in srgb, var(--color-brand-600) 22%, transparent); }
+  .conv-item:hover { background: var(--color-panel2); }
+  .conv-item.active { background: color-mix(in srgb, var(--color-brand-600) 9%, transparent); border-color: color-mix(in srgb, var(--color-brand-600) 22%, transparent); }
   .list-row > .row-menu { opacity: 0; transition: opacity .12s ease; }
   .list-row:hover > .row-menu, .list-row:focus-within > .row-menu { opacity: 1; }
   @media (hover: none) { .list-row > .row-menu { opacity: 1; } }
   .reaction-btn { cursor: pointer; }
   .reaction-btn:hover { background: var(--color-panel3); }
-  html.dark .list-item.active { background: rgb(124 92 252 / 12%); border-color: rgb(124 92 252 / 26%); }
+  html.dark .conv-item.active { background: rgb(124 92 252 / 12%); border-color: rgb(124 92 252 / 26%); }
 
   .chip { display: inline-flex; align-items: center; gap: .3rem; padding: .15rem .5rem; border-radius: 999px; font-size: .6875rem; font-weight: 600; background: var(--color-panel3); color: var(--color-ink2); border: 1px solid var(--color-line); }
   .chip-brand { background: color-mix(in srgb, var(--color-brand-600) 10%, transparent); color: var(--color-brand-700); border-color: color-mix(in srgb, var(--color-brand-600) 24%, transparent); }

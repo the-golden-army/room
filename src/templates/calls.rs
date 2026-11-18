@@ -30,7 +30,7 @@ pub fn list_column(
     items.push_str("<div class=\"px-3 pb-1 pt-2 text-[10.5px] font-bold uppercase tracking-[0.06em] ink3\">Start a call</div>");
     for c in convs.iter().take(6) {
         items.push_str(&format!(
-            "<button class=\"list-item\" data-call-conv=\"{}\" type=\"button\">{}<span class=\"min-w-0 flex-1 truncate text-[13.5px] font-medium\">{}</span><span class=\"ink3\">{}</span></button>",
+            "<button class=\"conv-item\" data-call-conv=\"{}\" type=\"button\">{}<span class=\"min-w-0 flex-1 truncate text-[13.5px] font-medium\">{}</span><span class=\"ink3\">{}</span></button>",
             c.id,
             avatar(
                 &UserDto {
@@ -63,7 +63,7 @@ pub fn list_column(
                 "missed".into()
             };
             items.push_str(&format!(
-                "<div class=\"list-item cursor-default\">{}<span class=\"min-w-0 flex-1\"><span class=\"block truncate text-[13px] font-medium\">{}</span><span class=\"block text-[10.5px] ink3\">{} · {}</span></span>{}</div>",
+                "<div class=\"conv-item cursor-default\">{}<span class=\"min-w-0 flex-1\"><span class=\"block truncate text-[13px] font-medium\">{}</span><span class=\"block text-[10.5px] ink3\">{} · {}</span></span>{}</div>",
                 icon(if c.duration_ms > 0 { "phone" } else { "phone-off" }, "h-4 w-4"),
                 esc(&c.starter_name),
                 human_duration(crate::util::now_ms() - c.started_at),

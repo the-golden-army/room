@@ -259,7 +259,17 @@
 
   async function api(path, opts) {
     const o = Object.assign({ headers: {} }, opts || {});
-    if (o.body && typeof o.body !== 'string' && !(o.body instanceof FormData)) {
+    // Only plain objects/arrays are JSON. Binary payloads (ArrayBuffer, Blob,
+    // File, typed arrays, URLSearchParams) must be sent as-is: JSON.stringify
+    // turns an ArrayBuffer into "{}" and silently uploads two empty bytes.
+    const raw =
+      o.body instanceof FormData ||
+      o.body instanceof Blob ||
+      o.body instanceof ArrayBuffer ||
+      ArrayBuffer.isView(o.body) ||
+      o.body instanceof URLSearchParams ||
+      (typeof ReadableStream !== 'undefined' && o.body instanceof ReadableStream);
+    if (o.body && typeof o.body !== 'string' && !raw) {
       o.headers['Content-Type'] = 'application/json';
       o.body = JSON.stringify(o.body);
     }
@@ -425,7 +435,7 @@
         : c.muted
         ? `<span class="ml-auto ink3">${icon('bell-off', 'h-3.5 w-3.5')}</span>`
         : '';
-    return `<a href="/chat/${c.id}" class="list-item ${c.id === state.convId ? 'active' : ''}" data-conv="${c.id}" data-kind="${c.kind}" data-unread="${c.unread > 0 ? '1' : '0'}">
+    return `<a href="/chat/${c.id}" class="conv-item ${c.id === state.convId ? 'active' : ''}" data-conv="${c.id}" data-kind="${c.kind}" data-unread="${c.unread > 0 ? '1' : '0'}">
       ${avatarHtml({ id: 0, initials: c.initials, color: c.color, presence: '' }, 'h-10 w-10 text-[13px]', false)}
       <span class="min-w-0 flex-1"><span class="flex items-center gap-1.5">
         <span class="truncate text-[13.5px] font-semibold">${esc(c.title)}</span>
@@ -473,7 +483,7 @@
       : '';
     return `<div class="group relative bubble-row${m.mine ? ' own' : ''}" data-msg="${m.id}" data-sender="${m.sender_id}" data-grouped="${grouped ? '1' : '0'}">
       ${avatarSlot}
-      <div class="flex min-w-0 flex-col ${m.mine ? 'items-end' : 'items-start'}">${head}
+      <div class="flex min-w-0 flex-1 flex-col ${m.mine ? 'items-end' : 'items-start'}">${head}
         <div class="bubble">${reply}<div class="msg-body">${bodyHtml(m.body)}</div><div class="bubble-meta"><span>${timeHHMM(m.created_at)}</span>${m.edited ? '<span>(edited)</span>' : ''}</div></div>
         ${reacts}
       </div>
@@ -582,13 +592,7 @@
       }
     });
     const attach = $('#attach-btn');
-    const fileInput = $('#file-input');
-    if (attach && fileInput) {
-      attach.addEventListener('click', () => fileInput.click());
-      fileInput.addEventListener('change', () => {
-        if (fileInput.files.length) { uploadFiles(fileInput.files); fileInput.value = ''; }
-      });
-    }
+    if (attach) attach.addEventListener('click', () => openFilePicker('chat'));
     const emoji = $('#emoji-btn');
     if (emoji) emoji.addEventListener('click', (e) => { e.stopPropagation(); openEmojiPicker(emoji); });
     // mark read on view
@@ -742,20 +746,83 @@
 
   /* ------------------------------------------------------------ uploads */
 
-  async function uploadFiles(files, parentId) {
+  /* Uploads. One hidden <input type=file> lives in the app shell and has
+     exactly one change handler (initUploader), so every entry point — the
+     Files page buttons, drag-and-drop, and the chat attach button — shares
+     the same path. `pendingUploadTarget` remembers which context opened it. */
+  let pendingUploadTarget = null;
+
+  function openFilePicker(target) {
+    const fi = $('#file-input');
+    if (!fi) {
+      toast('Upload is unavailable on this page', 'error');
+      return;
+    }
+    pendingUploadTarget = target || (state.section === 'chat' ? 'chat' : 'files');
+    fi.click();
+  }
+
+  function initUploader() {
+    const fi = $('#file-input');
+    if (!fi || fi.dataset.bound) return;
+    fi.dataset.bound = '1';
+    fi.addEventListener('change', () => {
+      const target = pendingUploadTarget || (state.section === 'chat' ? 'chat' : 'files');
+      pendingUploadTarget = null;
+      if (fi.files.length) uploadFiles(fi.files, null, target);
+      fi.value = '';
+    });
+  }
+
+  function humanSize(n) {
+    if (n < 1024) return `${n} B`;
+    if (n < 1024 * 1024) return `${(n / 1024).toFixed(1)} KB`;
+    if (n < 1024 * 1024 * 1024) return `${(n / 1048576).toFixed(1)} MB`;
+    return `${(n / 1073741824).toFixed(1)} GB`;
+  }
+
+  async function uploadFiles(files, parentId, target) {
+    const mode = target || (state.section === 'chat' && state.convId ? 'chat' : 'files');
     const parent = parentId == null ? currentFolderId() : parentId;
+    let done = 0;
     for (const file of files) {
+      const name = file.name || 'file';
       try {
-        const d = await api(`/api/files/upload?parent=${parent}&name=${encodeURIComponent(file.name)}`, {
-          method: 'POST',
-          headers: { 'Content-Type': file.type || 'application/octet-stream' },
-          body: await file.arrayBuffer(),
-        });
-        toast(`${file.name} uploaded`, 'ok');
-        if (state.section === 'files') reloadFiles();
+        if (file.size === 0) throw new Error('file is empty');
+        // Say it started: a large file otherwise looks like nothing happened.
+        toast(`Uploading ${name} (${humanSize(file.size)})…`, 'info');
+        const d = await api(
+          `/api/files/upload?parent=${parent}&name=${encodeURIComponent(name)}`,
+          {
+            method: 'POST',
+            headers: { 'Content-Type': file.type || 'application/octet-stream' },
+            body: await file.arrayBuffer(),
+          }
+        );
+        // Confirm the server stored the bytes we sent, not a JSON stub.
+        const saved = d && d.file ? d.file.size : -1;
+        if (saved !== file.size) {
+          throw new Error(`stored ${humanSize(saved < 0 ? 0 : saved)} of ${humanSize(file.size)}`);
+        }
+        done += 1;
+        toast(`${name} uploaded`, 'ok');
+        if (mode === 'chat' && state.convId) {
+          // Attachments in a conversation also post a message so the other
+          // side sees them, instead of landing silently in Drive.
+          const link = `${location.origin}/api/files/${d.file.id}/download`;
+          const body = `📎 ${name} (${humanSize(file.size)})\n${link}`;
+          const m = await api(`/api/conversations/${state.convId}/messages`, {
+            method: 'POST',
+            body: { body },
+          });
+          appendMessage(m.message, true);
+        }
       } catch (e) {
-        toast(`${file.name}: ${e.message}`, 'error');
+        toast(`${name}: ${e.message}`, 'error');
       }
+    }
+    if (done && mode !== 'chat' && state.section === 'files') {
+      setTimeout(() => location.reload(), 250);
     }
   }
 
@@ -1301,7 +1368,7 @@
       if (!act) return;
       const name = act.dataset.act;
 
-      if (name === 'upload') { $('#file-input')?.click(); return; }
+      if (name === 'upload') { openFilePicker('files'); return; }
       if (name === 'new-folder') {
         promptDialog('New folder', '', 'Folder name', 'Create', async (v) => {
           await api('/api/files', { method: 'POST', body: { parent: currentFolderId(), name: v } });
@@ -1427,6 +1494,7 @@
   function boot() {
     initShell();
     initGlobalActions();
+    initUploader();
     if (state.section === 'chat') {
       const m = location.pathname.match(/^\/chat\/(\d+)/);
       if (m) state.convId = +m[1];
@@ -1439,8 +1507,7 @@
     } else if (state.section === 'files') {
       initFiles();
       initDragDrop();
-      const fi = $('#file-input');
-      if (fi) fi.addEventListener('change', () => { if (fi.files.length) { uploadFiles(fi.files); fi.value = ''; } });
+
     } else if (state.section === 'calls') {
       initCalls();
     } else if (state.section === 'admin') {

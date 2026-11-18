@@ -94,15 +94,24 @@ pub fn breadcrumb(path: &[FileDto]) -> String {
     out
 }
 
+/// "1 item" / "3 items" — never "1 items".
+fn item_count(n: i64) -> String {
+    if n == 1 {
+        "1 item".to_string()
+    } else {
+        format!("{} items", n)
+    }
+}
+
 fn row_html(f: &FileDto, selected: bool) -> String {
     let sel = if selected { " active" } else { "" };
     let kind_label = if f.kind == "folder" {
-        format!("{} items", f.children)
+        item_count(f.children)
     } else {
         human_bytes(f.size)
     };
     format!(
-        "<div class=\"list-item list-row group{sel}\" data-file=\"{id}\" data-kind=\"{kind}\" draggable=\"true\">\
+        "<div class=\"conv-item list-row group{sel}\" data-file=\"{id}\" data-kind=\"{kind}\" draggable=\"true\">\
 {icon}\
 <span class=\"min-w-0 flex-1\"><span class=\"block truncate text-[13.5px] font-medium\">{name}</span><span class=\"block text-[11px] ink3\">{owner} · {updated}</span></span>\
 <span class=\"shrink-0 text-[11px] ink3\">{size}</span>\
@@ -149,7 +158,7 @@ fn grid_card_html(f: &FileDto, selected: bool) -> String {
         thumb = thumb,
         name = esc(&f.name),
         more = icon("more", "h-3.5 w-3.5"),
-        size = if f.kind == "folder" { format!("{} items", f.children) } else { human_bytes(f.size) }
+        size = if f.kind == "folder" { item_count(f.children) } else { human_bytes(f.size) }
     )
 }
 
@@ -172,7 +181,7 @@ pub fn main_column(boot: &Boot, v: &FileView, selected: Option<&FileDto>) -> Str
     let sub = if v.trashed {
         "Deleted items stay here until you empty the trash".to_string()
     } else {
-        format!("{} items · {}", v.items.len(), boot.server.name)
+        format!("{} · {}", item_count(v.items.len() as i64), boot.server.name)
     };
     let actions = format!(
         "<button class=\"btn btn-ghost btn-icon\" data-act=\"upload\" title=\"Upload\">{}</button>\

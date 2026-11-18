@@ -280,7 +280,7 @@ pub fn page_opts(
         String::new()
     } else {
         format!(
-            "<aside id=\"sidecol\" class=\"w-[320px] shrink-0 border-l line panel hidden xl:flex flex-col min-h-0\">{}</aside>",
+            "<aside id=\"sidecol\" class=\"w-[320px] shrink-0 overflow-hidden border-l line panel hidden xl:flex flex-col min-h-0\">{}</aside>",
             side
         )
     };
@@ -314,6 +314,7 @@ pub fn page_opts(
   {side}
 </div>
 <nav id="mobnav" class="fixed inset-x-0 bottom-0 z-40 flex items-stretch justify-around border-t line panel px-1 py-1 md:hidden">{mobnav}</nav>
+<input type="file" id="file-input" class="hidden" multiple>
 <div id="toasts" class="pointer-events-none fixed bottom-4 right-4 z-[90] flex flex-col items-end gap-2"></div>
 <div id="modal-root"></div>
 <div id="overlay-root"></div>

@@ -7,7 +7,7 @@ pub fn conv_item(c: &ConvDto, active: bool, users: &[UserDto]) -> String {
     let _ = users;
     let unread = if c.unread > 0 {
         format!(
-            "<span class=\"ml-auto grid h-[18px] min-w-[18px] place-items-center rounded-full px-1 text-[10px] font-bold text-white\" style=\"background:{}\">{}</span>",
+            "<span class=\"ml-auto inline-flex h-[18px] min-w-[18px] shrink-0 items-center justify-center rounded-full px-1.5 text-[10px] font-bold leading-none text-white\" style=\"background:{}\">{}</span>",
             if c.muted { "var(--color-ink3)" } else { "var(--color-brand-600)" },
             if c.unread > 99 { "99+".to_string() } else { c.unread.to_string() }
         )
@@ -35,7 +35,7 @@ pub fn conv_item(c: &ConvDto, active: bool, users: &[UserDto]) -> String {
     };
     let active_cls = if active { " active" } else { "" };
     format!(
-        "<a href=\"/chat/{id}\" class=\"list-item{active}\" data-conv=\"{id}\" data-kind=\"{kind}\" data-unread=\"{unread_flag}\">\
+        "<a href=\"/chat/{id}\" class=\"conv-item{active}\" data-conv=\"{id}\" data-kind=\"{kind}\" data-unread=\"{unread_flag}\">\
 {avatar}\
 <span class=\"min-w-0 flex-1\"><span class=\"flex items-center gap-1.5\">\
 <span class=\"truncate text-[13.5px] font-semibold\">{title}</span>{mute}\
@@ -290,7 +290,7 @@ pub fn message_html(m: &MsgDto, grouped: bool) -> String {
     format!(
         "<div class=\"group relative bubble-row{own_class}\" data-msg=\"{id}\" data-sender=\"{sender}\" data-grouped=\"{grouped}\">\
 {wrapper}\
-<div class=\"flex min-w-0 flex-col {align}\">\
+<div class=\"flex min-w-0 flex-1 flex-col {align}\">\
 {head_html}\
 <div class=\"bubble\">{reply}<div class=\"msg-body\">{body}</div><div class=\"bubble-meta\"><span>{time}</span>{edited}</div></div>\
 {reacts}\
@@ -388,7 +388,6 @@ pub fn main_column(
 <button type=\"button\" id=\"emoji-btn\" class=\"btn btn-ghost btn-icon !h-9 !w-9 !rounded-full\" title=\"Emoji\">{smile}</button>\
 <button type=\"submit\" id=\"send-btn\" class=\"btn btn-brand btn-icon !h-9 !w-9 !rounded-full\" title=\"Send\">{send}</button>\
 </div>\
-<input type=\"file\" id=\"file-input\" class=\"hidden\" multiple>\
 </form>",
                 id = c.id,
                 lock = icon("lock", "h-3 w-3"),
@@ -477,7 +476,7 @@ pub fn details_panel(boot: &Boot, conv: &ConvDto) -> String {
                 esc(&u.bio)
             ));
             body.push_str(&format!(
-                "<div class=\"grid grid-cols-3 gap-2 px-4 pb-4\"><div class=\"tile p-2.5 text-center\"><div class=\"text-sm font-bold\">{}</div><div class=\"text-[10px] ink3\">Presence</div></div><div class=\"tile p-2.5 text-center\"><div class=\"text-sm font-bold\">{}</div><div class=\"text-[10px] ink3\">Role</div></div><div class=\"tile p-2.5 text-center\"><div class=\"text-sm font-bold\">{}</div><div class=\"text-[10px] ink3\">Last seen</div></div></div>",
+                "<div class=\"grid grid-cols-2 gap-2 px-4 pb-4\"><div class=\"tile p-2.5 text-center\"><div class=\"text-sm font-bold\">{}</div><div class=\"text-[10px] ink3\">Presence</div></div><div class=\"tile p-2.5 text-center\"><div class=\"text-sm font-bold\">{}</div><div class=\"text-[10px] ink3\">Role</div></div><div class=\"tile p-2.5 text-center\"><div class=\"text-sm font-bold\">{}</div><div class=\"text-[10px] ink3\">Last seen</div></div></div>",
                 esc(u.presence.as_str()),
                 esc(if u.role == "owner" { "Host" } else { &u.role }),
                 if u.last_seen_at > 0 { super::rel_ago(u.last_seen_at) } else { "—".into() }
