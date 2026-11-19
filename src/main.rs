@@ -18,7 +18,7 @@ use state::AppState;
 const APP_CSS: &str = include_str!("../assets/app.dist.css");
 const APP_JS: &str = include_str!("../assets/app.js");
 
-const FAVICON: &str = r##"<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><defs><linearGradient id="g" x1="0" y1="0" x2="32" y2="32" gradientUnits="userSpaceOnUse"><stop stop-color="#6d4dff"/><stop offset="1" stop-color="#4a2ae0"/></linearGradient></defs><rect width="32" height="32" rx="9" fill="url(#g)"/><path d="M9 22.5v-9.2a3.3 3.3 0 0 1 3.3-3.3h7.4a3.3 3.3 0 0 1 3.3 3.3v4.6a3.3 3.3 0 0 1-3.3 3.3h-6.4l-4.3 3.6v-2.3z" fill="#fff"/><circle cx="13.4" cy="14.4" r="1.15" fill="#5333f4"/><circle cx="16.5" cy="14.4" r="1.15" fill="#5333f4"/><circle cx="19.6" cy="14.4" r="1.15" fill="#f6960c"/></svg>"##;
+const FAVICON: &str = r##"<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><rect x="1" y="1" width="30" height="30" rx="3" fill="#0a0a0a"/><rect x="6" y="9" width="20" height="5" rx="1" fill="#fafafa" opacity=".55"/><rect x="6" y="17" width="12" height="5" rx="1" fill="#fafafa" opacity=".35"/><rect x="21" y="18.5" width="5" height="3" rx=".5" fill="#0f7a4a"/><rect x="6" y="24" width="20" height="1" rx=".5" fill="#fafafa" opacity=".22"/></svg>"##;
 
 pub async fn asset_css() -> HttpResponse {
     HttpResponse::Ok()

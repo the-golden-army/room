@@ -116,9 +116,11 @@ pub fn clock(ms: i64) -> String {
     }
 }
 
-const AVATAR_COLORS: [&str; 12] = [
-    "#5333f4", "#0ea5e9", "#10b981", "#f6960c", "#ef4444", "#ec4899", "#8b5cf6", "#14b8a6",
-    "#f97316", "#6366f1", "#84cc16", "#0f766e",
+/// Twelve hues in a rainbow is the tell of a template. A switch panel labels
+/// its ports in ink, not in eight competing colours, so identity here is a
+/// tonal step rather than a different hue: same family, different weight.
+const AVATAR_COLORS: [&str; 8] = [
+    "#1c1c1c", "#2e2e2e", "#3f3f3f", "#525252", "#0f7a4a", "#0b6239", "#6b6b6b", "#7a7a7a",
 ];
 
 pub fn avatar_color(seed: &str) -> String {

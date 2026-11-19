@@ -53,7 +53,7 @@ fn shell(title: &str, body: &str, state: &AppState) -> String {
 pub async fn gate_page(state: &AppState, error: Option<&str>) -> String {
     let err = match error {
         Some(e) => format!(
-            "<div class=\"rounded-xl border border-red-200 bg-red-50 px-3.5 py-2.5 text-[13px] font-medium text-red-700 dark:border-red-900/60 dark:bg-red-950/40 dark:text-red-300\">{}</div>",
+            "<div class=\"rounded-[3px] border border-red-200 bg-red-50 px-3.5 py-2.5 text-[14px] font-medium text-red-700 dark:border-red-900/60 dark:bg-red-950/40 dark:text-red-300\">{}</div>",
             esc(e)
         ),
         None => String::new(),
@@ -108,9 +108,9 @@ pub async fn gate_page(state: &AppState, error: Option<&str>) -> String {
         )
     };
     let body = format!(
-        r#"<div class="panel rounded-2xl p-5 shadow-soft">
-  <h1 class="text-[15px] font-bold">{heading}</h1>
-  <p class="mt-1 text-[13px] leading-relaxed ink2">{intro}</p>
+        r#"<div class="panel rounded-[3px] p-5">
+  <h1 class="text-[24px] font-medium leading-tight">{heading}</h1>
+  <p class="mt-1 text-[14px] leading-relaxed ink2">{intro}</p>
   {err}
   <form method="post" action="/api/request-access" class="mt-4 space-y-3">
     <label class="block">
@@ -122,7 +122,7 @@ pub async fn gate_page(state: &AppState, error: Option<&str>) -> String {
     <button class="btn btn-brand w-full" type="submit">{submit}</button>
   </form>
 </div>
-<div class="flex items-start gap-2.5 rounded-xl border line panel2 px-3.5 py-3">
+<div class="flex items-start gap-2.5 rounded-[3px] border line panel2 px-3.5 py-3">
   <span class="mt-0.5 ink3">{icon}</span>
   <div class="text-[12px] leading-relaxed ink2">{footnote}</div>
 </div>"#,
@@ -165,11 +165,11 @@ pub async fn waiting_page(state: &AppState, user: &User, device: &str) -> String
         None => "Ask the person who set this server up to approve you.".to_string(),
     };
     let body = format!(
-        r#"<div class="panel rounded-2xl p-5 shadow-soft">
-  <div class="mx-auto mb-3 grid h-12 w-12 place-items-center rounded-2xl panel2 ink3">{icon}</div>
-  <h1 class="text-center text-[15px] font-bold">Waiting for approval</h1>
-  <p class="mt-1.5 text-center text-[13px] leading-relaxed ink2">Hi {name}, this device is not approved yet. Keep this page open — it checks again every few seconds and takes you in as soon as you are approved.</p>
-  <div class="mt-4 rounded-xl panel2 px-3.5 py-3 text-[13px] leading-relaxed ink2">{who}</div>
+        r#"<div class="panel rounded-[3px] p-5">
+  <div class="mx-auto mb-3 grid h-12 w-12 place-items-center rounded-[3px] panel2 ink3">{icon}</div>
+  <h1 class="text-center text-[24px] font-medium leading-tight">Waiting for approval</h1>
+  <p class="mt-1.5 text-center text-[14px] leading-relaxed ink2">Hi {name}, this device is not approved yet. Keep this page open — it checks again every few seconds and takes you in as soon as you are approved.</p>
+  <div class="mt-4 rounded-[3px] panel2 px-3.5 py-3 text-[14px] leading-relaxed ink2">{who}</div>
   <div class="mt-3 flex items-center justify-center gap-2 text-xs ink3">{spin}<span>Waiting for approval…</span></div>
   <dl class="mt-4 space-y-2 border-t line pt-3 text-[12px]">
     <div class="flex items-baseline justify-between gap-3"><dt class="ink3">Your device</dt><dd class="font-semibold ink">{device}</dd></div>
@@ -180,7 +180,7 @@ pub async fn waiting_page(state: &AppState, user: &User, device: &str) -> String
     The approval happens in the host's admin console. If you are the host, sign in on the device that already has access — or enter the setup code on the previous screen to add this one.
   </div>
 </div>
-<div class="flex items-start gap-2.5 rounded-xl border line panel2 px-3.5 py-3">
+<div class="flex items-start gap-2.5 rounded-[3px] border line panel2 px-3.5 py-3">
   <span class="mt-0.5 ink3">{lock}</span>
   <div class="text-[12px] leading-relaxed ink2">Nobody else on this network can read your messages until you are let in.<br><span class="ink3">{admin}</span></div>
 </div>"#,
@@ -206,10 +206,10 @@ pub async fn waiting_page(state: &AppState, user: &User, device: &str) -> String
 
 pub fn suspended_page(state: &AppState) -> String {
     let body = format!(
-        r#"<div class="panel rounded-2xl p-5 shadow-soft text-center">
-  <div class="mx-auto mb-3 grid h-12 w-12 place-items-center rounded-2xl bg-red-50 text-red-500 dark:bg-red-950/50">{icon}</div>
-  <h1 class="text-[15px] font-bold">Account suspended</h1>
-  <p class="mt-1.5 text-[13px] leading-relaxed ink2">Your account has been suspended by the host. Ask the administrator to restore it, then reload this page.</p>
+        r#"<div class="panel rounded-[3px] p-5 text-center">
+  <div class="mx-auto mb-3 grid h-12 w-12 place-items-center rounded-[3px] bg-red-50 text-red-500 dark:bg-red-950/50">{icon}</div>
+  <h1 class="text-[24px] font-medium leading-tight">Account suspended</h1>
+  <p class="mt-1.5 text-[14px] leading-relaxed ink2">Your account has been suspended by the host. Ask the administrator to restore it, then reload this page.</p>
   <a href="/gate" class="btn btn-ghost mt-4 w-full">Back to sign in</a>
 </div>"#,
         icon = super::icon("warning", "h-6 w-6"),

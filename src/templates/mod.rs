@@ -95,22 +95,20 @@ pub fn icon(name: &str, cls: &str) -> String {
 }
 
 /// Small square glyph used as the ROOM mark.
+/// The mark is a switch panel: an ink frame with three ports, one lit.
+/// Flat by design — no gradient, no glow, no rounded-square-with-a-letter.
 pub fn logo_mark(cls: &str) -> String {
     format!(
         "<svg class=\"{}\" viewBox=\"0 0 32 32\" fill=\"none\" aria-hidden=\"true\">\
-<rect width=\"32\" height=\"32\" rx=\"9\" fill=\"url(#roomg)\"/>\
-<defs><linearGradient id=\"roomg\" x1=\"0\" y1=\"0\" x2=\"32\" y2=\"32\" gradientUnits=\"userSpaceOnUse\">\
-<stop stop-color=\"#6d4dff\"/><stop offset=\"1\" stop-color=\"#4a2ae0\"/></linearGradient></defs>\
-<path d=\"M9 22.5v-9.2a3.3 3.3 0 0 1 3.3-3.3h7.4a3.3 3.3 0 0 1 3.3 3.3v4.6a3.3 3.3 0 0 1-3.3 3.3h-6.4l-4.3 3.6v-2.3z\" fill=\"#fff\"/>\
-<circle cx=\"13.4\" cy=\"14.4\" r=\"1.15\" fill=\"#5333f4\"/>\
-<circle cx=\"16.5\" cy=\"14.4\" r=\"1.15\" fill=\"#5333f4\"/>\
-<circle cx=\"19.6\" cy=\"14.4\" r=\"1.15\" fill=\"#f6960c\"/>\
+<rect x=\"1\" y=\"1\" width=\"30\" height=\"30\" rx=\"3\" fill=\"var(--color-ink)\"/>\
+<rect x=\"6\" y=\"9\" width=\"20\" height=\"5\" rx=\"1\" fill=\"var(--color-surface)\" opacity=\".55\"/>\
+<rect x=\"6\" y=\"17\" width=\"12\" height=\"5\" rx=\"1\" fill=\"var(--color-surface)\" opacity=\".35\"/>\
+<rect x=\"21\" y=\"18.5\" width=\"5\" height=\"3\" rx=\".5\" fill=\"#0f7a4a\"/>\
+<rect x=\"6\" y=\"24\" width=\"20\" height=\"1\" rx=\".5\" fill=\"var(--color-surface)\" opacity=\".22\"/>\
 </svg>",
         cls
     )
 }
-
-// ------------------------------------------------------------------ fragments
 
 pub fn avatar(u: &UserDto, cls: &str, presence: bool) -> String {
     let dot = if presence {
@@ -125,7 +123,7 @@ pub fn avatar(u: &UserDto, cls: &str, presence: bool) -> String {
     };
     format!(
         "<span class=\"relative inline-block shrink-0 {cls}\">\
-<span class=\"grid h-full w-full place-items-center rounded-full font-semibold text-white\" style=\"background:{bg};font-size:.72em\">{inner}</span>{dot}</span>",
+<span class=\"grid h-full w-full place-items-center rounded-[2px] font-mono font-semibold\" style=\"background:{bg};font-size:.72em\">{inner}</span>{dot}</span>",
         bg = u.color,
         dot = dot
     )
@@ -143,9 +141,9 @@ pub fn presence_dot(p: &str) -> String {
 pub fn empty_state(icon_name: &str, title: &str, body: &str, action: &str) -> String {
     format!(
         "<div class=\"flex flex-col items-center justify-center gap-2 px-6 py-14 text-center\">\
-<div class=\"grid h-14 w-14 place-items-center rounded-2xl panel2 ink3\">{}</div>\
+<div class=\"grid h-14 w-14 place-items-center rounded-[3px] panel2 ink3\">{}</div>\
 <div class=\"text-sm font-semibold ink\">{}</div>\
-<div class=\"max-w-xs text-[13px] leading-relaxed ink3\">{}</div>\
+<div class=\"max-w-xs text-[14px] leading-relaxed ink3\">{}</div>\
 <div class=\"mt-2\">{}</div></div>",
         icon(icon_name, "h-6 w-6"),
         esc(title),
@@ -164,7 +162,7 @@ pub fn rel_time(ms: i64) -> String {
 pub fn listcol_header(title: &str, action: &str) -> String {
     format!(
         "<div class=\"flex items-center gap-2 border-b line px-4 py-3\">\
-<h2 class=\"flex-1 truncate text-[13px] font-bold uppercase tracking-[0.06em] ink2\">{}</h2>{}</div>",
+<h2 class=\"flex-1 truncate text-[14px] font-bold uppercase tracking-[0.06em] ink2\">{}</h2>{}</div>",
         esc(title),
         action
     )
@@ -207,7 +205,7 @@ fn nav_buttons(boot: &Boot, section: &str) -> String {
         }
         let active = if section == n.key { " active" } else { "" };
         let badge = if n.key == "admin" && boot.pending_requests > 0 {
-            format!("<span class=\"absolute right-1 top-1 grid h-4 min-w-4 place-items-center rounded-full px-1 text-[9px] font-bold text-white\" style=\"background:#ef4444\">{}</span>", boot.pending_requests)
+            format!("<span class=\"absolute -right-0.5 -top-0.5 grid h-4 min-w-4 place-items-center rounded-[2px] px-1 font-mono text-[10px] font-semibold\" style=\"background:var(--color-ink);color:var(--color-surface)\"\">{}</span>", boot.pending_requests)
         } else {
             String::new()
         };
@@ -342,6 +340,45 @@ pub fn page_opts(
 }
 
 /// Top bar of the main column.
+/// SIGNATURE — the status strip.
+///
+/// A switch panel always tells you what is plugged in and whether the lamp is
+/// lit. ROOM does the same for the people on this server: one dense row of
+/// ports, each with a name and a state. It replaces the vague "3 online"
+/// subtitle with something you can actually read at a glance.
+pub fn status_strip(users: &[UserDto]) -> String {
+    if users.is_empty() {
+        return String::new();
+    }
+    // Online first, then by name — a panel is ordered, not shuffled.
+    let mut list: Vec<&UserDto> = users.iter().collect();
+    list.sort_by(|a, b| {
+        b.online
+            .cmp(&a.online)
+            .then_with(|| a.name.to_lowercase().cmp(&b.name.to_lowercase()))
+    });
+    let mut ports = String::new();
+    for u in list.iter().take(12) {
+        let state = if u.online { "is-on" } else { "is-off" };
+        ports.push_str(&format!(
+            "<div class=\"port {state}\" title=\"{} · {}\">\
+<span class=\"port-id\">{}</span>\
+<span class=\"port-with\">{}</span></div>",
+            esc(&u.name),
+            if u.online { "online" } else { "offline" },
+            if u.online { "ON" } else { "OFF" },
+            esc(&u.name),
+        ));
+    }
+    if list.len() > 12 {
+        ports.push_str(&format!(
+            "<div class=\"port\"><span class=\"port-id\">+{}</span></div>",
+            list.len() - 12
+        ));
+    }
+    format!("<div class=\"statusstrip\" role=\"status\" aria-label=\"Devices on this server\">{ports}</div>")
+}
+
 pub fn topbar(back: &str, title: &str, subtitle: &str, actions: &str) -> String {
     let back_btn = if back.is_empty() {
         String::new()
@@ -354,11 +391,11 @@ pub fn topbar(back: &str, title: &str, subtitle: &str, actions: &str) -> String 
     let sub = if subtitle.is_empty() {
         String::new()
     } else {
-        format!("<div class=\"flex items-center gap-1 truncate text-[11.5px] ink3\">{}</div>", esc(subtitle))
+        format!("<div class=\"flex items-center gap-1 truncate text-[11px] ink3\">{}</div>", esc(subtitle))
     };
     format!(
         "<header class=\"flex items-center gap-2 border-b line px-3 py-2.5 md:px-4\">{back}\
-<div class=\"min-w-0 flex-1\"><div class=\"truncate text-[15px] font-bold leading-tight\">{title}</div>{sub}</div>\
+<div class=\"min-w-0 flex-1\"><div class=\"truncate font-display text-[17px] font-medium leading-tight tracking-tight\">{title}</div>{sub}</div>\
 <div class=\"flex items-center gap-1.5\">{actions}</div></header>",
         back = back_btn,
         title = esc(title),

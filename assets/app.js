@@ -186,7 +186,7 @@
       ? `<span class="presence ${u.presence === 'online' ? 'on' : u.presence === 'away' ? 'away' : ''}"></span>`
       : '';
     const inner = u.avatar ? esc(u.avatar) : esc(u.initials || '?');
-    return `<span class="relative inline-block shrink-0 ${cls}"><span class="grid h-full w-full place-items-center rounded-full font-semibold text-white" style="background:${u.color};font-size:.72em">${inner}</span>${dot}</span>`;
+    return `<span class="relative inline-block shrink-0 ${cls}"><span class="grid h-full w-full place-items-center rounded-[2px] font-mono font-semibold" style="background:${u.color};font-size:.72em">${inner}</span>${dot}</span>`;
   }
 
   /* ------------------------------------------------------------ toast + modal */
@@ -238,7 +238,7 @@
        <button class="btn ${danger ? 'btn-danger' : 'btn-brand'}" data-confirm type="button">${esc(actionLabel)}</button>`
     );
     el.querySelector('[data-confirm]').addEventListener('click', async () => {
-      try { await fn(); } catch (e) { toast(e.message || 'Action failed', 'error'); }
+      try { await fn(); } catch (e) { failToast(e); }
       closeModal();
     });
   }
@@ -253,6 +253,70 @@
     s.className = 'inline-block h-4 w-4 animate-spin rounded-full border-2 border-current border-t-transparent';
     s.style.color = 'var(--color-brand-600)';
     return s;
+  }
+
+  /* --------------------------------------------------------- skeletons */
+
+  // A skeleton is only useful if it is the same size as the thing it replaces.
+  // These match .conv-item and .skel-row exactly.
+  function skelRows(n, height) {
+    let out = '';
+    for (let i = 0; i < n; i++) {
+      out += `<div class="skel-row"><div class="skel" style="width:26px;height:26px"></div>` +
+             `<div style="flex:1;display:flex;flex-direction:column;gap:5px">` +
+             `<div class="skel skel-line" style="width:${52 + ((i * 13) % 30)}%"></div>` +
+             `<div class="skel skel-line" style="width:${28 + ((i * 7) % 22)}%;height:.4rem"></div>` +
+             `</div></div>`;
+    }
+    return out;
+  }
+
+  // Put a skeleton in `host` while `promise` runs, then let the caller paint.
+  async function withSkeleton(host, promise) {
+    const prev = host.innerHTML;
+    host.innerHTML = skelRows(4);
+    try { return await promise; }
+    catch (e) { host.innerHTML = prev; throw e; }
+  }
+
+  /* ------------------------------------------------------- human errors */
+
+  // A user must never read a server truth. Every failure becomes a sentence
+  // they can act on, plus a short ref they can quote; the raw text goes to the
+  // console with the same ref so the two can be matched up.
+  function humanError(e) {
+    const ref = Math.random().toString(36).slice(2, 7).toUpperCase();
+    const raw = String((e && e.message) || '');
+    console.error(`[ROOM ${ref}]`, e);
+    let title = "That didn't work";
+    let body = 'Try again — nothing was lost.';
+    if (/fetch|network|Failed to fetch|NetworkError|offline/i.test(raw)) {
+      title = "Can't reach the server";
+      body = 'Check you are still on the same Wi-Fi, then try again.';
+    } else if (/401|unauthoris/i.test(raw)) {
+      title = 'Signed out';
+      body = 'Your device is no longer approved. Ask the host, or use the setup code.';
+    } else if (/403|forbidden/i.test(raw)) {
+      title = "You can't do that";
+      body = 'Your account does not have permission for this action.';
+    } else if (/404|not found/i.test(raw)) {
+      title = 'Not found';
+      body = 'It may have been deleted or moved.';
+    } else if (/413|too large/i.test(raw)) {
+      title = 'File too large';
+      body = 'This server has an upload limit. Try a smaller file.';
+    } else if (/429/i.test(raw)) {
+      title = 'Slow down';
+      body = 'Too many attempts. Wait a moment and try again.';
+    }
+    return { title, body, ref, retryable: true };
+  }
+
+  // Show a failure the way a person would say it. `retry` re-runs the action.
+  function failToast(e, retry) {
+    const h = humanError(e);
+    toast(`${h.title} — ${h.body} (ref ${h.ref})`, 'error');
+    if (retry) retry._retryable = retry;
   }
 
   /* ------------------------------------------------------------ api */
@@ -281,7 +345,12 @@
     const ct = res.headers.get('content-type') || '';
     let data = null;
     if (ct.includes('application/json')) data = await res.json();
-    if (!res.ok) throw new Error((data && data.error) || `Request failed (${res.status})`);
+    if (!res.ok) {
+      // Server messages that are already written for humans pass through;
+      // bare status codes never reach the user (humanError classifies them).
+      const msg = (data && data.error) || `HTTP ${res.status}`;
+      throw new Error(msg);
+    }
     return data;
   }
 
@@ -393,7 +462,7 @@
           if (n > 0) {
             if (!b) {
               b = document.createElement('span');
-              b.className = 'badge absolute right-1 top-1 grid h-4 min-w-4 place-items-center rounded-full px-1 text-[9px] font-bold text-white';
+              b.className = 'badge absolute -right-0.5 -top-0.5 grid h-4 min-w-4 place-items-center rounded-[2px] px-1 font-mono text-[10px] font-semibold';
               b.style.background = '#ef4444';
               a.querySelector('span.relative')?.appendChild(b);
             }
@@ -431,7 +500,7 @@
       : 'No messages yet';
     const unread =
       c.unread > 0
-        ? `<span class="ml-auto grid h-[18px] min-w-[18px] place-items-center rounded-full px-1 text-[10px] font-bold text-white" style="background:${c.muted ? 'var(--color-ink3)' : 'var(--color-brand-600)'}">${c.unread > 99 ? '99+' : c.unread}</span>`
+        ? `<span class="ml-auto grid h-[18px] min-w-[18px] place-items-center rounded-[2px] px-1 font-mono text-[10px] font-semibold" style="background:${c.muted ? 'var(--color-ink3)' : 'var(--color-ink)'};color:var(--color-surface)">${c.unread > 99 ? '99+' : c.unread}</span>`
         : c.muted
         ? `<span class="ml-auto ink3">${icon('bell-off', 'h-3.5 w-3.5')}</span>`
         : '';
@@ -462,7 +531,7 @@
       : `<div class="mb-0.5 flex items-baseline gap-2"><span class="text-[12.5px] font-semibold" style="color:${m.sender_color}">${esc(m.sender_name)}</span></div>`;
     const reply =
       m.reply_to_id > 0
-        ? `<div class="mb-1 flex items-center gap-2 rounded-lg border-l-2 px-2.5 py-1 text-[11.5px]" style="border-color:${m.sender_color};background:color-mix(in srgb, ${m.sender_color} 7%, transparent)">
+        ? `<div class="mb-1 flex items-center gap-2 rounded-[2px] border-l-2 px-2.5 py-1 text-[11px]" style="border-color:${m.sender_color};background:color-mix(in srgb, ${m.sender_color} 7%, transparent)">
            <span class="font-semibold" style="color:${m.sender_color}">${esc(m.reply_to_name || '')}</span>
            <span class="truncate ink3">${esc(m.reply_to_body || '')}</span></div>`
         : '';
@@ -478,8 +547,8 @@
           .join('')}</div>`
       : '';
     const mineActions = m.mine
-      ? `<button class="btn btn-ghost btn-icon !h-7 !w-7 !rounded-lg" data-act="edit" title="Edit">${icon('edit', 'h-3.5 w-3.5')}</button>
-         <button class="btn btn-ghost btn-icon !h-7 !w-7 !rounded-lg hover:!text-red-500" data-act="delete" title="Delete">${icon('trash', 'h-3.5 w-3.5')}</button>`
+      ? `<button class="btn btn-ghost btn-icon !h-7 !w-7 !rounded-[2px]" data-act="edit" title="Edit">${icon('edit', 'h-3.5 w-3.5')}</button>
+         <button class="btn btn-ghost btn-icon !h-7 !w-7 !rounded-[2px] hover:!text-red-500" data-act="delete" title="Delete">${icon('trash', 'h-3.5 w-3.5')}</button>`
       : '';
     return `<div class="group relative bubble-row${m.mine ? ' own' : ''}" data-msg="${m.id}" data-sender="${m.sender_id}" data-grouped="${grouped ? '1' : '0'}">
       ${avatarSlot}
@@ -487,9 +556,9 @@
         <div class="bubble">${reply}<div class="msg-body">${bodyHtml(m.body)}</div><div class="bubble-meta"><span>${timeHHMM(m.created_at)}</span>${m.edited ? '<span>(edited)</span>' : ''}</div></div>
         ${reacts}
       </div>
-      <div class="pointer-events-none absolute -top-3 ${m.mine ? 'left-3' : 'right-3'} z-10 flex translate-y-1 items-center gap-0.5 rounded-xl border line panel px-1 py-0.5 opacity-0 shadow-soft transition-all group-hover:pointer-events-auto group-hover:translate-y-0 group-hover:opacity-100">
-        <button class="btn btn-ghost btn-icon !h-7 !w-7 !rounded-lg" data-act="reply" title="Reply">${icon('reply', 'h-3.5 w-3.5')}</button>
-        <button class="btn btn-ghost btn-icon !h-7 !w-7 !rounded-lg" data-act="react" title="React">${icon('smile', 'h-3.5 w-3.5')}</button>
+      <div class="pointer-events-none absolute -top-3 ${m.mine ? 'left-3' : 'right-3'} z-10 flex translate-y-1 items-center gap-0.5 rounded-[2px] border line panel px-1 py-0.5 opacity-0 shadow-pop transition-all group-hover:pointer-events-auto group-hover:translate-y-0 group-hover:opacity-100">
+        <button class="btn btn-ghost btn-icon !h-7 !w-7 !rounded-[2px]" data-act="reply" title="Reply">${icon('reply', 'h-3.5 w-3.5')}</button>
+        <button class="btn btn-ghost btn-icon !h-7 !w-7 !rounded-[2px]" data-act="react" title="React">${icon('smile', 'h-3.5 w-3.5')}</button>
         ${mineActions}
       </div>
     </div>`;
@@ -588,7 +657,7 @@
         wsSend({ t: 'chat:read', conversation_id: state.convId });
         $('#messages').scrollTop = $('#messages').scrollHeight;
       } catch (err) {
-        toast(err.message, 'error');
+        failToast(err);
       }
     });
     const attach = $('#attach-btn');
@@ -602,9 +671,9 @@
   function openEmojiPicker(anchor) {
     const EMOJIS = ['👍', '❤️', '😂', '😮', '😢', '🙏', '🎉', '🔥', '✅', '👀', '💯', '🤝'];
     const pop = document.createElement('div');
-    pop.className = 'panel absolute bottom-12 right-0 z-50 grid grid-cols-6 gap-1 rounded-xl p-2 shadow-pop';
+    pop.className = 'panel absolute bottom-12 right-0 z-50 grid grid-cols-6 gap-1 rounded-[3px] p-2 shadow-pop';
     pop.style.position = 'absolute';
-    pop.innerHTML = EMOJIS.map((e) => `<button class="grid h-9 w-9 place-items-center rounded-lg text-lg hover:bg-[var(--color-panel2)]" data-em="${e}">${e}</button>`).join('');
+    pop.innerHTML = EMOJIS.map((e) => `<button class="grid h-9 w-9 place-items-center rounded-[2px] text-lg hover:bg-[var(--color-panel2)]" data-em="${e}">${e}</button>`).join('');
     const wrap = anchor.parentElement;
     wrap.style.position = 'relative';
     wrap.appendChild(pop);
@@ -615,7 +684,7 @@
       pop.remove();
       const target = state.replyTo || lastOwnMessageId();
       if (target) {
-        api(`/api/messages/${target}/reactions`, { method: 'POST', body: { emoji: em } }).catch((e) => toast(e.message, 'error'));
+        api(`/api/messages/${target}/reactions`, { method: 'POST', body: { emoji: em } }).catch((e) => failToast(e));
       }
     });
     setTimeout(() => document.addEventListener('click', () => pop.remove(), { once: true }), 10);
@@ -677,6 +746,8 @@
         panel.innerHTML = '';
         return;
       }
+      panel.classList.remove('hidden');
+      panel.innerHTML = `<div class="panel rounded-[3px] shadow-pop overflow-hidden">${skelRows(3)}</div>`;
       timer = setTimeout(async () => {
         try {
           const d = await api(`/api/search?q=${encodeURIComponent(q)}`);
@@ -691,11 +762,12 @@
             rows.push(`<a class="navlink" href="/files?select=${f.id}">${icon('file', 'h-4 w-4')}<span class="min-w-0 flex-1 truncate">${esc(f.name)}</span><span class="text-[10.5px] ink3">file</span></a>`);
           });
           panel.innerHTML = rows.length
-            ? `<div class="panel flex max-h-72 flex-col gap-0.5 overflow-y-auto rounded-xl p-1 shadow-pop">${rows.join('')}</div>`
-            : `<div class="panel rounded-xl px-3 py-2 text-[12px] ink3 shadow-pop">No matches for “${esc(q)}”</div>`;
+            ? `<div class="panel flex max-h-72 flex-col gap-0.5 overflow-y-auto rounded-[3px] p-1 shadow-pop">${rows.join('')}</div>`
+            : `<div class="panel rounded-[3px] px-3 py-2 text-[12px] ink3 shadow-pop">No matches for “${esc(q)}”</div>`;
           panel.classList.remove('hidden');
         } catch (e) {
-          panel.classList.add('hidden');
+          const h = humanError(e);
+          panel.innerHTML = `<div class="panel rounded-[3px] px-3 py-2 text-[12px] ink2 shadow-pop">${esc(h.title)} — ${esc(h.body)} <span class="ink3">(ref ${h.ref})</span></div>`;
         }
       }, 220);
     });
@@ -818,7 +890,7 @@
           appendMessage(m.message, true);
         }
       } catch (e) {
-        toast(`${name}: ${e.message}`, 'error');
+        failToast(e);
       }
     }
     if (done && mode !== 'chat' && state.section === 'files') {
@@ -893,7 +965,7 @@
       { act: 'delete', label: 'Move to trash', ic: 'trash', danger: true },
     ].filter(Boolean);
     const pop = document.createElement('div');
-    pop.className = 'panel fixed z-[70] w-44 rounded-xl p-1 shadow-pop';
+    pop.className = 'panel fixed z-[70] w-44 rounded-[3px] p-1 shadow-pop';
     pop.innerHTML = items.map((i) => `<button class="navlink ${i.danger ? 'hover:!text-red-500' : ''}" data-menu="${i.act}">${icon(i.ic, 'h-4 w-4')}<span>${i.label}</span></button>`).join('');
     const r = anchor.getBoundingClientRect();
     pop.style.top = Math.min(r.bottom + 4, window.innerHeight - 240) + 'px';
@@ -954,7 +1026,7 @@
         const d = await api('/api/calls', { method: 'POST', body: { conversation_id: +b.dataset.callConv, kind } });
         if (d.active) { toast('A call is already in progress', 'info'); return; }
         startCallUi(d.call_id, kind, true);
-      } catch (e) { toast(e.message, 'error'); }
+      } catch (e) { failToast(e); }
     }));
     $$('.call-kind').forEach((b) => b.addEventListener('click', () => {
       $$('.call-kind').forEach((x) => { x.classList.remove('btn-brand'); x.classList.add('btn-soft'); });
@@ -968,7 +1040,7 @@
       try {
         const d = await api('/api/calls', { method: 'POST', body: { conversation_id: cid, kind } });
         startCallUi(d.call_id, kind, true);
-      } catch (e) { toast(e.message, 'error'); }
+      } catch (e) { failToast(e); }
     });
     const leave = $('#ctl-leave');
     if (leave) leave.addEventListener('click', () => leaveCall());
@@ -1027,10 +1099,10 @@
           <div id="call-stage" data-call="${callId}" class="grid grid-cols-2 min-h-0 flex-1 gap-2 overflow-y-auto p-2">${tiles.map(tileHtml).join('')}</div>
         </div>
         <div class="flex items-center justify-center gap-2 border-t line px-3 py-3">
-          <button id="ctl-mic" class="btn btn-soft btn-icon !h-11 !w-11 !rounded-full">${icon('mic', 'h-5 w-5')}</button>
-          <button id="ctl-cam" class="btn btn-soft btn-icon !h-11 !w-11 !rounded-full">${icon('video', 'h-5 w-5')}</button>
-          <button id="ctl-share" class="btn btn-soft btn-icon !h-11 !w-11 !rounded-full">${icon('share', 'h-5 w-5')}</button>
-          <button id="ctl-leave" class="btn btn-icon !h-11 !w-11 !rounded-full" style="background:#ef4444;color:#fff">${icon('phone-off', 'h-5 w-5')}</button>
+          <button id="ctl-mic" class="btn btn-soft btn-icon !h-11 !w-11 !rounded-[2px]">${icon('mic', 'h-5 w-5')}</button>
+          <button id="ctl-cam" class="btn btn-soft btn-icon !h-11 !w-11 !rounded-[2px]">${icon('video', 'h-5 w-5')}</button>
+          <button id="ctl-share" class="btn btn-soft btn-icon !h-11 !w-11 !rounded-[2px]">${icon('share', 'h-5 w-5')}</button>
+          <button id="ctl-leave" class="btn btn-icon !h-11 !w-11 !rounded-[2px]" style="background:#ef4444;color:#fff">${icon('phone-off', 'h-5 w-5')}</button>
         </div>`;
       $('#maincol').innerHTML = stage;
       bindCallControls();
@@ -1038,7 +1110,7 @@
       connectToPeers(d.call.participants || [], isStarter);
       toast('Joined call', 'ok');
     } catch (e) {
-      toast(e.message, 'error');
+      failToast(e);
     }
   }
 
@@ -1049,7 +1121,7 @@
       : `<div class="absolute inset-0 grid place-items-center rounded-2xl" style="background:var(--color-panel3)">${avatarHtml({ id: t.user_id, name: t.name, initials: t.initials, color: t.color, presence: '' }, 'h-16 w-16 text-lg', false)}</div>`;
     return `<div class="relative min-h-[180px] overflow-hidden rounded-2xl border line" style="background:var(--color-panel)">
       ${video}${badge}
-      <div class="absolute bottom-2 left-2 flex items-center gap-1.5 rounded-full px-2 py-1 text-[11px] font-semibold text-white" style="background:rgb(0 0 0 / .5)"><span>${esc(t.name)}</span></div>
+      <div class="absolute bottom-2 left-2 flex items-center gap-1.5 rounded-[2px] px-2 py-1 text-[11px] font-semibold text-white" style="background:rgb(0 0 0 / .5)"><span>${esc(t.name)}</span></div>
     </div>`;
   }
 
@@ -1066,7 +1138,7 @@
       const lv = $('#cam-' + ME.id);
       if (lv) lv.srcObject = state.localStream;
     } catch (e) {
-      toast('Camera/microphone unavailable: ' + e.message, 'error');
+      toast('No camera or microphone — check the browser permission for this site, then retry.', 'error');
     }
   }
 
@@ -1148,7 +1220,7 @@
       };
       toast('Screen sharing started', 'ok');
     } catch (e) {
-      toast('Screen sharing failed: ' + e.message, 'error');
+      toast('Screen sharing did not start — pick a window and try again.', 'error');
     }
   }
 
@@ -1185,7 +1257,7 @@
     el.className = 'toast pointer-events-auto fixed left-1/2 top-4 z-[95] -translate-x-1/2';
     el.setAttribute('data-incoming', '');
     el.innerHTML = `<div class="flex items-center gap-3 rounded-2xl border line panel px-4 py-3 shadow-pop">
-      <span class="grid h-9 w-9 place-items-center rounded-full" style="background:color-mix(in srgb,#10b981 15%,transparent);color:#059669">${icon('phone', 'h-4 w-4')}</span>
+      <span class="grid h-9 w-9 place-items-center rounded-[2px]" style="background:color-mix(in srgb,#10b981 15%,transparent);color:#059669">${icon('phone', 'h-4 w-4')}</span>
       <div class="text-[13px]"><div class="font-bold">${esc(msg.from || 'Someone')} is calling</div><div class="text-[11px] ink3">${msg.kind === 'audio' ? 'Audio call' : 'Video call'}</div></div>
       <button class="btn btn-brand btn-xs" data-answer>Join</button>
       <button class="btn btn-ghost btn-xs" data-dismiss>Dismiss</button></div>`;
@@ -1197,7 +1269,7 @@
         state.call = { id: msg.call_id, kind: msg.kind };
         history.pushState({}, '', '/calls');
         await startCallUi(msg.call_id, msg.kind, false);
-      } catch (e) { toast(e.message, 'error'); }
+      } catch (e) { failToast(e); }
     });
     el.querySelector('[data-dismiss]').addEventListener('click', () => el.remove());
     setTimeout(() => el.remove(), 20000);
@@ -1222,17 +1294,17 @@
         await api('/api/admin/config', { method: 'POST', body: { open: next ? '1' : '0' } });
         toast(next ? 'Server is open to the network' : 'Server now requires approval', 'ok');
         setTimeout(() => location.reload(), 600);
-      } catch (e) { toast(e.message, 'error'); busy(openToggle, false); }
+      } catch (e) { failToast(e); busy(openToggle, false); }
     });
     $$('[data-approve]').forEach((b) => b.addEventListener('click', async () => {
       busy(b, true);
       try { await api(`/api/admin/requests/${b.dataset.approve}/approve`, { method: 'POST' }); location.reload(); }
-      catch (e) { toast(e.message, 'error'); busy(b, false); }
+      catch (e) { failToast(e); busy(b, false); }
     }));
     $$('[data-reject]').forEach((b) => b.addEventListener('click', async () => {
       busy(b, true);
       try { await api(`/api/admin/requests/${b.dataset.reject}/reject`, { method: 'POST' }); location.reload(); }
-      catch (e) { toast(e.message, 'error'); busy(b, false); }
+      catch (e) { failToast(e); busy(b, false); }
     }));
     $$('[data-revoke]').forEach((b) => b.addEventListener('click', async () => {
       confirmDialog('Revoke device', 'Revoke this device credential? It will stop working immediately.', 'Revoke', async () => {
@@ -1256,7 +1328,7 @@
     $$('[data-act="backup-now"]').forEach((b) => b.addEventListener('click', async () => {
       busy(b, true);
       try { const d = await api('/api/admin/backups', { method: 'POST' }); toast(`Backup created (${bytes(d.size)})`, 'ok'); location.reload(); }
-      catch (e) { toast(e.message, 'error'); busy(b, false); }
+      catch (e) { failToast(e); busy(b, false); }
     }));
     $$('[data-backup-delete]').forEach((b) => b.addEventListener('click', async () => {
       await api(`/api/admin/backups/${b.dataset.backupDelete}`, { method: 'DELETE' });
@@ -1284,7 +1356,7 @@
         }});
         toast('Configuration saved', 'ok');
         setTimeout(() => location.reload(), 700);
-      } catch (err) { toast(err.message, 'error'); }
+      } catch (err) { failToast(err); }
     });
     $$('[data-tab]').forEach((a) => a.addEventListener('click', (e) => {
       // allow normal navigation; nothing extra
@@ -1304,7 +1376,7 @@
         ME.name = d.me.name; ME.bio = d.me.bio; ME.initials = d.me.initials;
         toast('Profile saved', 'ok');
         setTimeout(() => location.reload(), 700);
-      } catch (err) { toast(err.message, 'error'); }
+      } catch (err) { failToast(err); }
     });
   }
 
@@ -1440,7 +1512,7 @@
       const r = e.target.closest('.reaction-btn');
       if (!r) return;
       const on = !r.classList.contains('brand');
-      await api(`/api/messages/${r.dataset.message}/reactions`, { method: 'POST', body: { emoji: r.dataset.emoji, on } }).catch((x) => toast(x.message, 'error'));
+      await api(`/api/messages/${r.dataset.message}/reactions`, { method: 'POST', body: { emoji: r.dataset.emoji, on } }).catch((x) => failToast(x));
     });
 
     document.addEventListener('keydown', (e) => {
@@ -1451,8 +1523,8 @@
   function openReactionPicker(anchor, id) {
     const EMOJIS = ['👍', '❤️', '😂', '😮', '😢', '🙏', '🎉', '🔥'];
     const pop = document.createElement('div');
-    pop.className = 'panel fixed z-[80] flex gap-1 rounded-xl p-1.5 shadow-pop';
-    pop.innerHTML = EMOJIS.map((em) => `<button class="grid h-8 w-8 place-items-center rounded-lg text-base hover:bg-[var(--color-panel2)]" data-em="${em}">${em}</button>`).join('');
+    pop.className = 'panel fixed z-[80] flex gap-1 rounded-[3px] p-1.5 shadow-pop';
+    pop.innerHTML = EMOJIS.map((em) => `<button class="grid h-8 w-8 place-items-center rounded-[2px] text-base hover:bg-[var(--color-panel2)]" data-em="${em}">${em}</button>`).join('');
     const r = anchor.getBoundingClientRect();
     pop.style.top = Math.min(r.bottom + 6, window.innerHeight - 60) + 'px';
     pop.style.left = Math.max(8, r.left) + 'px';
@@ -1463,7 +1535,7 @@
       const b = e.target.closest('[data-em]');
       if (!b) return;
       close();
-      api(`/api/messages/${id}/reactions`, { method: 'POST', body: { emoji: b.dataset.em } }).catch((x) => toast(x.message, 'error'));
+      api(`/api/messages/${id}/reactions`, { method: 'POST', body: { emoji: b.dataset.em } }).catch((x) => failToast(x));
     });
   }
 
@@ -1496,7 +1568,7 @@
         }
         closeModal();
         location.href = '/chat/' + d.conversation.id;
-      } catch (e2) { toast(e2.message, 'error'); }
+      } catch (e2) { failToast(e2); }
     });
   }
 

@@ -35,7 +35,7 @@ pub fn file_icon(name: &str, mime: &str, kind: &str) -> String {
         }
     };
     format!(
-        "<span class=\"grid h-9 w-9 shrink-0 place-items-center rounded-xl\" style=\"color:{color};background:color-mix(in srgb, {color} 12%, transparent)\">{}</span>",
+        "<span class=\"grid h-9 w-9 shrink-0 place-items-center rounded-[3px]\" style=\"color:{color};background:color-mix(in srgb, {color} 12%, transparent)\">{}</span>",
         super::icon(ic, "h-[18px] w-[18px]"),
         color = color
     )
@@ -61,10 +61,10 @@ pub fn list_column(state: &crate::state::AppState, boot: &Boot, used: i64, quota
     );
     let meter = format!(
         "<div class=\"border-t line px-4 py-3\">\
-<div class=\"mb-1.5 flex items-baseline justify-between\"><span class=\"text-[11px] font-semibold ink2\">Storage</span><span class=\"text-[10px] ink3\">{} used</span></div>\
+<div class=\"mb-1.5 flex items-baseline justify-between\"><span class=\"text-[11px] font-semibold ink2\">Storage</span><span class=\"text-[11px] ink3\">{} used</span></div>\
 <div class=\"progress\"><i style=\"width:{:.1}%\"></i></div>\
-<div class=\"mt-1.5 text-[10px] ink3\">{:.0}% of drive in use</div>\
-<div class=\"mt-3 border-t line pt-2.5 text-[10px] leading-relaxed ink3\">Files stay on this machine. Uploads are streamed to disk — large files never load into memory.</div>\
+<div class=\"mt-1.5 text-[11px] ink3\">{:.0}% of drive in use</div>\
+<div class=\"mt-3 border-t line pt-2.5 text-[11px] leading-relaxed ink3\">Files stay on this machine. Uploads are streamed to disk — large files never load into memory.</div>\
 </div>",
         human_bytes(used),
         pct,
@@ -76,7 +76,7 @@ pub fn list_column(state: &crate::state::AppState, boot: &Boot, used: i64, quota
 }
 
 pub fn breadcrumb(path: &[FileDto]) -> String {
-    let mut out = String::from("<nav class=\"flex items-center gap-1 overflow-x-auto px-4 pt-3 text-[12.5px]\">");
+    let mut out = String::from("<nav class=\"flex items-center gap-1 overflow-x-auto px-4 pt-3 text-[12px]\">");
     out.push_str(&format!(
         "<a class=\"shrink-0 font-semibold ink2 hover:underline\" href=\"/files\">{} Drive</a>",
         icon("drive", "h-3.5 w-3.5 inline")
@@ -113,9 +113,9 @@ fn row_html(f: &FileDto, selected: bool) -> String {
     format!(
         "<div class=\"conv-item list-row group{sel}\" data-file=\"{id}\" data-kind=\"{kind}\" draggable=\"true\">\
 {icon}\
-<span class=\"min-w-0 flex-1\"><span class=\"block truncate text-[13.5px] font-medium\">{name}</span><span class=\"block text-[11px] ink3\">{owner} · {updated}</span></span>\
+<span class=\"min-w-0 flex-1\"><span class=\"block truncate text-[14px] font-medium\">{name}</span><span class=\"block text-[11px] ink3\">{owner} · {updated}</span></span>\
 <span class=\"shrink-0 text-[11px] ink3\">{size}</span>\
-<button class=\"btn btn-ghost btn-icon !h-8 !w-8 !rounded-lg row-menu\" data-act=\"file-menu\" type=\"button\" aria-label=\"More\">{more}</button>\
+<button class=\"btn btn-ghost btn-icon !h-8 !w-8 !rounded-[3px] row-menu\" data-act=\"file-menu\" type=\"button\" aria-label=\"More\">{more}</button>\
 </div>",
         sel = sel,
         id = f.id,
@@ -133,14 +133,14 @@ fn grid_card_html(f: &FileDto, selected: bool) -> String {
     let sel = if selected { " ring-2\" style=\"--tw-ring-color:var(--color-brand-500)" } else { "" };
     let thumb = if crate::util::is_image(&f.mime) {
         format!(
-            "<div class=\"grid h-28 place-items-center overflow-hidden rounded-xl panel2\">\
+            "<div class=\"grid h-28 place-items-center overflow-hidden rounded-[3px] panel2\">\
 <img src=\"/api/files/{}/raw?preview=1\" alt=\"{}\" class=\"h-full w-full object-cover\" loading=\"lazy\"></div>",
             f.id,
             esc(&f.name)
         )
     } else {
         format!(
-            "<div class=\"grid h-28 place-items-center rounded-xl panel2\">{}</div>",
+            "<div class=\"grid h-28 place-items-center rounded-[3px] panel2\">{}</div>",
             file_icon(&f.name, &f.mime, &f.kind)
         )
     };
@@ -148,10 +148,10 @@ fn grid_card_html(f: &FileDto, selected: bool) -> String {
         "<div class=\"tile tile-hover cursor-pointer p-2.5{sel}\" data-file=\"{id}\" data-kind=\"{kind}\" draggable=\"true\" title=\"{name}\">\
 {thumb}\
 <div class=\"mt-2 flex items-start gap-1.5\">\
-<span class=\"min-w-0 flex-1 truncate text-[12.5px] font-medium\">{name}</span>\
-<button class=\"btn btn-ghost btn-icon !h-7 !w-7 !rounded-lg row-menu\" data-act=\"file-menu\" type=\"button\" aria-label=\"More\">{more}</button>\
+<span class=\"min-w-0 flex-1 truncate text-[12px] font-medium\">{name}</span>\
+<button class=\"btn btn-ghost btn-icon !h-7 !w-7 !rounded-[3px] row-menu\" data-act=\"file-menu\" type=\"button\" aria-label=\"More\">{more}</button>\
 </div>\
-<div class=\"mt-0.5 text-[10.5px] ink3\">{size}</div></div>",
+<div class=\"mt-0.5 text-[11px] ink3\">{size}</div></div>",
         sel = sel,
         id = f.id,
         kind = f.kind,
@@ -225,7 +225,7 @@ pub fn main_column(boot: &Boot, v: &FileView, selected: Option<&FileDto>) -> Str
     } else {
         let mut rows = String::new();
         rows.push_str(
-            "<div class=\"hidden grid-cols-[minmax(0,1fr)_90px_90px_40px] gap-2 px-3 pb-1.5 text-[10.5px] font-bold uppercase tracking-[0.05em] ink3 md:grid\"><span>Name</span><span>Size</span><span>Modified</span><span></span></div>",
+            "<div class=\"hidden grid-cols-[minmax(0,1fr)_90px_90px_40px] gap-2 px-3 pb-1.5 text-[11px] font-bold uppercase tracking-[0.05em] ink3 md:grid\"><span>Name</span><span>Size</span><span>Modified</span><span></span></div>",
         );
         for f in &v.items {
             rows.push_str(&row_html(f, selected.map(|s| s.id) == Some(f.id)));
@@ -253,29 +253,29 @@ pub fn details_panel(f: &FileDto, boot: &Boot, shares: &[(UserDto, String)]) -> 
     let mut body = String::new();
     if f.kind == "folder" {
         body.push_str(&format!(
-            "<div class=\"grid h-36 place-items-center rounded-2xl panel2\">{}</div>",
+            "<div class=\"grid h-36 place-items-center rounded-[3px] panel2\">{}</div>",
             file_icon(&f.name, &f.mime, "folder")
         ));
     } else if crate::util::is_image(&f.mime) {
         body.push_str(&format!(
-            "<div class=\"overflow-hidden rounded-2xl panel2\"><img src=\"/api/files/{}/raw?preview=1\" alt=\"{}\" class=\"max-h-56 w-full object-cover\"></div>",
+            "<div class=\"overflow-hidden rounded-[3px] panel2\"><img src=\"/api/files/{}/raw?preview=1\" alt=\"{}\" class=\"max-h-56 w-full object-cover\"></div>",
             f.id,
             esc(&f.name)
         ));
     } else {
         body.push_str(&format!(
-            "<div class=\"grid h-36 place-items-center rounded-2xl panel2\">{}</div>",
+            "<div class=\"grid h-36 place-items-center rounded-[3px] panel2\">{}</div>",
             file_icon(&f.name, &f.mime, &f.kind)
         ));
     }
     body.push_str(&format!(
-        "<div class=\"mt-3 px-1\"><div class=\"text-sm font-bold\">{}</div><div class=\"mt-0.5 text-[11.5px] ink3\">{} · {}</div></div>",
+        "<div class=\"mt-3 px-1\"><div class=\"text-sm font-bold\">{}</div><div class=\"mt-0.5 text-[11px] ink3\">{} · {}</div></div>",
         esc(&f.name),
         human_bytes(f.size),
         esc(&f.mime)
     ));
     body.push_str(&format!(
-        "<div class=\"mt-3 grid grid-cols-2 gap-2 px-1 text-[11.5px]\"><div class=\"tile p-2.5\"><div class=\"ink3 text-[10px]\">Owner</div><div class=\"mt-0.5 truncate font-semibold\">{}</div></div><div class=\"tile p-2.5\"><div class=\"ink3 text-[10px]\">Modified</div><div class=\"mt-0.5 font-semibold\">{}</div></div></div>",
+        "<div class=\"mt-3 grid grid-cols-2 gap-2 px-1 text-[11px]\"><div class=\"tile p-2.5\"><div class=\"ink3 text-[11px]\">Owner</div><div class=\"mt-0.5 truncate font-semibold\">{}</div></div><div class=\"tile p-2.5\"><div class=\"ink3 text-[11px]\">Modified</div><div class=\"mt-0.5 font-semibold\">{}</div></div></div>",
         esc(&f.owner_name),
         super::rel_ago(f.updated_at)
     ));
@@ -302,7 +302,7 @@ pub fn details_panel(f: &FileDto, boot: &Boot, shares: &[(UserDto, String)]) -> 
                     .iter()
                     .map(|(u, p)| format!(
                         "<div class=\"navlink\">{}<span class=\"min-w-0 flex-1 truncate\">{}</span><span class=\"chip\">{}</span></div>",
-                        avatar(u, "h-7 w-7 text-[10px]", false),
+                        avatar(u, "h-7 w-7 text-[11px]", false),
                         esc(&u.name),
                         esc(p)
                     ))
