@@ -16,6 +16,7 @@ Requires: websocket-client for the realtime section (the rest is stdlib).
 import http.cookiejar
 import json
 import os
+import sqlite3
 import sys
 import tempfile
 import time
@@ -324,10 +325,48 @@ def main():
     st, d = alice.json("/api/search?q=hello")
     check("search finds messages", len(d.get("messages", [])) >= 1, d)
 
+    section("open server")
+    # A LAN chat is often meant to be walk-in: whoever is on the Wi-Fi joins
+    # without a queue. Closed is the default, so assert both directions.
+    def admin_open(value):
+        return alice.json("/api/admin/config", {"open": value}, "POST")
+
+    st, _ = admin_open("0")
+    check("server can be closed again", st == 200, st)
+    guest = Client("guest")
+    st, _, hdrs = guest.form("/api/request-access", {"name": "Guest", "device": "guest-pad"})
+    check("closed server queues a new device", hdrs.get("location") == "/waiting", (st, hdrs.get("location")))
+
+    st, _ = admin_open("1")
+    check("server can be opened", st == 200, st)
+    st, page, _ = anon.get("/gate")
+    gate_html = page.decode(errors="replace")
+    check("open gate invites instead of asking", "Join ROOM" in gate_html, st)
+    check("open gate promises no approval", "no approval needed" in gate_html)
+
+    late = Client("late")
+    st, _, hdrs = late.form("/api/request-access", {"name": "Late", "device": "late-phone"})
+    check("open server admits a new device at once", hdrs.get("location") == "/", (st, hdrs.get("location")))
+    st, _, _ = late.get("/")
+    check("open device reaches the app", st == 200, st)
+
+    # Opening sweeps the queue, so the device that was waiting gets in too.
+    st, _, hdrs = guest.get("/waiting")
+    check("queued device is released when the server opens", hdrs.get("location") == "/", (st, hdrs.get("location")))
+
+    # Open is not the absence of a door: revocation must still bite.
+    con = sqlite3.connect(os.path.join(WORKDIR, "data", "room.db"))
+    late_dev = con.execute("SELECT id FROM devices WHERE name = 'late-phone'").fetchone()[0]
+    con.close()
+    st, _ = alice.json(f"/api/admin/devices/{late_dev}/revoke", None, "POST")
+    check("revoke still works when open", st == 200, st)
+    st, _, hdrs = late.get("/")
+    check("revoked device is turned away even when open", st in (301, 302, 303), st)
+    st, _ = admin_open("0")
+    check("server restored to closed for the rest of the run", st == 200, st)
+
     section("lockout recovery")
     # Simulate the owner losing every approved device.
-    import sqlite3
-
     db = os.path.join(WORKDIR, "data", "room.db")
     con = sqlite3.connect(db)
     con.execute("UPDATE devices SET approved = 0, revoked = 1")

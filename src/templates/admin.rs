@@ -382,12 +382,25 @@ pub fn config(boot: &Boot, msg: &str) -> String {
         ),
         "Applied to new devices."
     );
+    let is_open = matches!(
+        boot.settings.get("open").map(|v| v.as_str()),
+        Some("1") | Some("true") | Some("yes") | Some("on")
+    );
+    let f5 = super::field(
+        "Who can join",
+        &format!(
+            "<div class=\"space-y-2\"><label class=\"flex cursor-pointer items-start gap-2.5 rounded-xl border line p-3\"><input class=\"mt-0.5\" type=\"radio\" name=\"open\" value=\"1\" {}><span class=\"text-[12.5px] leading-relaxed\"><span class=\"block font-semibold ink\">Anyone on this network</span><span class=\"ink2\">Open server. People who can reach this address join instantly, with no approval. You can still revoke a device.</span></span></label><label class=\"flex cursor-pointer items-start gap-2.5 rounded-xl border line p-3\"><input class=\"mt-0.5\" type=\"radio\" name=\"open\" value=\"0\" {}><span class=\"text-[12.5px] leading-relaxed\"><span class=\"block font-semibold ink\">Only devices I approve</span><span class=\"ink2\">Private server. Each new device waits in the requests queue until you approve it.</span></span></label></div>",
+            if is_open { "checked" } else { "" },
+            if is_open { "" } else { "checked" }
+        ),
+        "Switching to open approves anyone already waiting.",
+    );
     let body = format!(
         "<div class=\"grid gap-3 p-4\">{notice}\
 <form class=\"tile space-y-4 p-5\" id=\"config-form\" method=\"dialog\">\
 <div class=\"text-[13px] font-bold\">General</div>\
 <div class=\"grid gap-3 sm:grid-cols-2\">{f1} {f2}</div>\
-<div class=\"text-[13px] font-bold pt-1\">Limits</div>\
+<div class=\"text-[13px] font-bold pt-1\">Access</div>\n<div>{f5}</div>\n<div class=\"text-[13px] font-bold pt-1\">Limits</div>\
 <div class=\"grid gap-3 sm:grid-cols-2\">{f3} {f4}</div>\
 <div class=\"flex items-center justify-between gap-3 border-t line pt-4\">\
 <div class=\"text-[11.5px] ink3\">Settings are stored in the local database and apply immediately.</div>\
@@ -396,7 +409,8 @@ pub fn config(boot: &Boot, msg: &str) -> String {
         f1 = f1,
         f2 = f2,
         f3 = f3,
-        f4 = f4
+        f4 = f4,
+        f5 = f5
     );
     format!(
         "{}{}",

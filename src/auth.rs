@@ -169,7 +169,11 @@ pub async fn request_access(
                 .content_type("text/html")
                 .body(crate::templates::gate::suspended_page(&state));
         }
-        let approved = d.approved == 1;
+        let mut approved = d.approved == 1;
+        if !approved && state.is_open() {
+            let _ = store::approve_device(&state.pool, d.id).await;
+            approved = true;
+        }
         (d, u, token, approved)
     } else {
         let handle = make_handle(&state.pool, &name).await;
@@ -249,7 +253,10 @@ pub async fn request_access(
             }
         };
         let token = random_token();
-        let approved = !owner_exists;
+        // An open server lets anyone on the network in without a queue. The host
+        // can still revoke a device afterwards, so this is convenience, not the
+        // absence of a door.
+        let approved = !owner_exists || state.is_open();
         let device = match store::create_device(
             &state.pool,
             user.id,

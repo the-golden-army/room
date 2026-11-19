@@ -1,5 +1,5 @@
 use std::path::PathBuf;
-use std::sync::atomic::AtomicU64;
+use std::sync::atomic::{AtomicBool, AtomicU64, Ordering};
 
 use actix::prelude::*;
 use serde_json::Value;
@@ -16,11 +16,15 @@ pub struct AppState {
     pub version: &'static str,
     pub hostname: String,
     pub max_upload: AtomicU64,
+    /// Open server: new devices are approved on arrival. Mirrors the `open`
+    /// setting, initialised from ROOM_OPEN, toggled live from the admin console.
+    pub open: AtomicBool,
 }
 
 impl AppState {
     pub fn new(pool: SqlitePool, hub: Addr<Hub>, cfg: Config) -> Self {
         let max_upload = cfg.max_upload;
+        let open = cfg.open;
         let hostname = hostname();
         AppState {
             pool,
@@ -30,7 +34,12 @@ impl AppState {
             version: env!("CARGO_PKG_VERSION"),
             hostname,
             max_upload: AtomicU64::new(max_upload),
+            open: AtomicBool::new(open),
         }
+    }
+
+    pub fn is_open(&self) -> bool {
+        self.open.load(Ordering::Relaxed)
     }
 
     pub fn uptime_ms(&self) -> i64 {

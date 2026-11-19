@@ -1270,6 +1270,7 @@
         await api('/api/admin/config', { method: 'POST', body: {
           server_name: fd.get('server_name'), network_name: fd.get('network_name'),
           max_upload_mb: fd.get('max_upload_mb'), theme: fd.get('theme'),
+          open: fd.get('open') ?? undefined,
         }});
         toast('Configuration saved', 'ok');
         setTimeout(() => location.reload(), 700);

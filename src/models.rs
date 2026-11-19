@@ -301,6 +301,8 @@ pub struct ServerInfo {
     pub lan_hint: String,
     /// Address other devices on the same network can open, when detectable.
     pub url: Option<String>,
+    /// Open server: anyone who can reach the address joins without approval.
+    pub open: bool,
 }
 
 #[derive(Debug, Clone, Serialize)]
