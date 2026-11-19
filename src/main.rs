@@ -77,7 +77,7 @@ async fn main() -> std::io::Result<()> {
     let mut cfg = config::Config::from_env();
     let pool = db::connect(&cfg).await.expect("database init failed");
     db::migrate(&pool).await.expect("migration failed");
-    seed(&pool, cfg.open).await;
+    seed(&pool, cfg.open, cfg.open_pinned).await;
 
     // Resolve the host's setup code before anything can serve a request.
     // Priority: explicit ROOM_SETUP_CODE, then the code stored from first run,
@@ -91,8 +91,12 @@ async fn main() -> std::io::Result<()> {
     };
 
     let hub = realtime::Hub::new().start();
-    // The stored setting wins over ROOM_OPEN: it is what the host last chose.
-    if let Some(v) = db::setting(&pool, "open").await {
+    // Precedence: an explicit ROOM_OPEN is a deployment policy and wins, so an
+    // operator can always force the mode from outside the app. With no env var
+    // the stored value is what the host last chose in the console.
+    if cfg.open_pinned {
+        let _ = db::set_setting(&pool, "open", if cfg.open { "1" } else { "0" }).await;
+    } else if let Some(v) = db::setting(&pool, "open").await {
         cfg.open = matches!(v.trim(), "1" | "true" | "yes" | "on");
     }
     let state = web::Data::new(AppState::new(pool, hub, cfg));
@@ -127,6 +131,14 @@ async fn main() -> std::io::Result<()> {
             "   open on your network: http://<this-computer's-LAN-IP>:{} (no LAN address detected)",
             state.cfg.port().unwrap_or(8080)
         ),
+    }
+    // Say which access mode is in force. "Why is it asking for approval?" was
+    // unanswerable before, because nothing ever printed this.
+    if state.is_open() {
+        println!("   access: OPEN - anyone on this network can join, no approval");
+    } else {
+        println!("   access: closed - each new device waits for your approval");
+        println!("           (set ROOM_OPEN=1, or use Admin > Configuration, to open it)");
     }
     if let Some((code, fresh)) = boot_notice {
         if fresh {
@@ -218,7 +230,7 @@ async fn main() -> std::io::Result<()> {
 
 /// Create the first owner account when the server is brand new so the host can
 /// sign in and start approving devices.
-async fn seed(pool: &sqlx::SqlitePool, cfg_open: bool) {
+async fn seed(pool: &sqlx::SqlitePool, cfg_open: bool, open_pinned: bool) {
     let owner = store::owner_count(pool).await.unwrap_or(0);
     if owner == 0 {
         // No owner yet: nothing to create. The first connection request becomes
@@ -238,7 +250,10 @@ async fn seed(pool: &sqlx::SqlitePool, cfg_open: bool) {
     // "Open server" is a stored preference. ROOM_OPEN seeds it on first start;
     // after that the admin toggle owns it, so a restart does not undo a choice
     // made in the UI.
-    if db::setting(pool, "open").await.is_none() {
+    // An explicit ROOM_OPEN rewrites the stored value on every start, so the
+    // environment is authoritative. Otherwise the first start seeds it and the
+    // console owns it from then on.
+    if open_pinned || db::setting(pool, "open").await.is_none() {
         let _ = db::set_setting(pool, "open", if cfg_open { "1" } else { "0" }).await;
     }
 }

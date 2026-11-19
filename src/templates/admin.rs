@@ -157,11 +157,40 @@ fn audit_row(a: &AuditDto) -> String {
 }
 
 pub fn requests(boot: &Boot, pending: &[DeviceDto]) -> String {
+    // The switch that decides whether this queue exists at all belongs on the
+    // queue's own page, not only three clicks away in Configuration.
+    let open_setting = matches!(
+        boot.settings.get("open").map(|v| v.as_str()),
+        Some("1") | Some("true") | Some("yes") | Some("on")
+    );
+    let mode_card = format!(
+        "<div class=\"px-4 pt-4\"><div class=\"tile p-4\">\
+<div class=\"flex items-start gap-3\"><div class=\"min-w-0 flex-1\"><div class=\"text-[13px] font-bold\">{title}</div>\
+<div class=\"mt-0.5 text-[12px] leading-relaxed ink2\">{hint}</div></div>\
+<button class=\"btn btn-xs shrink-0\" id=\"open-toggle\" data-open=\"{target}\" type=\"button\">{action}</button></div>\
+</div></div>",
+        title = if open_setting {
+            "Open to everyone on this network"
+        } else {
+            "Only devices you approve"
+        },
+        hint = if open_setting {
+            "Anyone who can reach this address joins straight away. Click to require approval again."
+        } else {
+            "Every new device waits here until you approve it. Click to let anyone on the network in."
+        },
+        target = if open_setting { "0" } else { "1" },
+        action = if open_setting { "Require approval" } else { "Open to everyone" },
+    );
     let body = if pending.is_empty() {
         empty_state(
             "bell",
             "No pending requests",
-            "When someone on the network opens this server, their request shows up here.",
+            if open_setting {
+                "This server is open, so nobody needs to wait. New devices join immediately."
+            } else {
+                "When someone on the network opens this server, their request shows up here."
+            },
             "",
         )
     } else {
@@ -188,10 +217,10 @@ pub fn requests(boot: &Boot, pending: &[DeviceDto]) -> String {
         }
         format!("<div class=\"grid gap-2.5 p-4\">{}</div>", out)
     };
-    let _ = boot;
     format!(
-        "{}{}",
+        "{}{}{}",
         topbar("", "Access requests", &format!("{} waiting", pending.len()), ""),
+        mode_card,
         super::scroll_area("admin-scroll", &body, "")
     )
 }

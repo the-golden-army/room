@@ -134,7 +134,16 @@ pub async fn gate_page(state: &AppState, error: Option<&str>) -> String {
         submit = submit,
         footnote = footnote,
     );
-    shell(if claims { "Request access" } else { "Set up ROOM" }, &body, state)
+    // The tab title has to match the heading, otherwise an open server shows
+    // "Join ROOM" on screen but "Request access" in the browser tab.
+    let title = if !claims {
+        "Set up ROOM"
+    } else if is_open {
+        "Join ROOM"
+    } else {
+        "Request access"
+    };
+    shell(title, &body, state)
 }
 
 pub async fn waiting_page(state: &AppState, user: &User, device: &str) -> String {
