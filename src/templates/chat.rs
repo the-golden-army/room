@@ -7,7 +7,7 @@ pub fn conv_item(c: &ConvDto, active: bool, users: &[UserDto]) -> String {
     let _ = users;
     let unread = if c.unread > 0 {
         format!(
-            "<span class=\"ml-auto inline-flex h-[18px] min-w-[18px] shrink-0 items-center justify-center rounded-full px-1.5 text-[10px] font-bold leading-none text-white\" style=\"background:{}\">{}</span>",
+            "<span class=\"ml-auto inline-flex h-[18px] min-w-[18px] shrink-0 items-center justify-center rounded-[2px] px-1.5 font-mono text-[11px] font-bold leading-none text-white\" style=\"background:{}\">{}</span>",
             if c.muted { "var(--color-ink3)" } else { "var(--color-brand-600)" },
             if c.unread > 99 { "99+".to_string() } else { c.unread.to_string() }
         )
@@ -38,8 +38,8 @@ pub fn conv_item(c: &ConvDto, active: bool, users: &[UserDto]) -> String {
         "<a href=\"/chat/{id}\" class=\"conv-item{active}\" data-conv=\"{id}\" data-kind=\"{kind}\" data-unread=\"{unread_flag}\">\
 {avatar}\
 <span class=\"min-w-0 flex-1\"><span class=\"flex items-center gap-1.5\">\
-<span class=\"truncate text-[13.5px] font-semibold\">{title}</span>{mute}\
-<span class=\"ml-auto shrink-0 text-[10px] ink3\">{time}</span></span>\
+<span class=\"truncate text-[14px] font-semibold\">{title}</span>{mute}\
+<span class=\"ml-auto shrink-0 text-[11px] ink3\">{time}</span></span>\
 <span class=\"mt-0.5 block truncate text-xs ink3\">{preview}</span></span>{unread}</a>",
         id = c.id,
         active = active_cls,
@@ -58,7 +58,7 @@ pub fn conv_item(c: &ConvDto, active: bool, users: &[UserDto]) -> String {
                 last_seen_at: 0,
                 online: users.iter().any(|u| c.members.contains(&u.id) && u.online),
             },
-            "h-10 w-10 text-[13px]",
+            "h-10 w-10 text-[14px]",
             false
         ),
         mute = mute_icon,
@@ -95,6 +95,7 @@ pub fn list_column(
     for c in convs {
         items.push_str(&conv_item(c, c.id == active, &boot.users));
     }
+    let strip = super::status_strip(&boot.users);
     let list = if convs.is_empty() {
         empty_state(
             "chat",
@@ -116,8 +117,13 @@ pub fn list_column(
     );
     let _ = state;
     format!(
-        "{header}{search}{filters}{scroll}",
+        "{header}{strip}{search}{filters}{scroll}",
         header = header,
+        strip = if strip.is_empty() {
+            String::new()
+        } else {
+            format!("<div class=\"px-2 pt-2\">{strip}</div>")
+        },
         search = search,
         filters = filters,
         scroll = super::scroll_area("conv-scroll", &list, "pb-3")
@@ -216,7 +222,7 @@ pub fn message_html(m: &MsgDto, grouped: bool) -> String {
         String::new()
     } else {
         format!(
-            "<div class=\"flex items-baseline gap-2\"><span class=\"text-[13px] font-semibold\" style=\"color:{}\">{}</span><span class=\"text-[10px] ink3\">{}</span></div>",
+            "<div class=\"flex items-baseline gap-2\"><span class=\"text-[14px] font-semibold\" style=\"color:{}\">{}</span><span class=\"text-[11px] ink3\">{}</span></div>",
             m.sender_color,
             esc(&m.sender_name),
             hhmm(m.created_at)
@@ -224,7 +230,7 @@ pub fn message_html(m: &MsgDto, grouped: bool) -> String {
     };
     let reply = if m.reply_to_id > 0 {
         format!(
-            "<div class=\"mb-1 flex items-center gap-2 rounded-lg border-l-2 px-2.5 py-1 text-[11.5px]\" style=\"border-color:{color};background:color-mix(in srgb, {color} 7%, transparent)\">\
+            "<div class=\"mb-1 flex items-center gap-2 rounded-[3px] border-l-2 px-2.5 py-1 text-[11px]\" style=\"border-color:{color};background:color-mix(in srgb, {color} 7%, transparent)\">\
 <span class=\"font-semibold\" style=\"color:{color}\">{name}</span><span class=\"truncate ink3\">{body}</span></div>",
             color = m.sender_color,
             name = esc(&m.reply_to_name),
@@ -255,14 +261,14 @@ pub fn message_html(m: &MsgDto, grouped: bool) -> String {
         reacts.push_str("</div>");
     }
     let edited = if m.edited {
-        "<span class=\"text-[9.5px] ink3\">(edited)</span>"
+        "<span class=\"text-[10px] ink3\">(edited)</span>"
     } else {
         ""
     };
     let actions = format!(
-        "<div class=\"pointer-events-none absolute -top-3 {apos} z-10 flex translate-y-1 items-center gap-0.5 rounded-xl border line panel px-1 py-0.5 opacity-0 shadow-soft transition-all group-hover:pointer-events-auto group-hover:translate-y-0 group-hover:opacity-100\">\
-<button class=\"btn btn-ghost btn-icon !h-7 !w-7 !rounded-lg\" data-act=\"reply\" title=\"Reply\">{}</button>\
-<button class=\"btn btn-ghost btn-icon !h-7 !w-7 !rounded-lg\" data-act=\"react\" title=\"React\">{}</button>\
+        "<div class=\"pointer-events-none absolute -top-3 {apos} z-10 flex translate-y-1 items-center gap-0.5 rounded-[3px] border line panel px-1 py-0.5 opacity-0 transition-all group-hover:pointer-events-auto group-hover:translate-y-0 group-hover:opacity-100\">\
+<button class=\"btn btn-ghost btn-icon !h-7 !w-7 !rounded-[3px]\" data-act=\"reply\" title=\"Reply\">{}</button>\
+<button class=\"btn btn-ghost btn-icon !h-7 !w-7 !rounded-[3px]\" data-act=\"react\" title=\"React\">{}</button>\
 {mine_actions}\
 </div>",
         icon("reply", "h-3.5 w-3.5"),
@@ -270,8 +276,8 @@ pub fn message_html(m: &MsgDto, grouped: bool) -> String {
         apos = if m.mine { "left-3" } else { "right-3" },
         mine_actions = if m.mine {
             format!(
-                "<button class=\"btn btn-ghost btn-icon !h-7 !w-7 !rounded-lg\" data-act=\"edit\" title=\"Edit\">{}</button>\
-<button class=\"btn btn-ghost btn-icon !h-7 !w-7 !rounded-lg hover:!text-red-500\" data-act=\"delete\" title=\"Delete\">{}</button>",
+                "<button class=\"btn btn-ghost btn-icon !h-7 !w-7 !rounded-[3px]\" data-act=\"edit\" title=\"Edit\">{}</button>\
+<button class=\"btn btn-ghost btn-icon !h-7 !w-7 !rounded-[3px] hover:!text-red-500\" data-act=\"delete\" title=\"Delete\">{}</button>",
                 icon("edit", "h-3.5 w-3.5"),
                 icon("trash", "h-3.5 w-3.5")
             )
@@ -379,14 +385,14 @@ pub fn main_column(
             };
             let composer = format!(
                 "<form id=\"composer\" class=\"px-3 pb-3 pt-1 md:px-4\" data-conv=\"{id}\">\
-<div class=\"mb-1.5 flex h-4 items-center justify-center gap-1.5 text-[10.5px] ink3\">\
+<div class=\"mb-1.5 flex h-4 items-center justify-center gap-1.5 text-[11px] ink3\">\
 <span class=\"inline-flex items-center gap-1\">{lock} Messages stay on this server</span>\
 <span id=\"typing\" class=\"font-semibold\" style=\"color:var(--color-brand-600)\"></span></div>\
-<div class=\"panel flex items-end gap-1 rounded-[22px] py-1 pl-1.5 pr-1.5 shadow-soft focus-within:border-[var(--color-brand-500)]\">\
-<button type=\"button\" id=\"attach-btn\" class=\"btn btn-ghost btn-icon !h-9 !w-9 !rounded-full\" title=\"Attach a file\">{clip}</button>\
-<textarea id=\"composer-input\" rows=\"1\" class=\"max-h-40 flex-1 resize-none self-center bg-transparent px-1.5 py-2 text-[13.5px] outline-none\" placeholder=\"Message {title}…\"></textarea>\
-<button type=\"button\" id=\"emoji-btn\" class=\"btn btn-ghost btn-icon !h-9 !w-9 !rounded-full\" title=\"Emoji\">{smile}</button>\
-<button type=\"submit\" id=\"send-btn\" class=\"btn btn-brand btn-icon !h-9 !w-9 !rounded-full\" title=\"Send\">{send}</button>\
+<div class=\"panel flex items-end gap-1 rounded-[3px] py-1 pl-1.5 pr-1.5 focus-within:border-[var(--color-ink3)]\">\
+<button type=\"button\" id=\"attach-btn\" class=\"btn btn-ghost btn-icon !h-9 !w-9 !rounded-[2px]\" title=\"Attach a file\">{clip}</button>\
+<textarea id=\"composer-input\" rows=\"1\" class=\"max-h-40 flex-1 resize-none self-center bg-transparent px-1.5 py-2 text-[14px] outline-none\" placeholder=\"Message {title}…\"></textarea>\
+<button type=\"button\" id=\"emoji-btn\" class=\"btn btn-ghost btn-icon !h-9 !w-9 !rounded-[2px]\" title=\"Emoji\">{smile}</button>\
+<button type=\"submit\" id=\"send-btn\" class=\"btn btn-brand btn-icon !h-9 !w-9 !rounded-[2px]\" title=\"Send\">{send}</button>\
 </div>\
 </form>",
                 id = c.id,
@@ -451,7 +457,7 @@ pub fn details_panel(boot: &Boot, conv: &ConvDto) -> String {
         ));
         if !conv.topic.is_empty() {
             body.push_str(&format!(
-                "<div class=\"px-4 pb-3 text-[12.5px] ink2\">{}</div>",
+                "<div class=\"px-4 pb-3 text-[12px] ink2\">{}</div>",
                 esc(&conv.topic)
             ));
         }
@@ -476,7 +482,7 @@ pub fn details_panel(boot: &Boot, conv: &ConvDto) -> String {
                 esc(&u.bio)
             ));
             body.push_str(&format!(
-                "<div class=\"grid grid-cols-2 gap-2 px-4 pb-4\"><div class=\"tile p-2.5 text-center\"><div class=\"text-sm font-bold\">{}</div><div class=\"text-[10px] ink3\">Presence</div></div><div class=\"tile p-2.5 text-center\"><div class=\"text-sm font-bold\">{}</div><div class=\"text-[10px] ink3\">Role</div></div><div class=\"tile p-2.5 text-center\"><div class=\"text-sm font-bold\">{}</div><div class=\"text-[10px] ink3\">Last seen</div></div></div>",
+                "<div class=\"grid grid-cols-2 gap-2 px-4 pb-4\"><div class=\"tile p-2.5 text-center\"><div class=\"text-sm font-bold\">{}</div><div class=\"text-[11px] ink3\">Presence</div></div><div class=\"tile p-2.5 text-center\"><div class=\"text-sm font-bold\">{}</div><div class=\"text-[11px] ink3\">Role</div></div><div class=\"tile p-2.5 text-center\"><div class=\"text-sm font-bold\">{}</div><div class=\"text-[11px] ink3\">Last seen</div></div></div>",
                 esc(u.presence.as_str()),
                 esc(if u.role == "owner" { "Host" } else { &u.role }),
                 if u.last_seen_at > 0 { super::rel_ago(u.last_seen_at) } else { "—".into() }

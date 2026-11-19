@@ -19,18 +19,18 @@ pub fn list_column(
     let mut items = String::new();
     if let Some(c) = active {
         items.push_str(&format!(
-            "<div class=\"mx-2 mb-2 rounded-xl border p-2.5\" style=\"border-color:color-mix(in srgb, #10b981 45%, transparent);background:color-mix(in srgb, #10b981 8%, transparent)\">\
-<div class=\"flex items-center gap-2\"><span class=\"relative flex h-2 w-2\"><span class=\"absolute inline-flex h-full w-full animate-ping rounded-full bg-green-400 opacity-75\"></span><span class=\"relative inline-flex h-2 w-2 rounded-full bg-green-500\"></span></span><span class=\"text-[11px] font-bold uppercase tracking-wide text-green-600 dark:text-green-400\">In call</span></div>\
-<div class=\"mt-1.5 truncate text-[13px] font-semibold\">{}</div>\
+            "<div class=\"mx-2 mb-2 rounded-[3px] border p-2.5\" style=\"border-color:color-mix(in srgb, #10b981 45%, transparent);background:color-mix(in srgb, #10b981 8%, transparent)\">\
+<div class=\"flex items-center gap-2\"><span class=\"relative flex h-2 w-2\"><span class=\"absolute inline-flex h-full w-full rounded-[1px]\" style=\"background:var(--color-ok);opacity:.35\"></span><span class=\"relative inline-flex h-2 w-2 rounded-full bg-green-500\"></span></span><span class=\"text-[11px] font-bold uppercase tracking-wide text-green-600 dark:text-green-400\">In call</span></div>\
+<div class=\"mt-1.5 truncate text-[14px] font-semibold\">{}</div>\
 <div class=\"text-[11px] ink3\">started {}</div></div>",
             esc(&c.starter_name),
             human_duration(crate::util::now_ms() - c.started_at)
         ));
     }
-    items.push_str("<div class=\"px-3 pb-1 pt-2 text-[10.5px] font-bold uppercase tracking-[0.06em] ink3\">Start a call</div>");
+    items.push_str("<div class=\"px-3 pb-1 pt-2 text-[11px] font-bold uppercase tracking-[0.06em] ink3\">Start a call</div>");
     for c in convs.iter().take(6) {
         items.push_str(&format!(
-            "<button class=\"conv-item\" data-call-conv=\"{}\" type=\"button\">{}<span class=\"min-w-0 flex-1 truncate text-[13.5px] font-medium\">{}</span><span class=\"ink3\">{}</span></button>",
+            "<button class=\"conv-item\" data-call-conv=\"{}\" type=\"button\">{}<span class=\"min-w-0 flex-1 truncate text-[14px] font-medium\">{}</span><span class=\"ink3\">{}</span></button>",
             c.id,
             avatar(
                 &UserDto {
@@ -55,7 +55,7 @@ pub fn list_column(
         ));
     }
     if !history.is_empty() {
-        items.push_str("<div class=\"px-3 pb-1 pt-3 text-[10.5px] font-bold uppercase tracking-[0.06em] ink3\">Recent</div>");
+        items.push_str("<div class=\"px-3 pb-1 pt-3 text-[11px] font-bold uppercase tracking-[0.06em] ink3\">Recent</div>");
         for c in history.iter().take(8) {
             let dur = if c.duration_ms > 0 {
                 clock(c.duration_ms)
@@ -63,7 +63,7 @@ pub fn list_column(
                 "missed".into()
             };
             items.push_str(&format!(
-                "<div class=\"conv-item cursor-default\">{}<span class=\"min-w-0 flex-1\"><span class=\"block truncate text-[13px] font-medium\">{}</span><span class=\"block text-[10.5px] ink3\">{} · {}</span></span>{}</div>",
+                "<div class=\"conv-item cursor-default\">{}<span class=\"min-w-0 flex-1\"><span class=\"block truncate text-[14px] font-medium\">{}</span><span class=\"block text-[11px] ink3\">{} · {}</span></span>{}</div>",
                 icon(if c.duration_ms > 0 { "phone" } else { "phone-off" }, "h-4 w-4"),
                 esc(&c.starter_name),
                 human_duration(crate::util::now_ms() - c.started_at),
@@ -105,10 +105,10 @@ pub fn lobby(boot: &Boot, convs: &[ConvDto], kind: &str) -> String {
     }
     let body = format!(
         "<div class=\"mx-auto flex w-full max-w-lg flex-col gap-4 px-4 py-8\">\
-<div class=\"panel rounded-2xl p-5 shadow-soft\">\
+<div class=\"panel rounded-[3px] p-5\">\
 <div class=\"flex items-center gap-3\">\
-<div class=\"grid h-12 w-12 place-items-center rounded-2xl\" style=\"background:color-mix(in srgb, var(--color-brand-600) 12%, transparent);color:var(--color-brand-600)\">{head}</div>\
-<div><div class=\"text-[15px] font-bold\">Start a call</div><div class=\"text-[12px] ink3\">Direct media on this network — no external servers.</div></div></div>\
+<div class=\"grid h-12 w-12 place-items-center rounded-[3px]\" style=\"background:color-mix(in srgb, var(--color-brand-600) 12%, transparent);color:var(--color-brand-600)\">{head}</div>\
+<div><div class=\"text-[17px] font-bold\">Start a call</div><div class=\"text-[12px] ink3\">Direct media on this network — no external servers.</div></div></div>\
 <label class=\"mt-5 block\"><span class=\"mb-1.5 block text-xs font-semibold ink2\">Conversation</span>\
 <select id=\"call-conv\" class=\"input\">{opts}</select></label>\
 <div class=\"mt-4\"><span class=\"mb-1.5 block text-xs font-semibold ink2\">Call type</span>\
@@ -154,7 +154,7 @@ pub fn stage(
         "<div class=\"flex min-h-0 flex-1 flex-col bg-[var(--color-panel2)]\">\
 <div class=\"flex items-center justify-between px-4 py-2.5\">\
 <div class=\"flex items-center gap-2 text-[12px] ink2\">\
-<span class=\"relative flex h-2 w-2\"><span class=\"absolute inline-flex h-full w-full animate-ping rounded-full bg-green-400 opacity-75\"></span><span class=\"relative inline-flex h-2 w-2 rounded-full bg-green-500\"></span></span>\
+<span class=\"relative flex h-2 w-2\"><span class=\"absolute inline-flex h-full w-full rounded-[1px]\" style=\"background:var(--color-ok);opacity:.35\"></span><span class=\"relative inline-flex h-2 w-2 rounded-full bg-green-500\"></span></span>\
 <span class=\"font-semibold\">{}</span>·<span id=\"call-timer\" data-start=\"{}\">{}</span></div>\
 <div class=\"text-[11px] ink3\">{} participants</div></div>\
 <div id=\"call-stage\" data-call=\"{call_id}\" class=\"grid {cols} min-h-0 flex-1 gap-2 overflow-y-auto p-2\">{grid}</div></div>",
@@ -168,10 +168,10 @@ pub fn stage(
     );
     let controls = format!(
         "<div class=\"flex items-center justify-center gap-2 border-t line px-3 py-3\">\
-<button id=\"ctl-mic\" class=\"btn btn-soft btn-icon !h-11 !w-11 !rounded-full\" type=\"button\" title=\"Microphone\">{}</button>\
-<button id=\"ctl-cam\" class=\"btn btn-soft btn-icon !h-11 !w-11 !rounded-full\" type=\"button\" title=\"Camera\">{}</button>\
-<button id=\"ctl-share\" class=\"btn btn-soft btn-icon !h-11 !w-11 !rounded-full\" type=\"button\" title=\"Share screen\">{}</button>\
-<button id=\"ctl-leave\" class=\"btn btn-icon !h-11 !w-11 !rounded-full\" style=\"background:#ef4444;color:#fff\" type=\"button\" title=\"Leave\">{}</button>\
+<button id=\"ctl-mic\" class=\"btn btn-soft btn-icon !h-11 !w-11 !rounded-[2px]\" type=\"button\" title=\"Microphone\">{}</button>\
+<button id=\"ctl-cam\" class=\"btn btn-soft btn-icon !h-11 !w-11 !rounded-[2px]\" type=\"button\" title=\"Camera\">{}</button>\
+<button id=\"ctl-share\" class=\"btn btn-soft btn-icon !h-11 !w-11 !rounded-[2px]\" type=\"button\" title=\"Share screen\">{}</button>\
+<button id=\"ctl-leave\" class=\"btn btn-icon !h-11 !w-11 !rounded-[2px]\" style=\"background:#ef4444;color:#fff\" type=\"button\" title=\"Leave\">{}</button>\
 </div>",
         icon("mic", "h-5 w-5"),
         icon("video", "h-5 w-5"),
@@ -208,7 +208,7 @@ fn tile_html(t: &Tile) -> String {
         String::new()
     } else {
         format!(
-            "<div class=\"absolute inset-0 grid place-items-center rounded-2xl\" style=\"background:var(--color-panel3)\">{}</div>",
+            "<div class=\"absolute inset-0 grid place-items-center rounded-[3px]\" style=\"background:var(--color-panel3)\">{}</div>",
             avatar(
                 &UserDto {
                     id: t.user_id,
@@ -230,14 +230,14 @@ fn tile_html(t: &Tile) -> String {
         )
     };
     let video_el = if t.video {
-        format!("<video id=\"cam-{}\" class=\"h-full w-full rounded-2xl object-cover\" autoplay playsinline muted={}></video>", t.user_id, if t.local { "muted" } else { "" })
+        format!("<video id=\"cam-{}\" class=\"h-full w-full rounded-[3px] object-cover\" autoplay playsinline muted={}></video>", t.user_id, if t.local { "muted" } else { "" })
     } else {
         String::new()
     };
     format!(
-        "<div class=\"relative min-h-[180px] overflow-hidden rounded-2xl border line bg-[var(--color-panel)]\" style=\"{ring}\">\
+        "<div class=\"relative min-h-[180px] overflow-hidden rounded-[3px] border line bg-[var(--color-panel)]\" style=\"{ring}\">\
 {video}{badge}\
-<div class=\"absolute bottom-2 left-2 flex items-center gap-1.5 rounded-full px-2 py-1 text-[11px] font-semibold text-white\" style=\"background:rgb(0 0 0 / .5)\">\
+<div class=\"absolute bottom-2 left-2 flex items-center gap-1.5 rounded-[2px] px-2 py-1 text-[11px] font-semibold text-white\" style=\"background:rgb(0 0 0 / .5)\">\
 <span>{name}</span>{mute}</div>\
 </div>",
         ring = ring,

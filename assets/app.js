@@ -186,7 +186,7 @@
       ? `<span class="presence ${u.presence === 'online' ? 'on' : u.presence === 'away' ? 'away' : ''}"></span>`
       : '';
     const inner = u.avatar ? esc(u.avatar) : esc(u.initials || '?');
-    return `<span class="relative inline-block shrink-0 ${cls}"><span class="grid h-full w-full place-items-center rounded-full font-semibold text-white" style="background:${u.color};font-size:.72em">${inner}</span>${dot}</span>`;
+    return `<span class="relative inline-block shrink-0 ${cls}"><span class="grid h-full w-full place-items-center rounded-[2px] font-mono font-semibold" style="background:${u.color};font-size:.72em">${inner}</span>${dot}</span>`;
   }
 
   /* ------------------------------------------------------------ toast + modal */
@@ -393,7 +393,7 @@
           if (n > 0) {
             if (!b) {
               b = document.createElement('span');
-              b.className = 'badge absolute right-1 top-1 grid h-4 min-w-4 place-items-center rounded-full px-1 text-[9px] font-bold text-white';
+              b.className = 'badge absolute -right-0.5 -top-0.5 grid h-4 min-w-4 place-items-center rounded-[2px] px-1 font-mono text-[10px] font-semibold';
               b.style.background = '#ef4444';
               a.querySelector('span.relative')?.appendChild(b);
             }
@@ -431,7 +431,7 @@
       : 'No messages yet';
     const unread =
       c.unread > 0
-        ? `<span class="ml-auto grid h-[18px] min-w-[18px] place-items-center rounded-full px-1 text-[10px] font-bold text-white" style="background:${c.muted ? 'var(--color-ink3)' : 'var(--color-brand-600)'}">${c.unread > 99 ? '99+' : c.unread}</span>`
+        ? `<span class="ml-auto grid h-[18px] min-w-[18px] place-items-center rounded-[2px] px-1 font-mono text-[10px] font-semibold" style="background:${c.muted ? 'var(--color-ink3)' : 'var(--color-ink)'};color:var(--color-surface)">${c.unread > 99 ? '99+' : c.unread}</span>`
         : c.muted
         ? `<span class="ml-auto ink3">${icon('bell-off', 'h-3.5 w-3.5')}</span>`
         : '';
@@ -462,7 +462,7 @@
       : `<div class="mb-0.5 flex items-baseline gap-2"><span class="text-[12.5px] font-semibold" style="color:${m.sender_color}">${esc(m.sender_name)}</span></div>`;
     const reply =
       m.reply_to_id > 0
-        ? `<div class="mb-1 flex items-center gap-2 rounded-lg border-l-2 px-2.5 py-1 text-[11.5px]" style="border-color:${m.sender_color};background:color-mix(in srgb, ${m.sender_color} 7%, transparent)">
+        ? `<div class="mb-1 flex items-center gap-2 rounded-[2px] border-l-2 px-2.5 py-1 text-[11px]" style="border-color:${m.sender_color};background:color-mix(in srgb, ${m.sender_color} 7%, transparent)">
            <span class="font-semibold" style="color:${m.sender_color}">${esc(m.reply_to_name || '')}</span>
            <span class="truncate ink3">${esc(m.reply_to_body || '')}</span></div>`
         : '';
@@ -478,8 +478,8 @@
           .join('')}</div>`
       : '';
     const mineActions = m.mine
-      ? `<button class="btn btn-ghost btn-icon !h-7 !w-7 !rounded-lg" data-act="edit" title="Edit">${icon('edit', 'h-3.5 w-3.5')}</button>
-         <button class="btn btn-ghost btn-icon !h-7 !w-7 !rounded-lg hover:!text-red-500" data-act="delete" title="Delete">${icon('trash', 'h-3.5 w-3.5')}</button>`
+      ? `<button class="btn btn-ghost btn-icon !h-7 !w-7 !rounded-[2px]" data-act="edit" title="Edit">${icon('edit', 'h-3.5 w-3.5')}</button>
+         <button class="btn btn-ghost btn-icon !h-7 !w-7 !rounded-[2px] hover:!text-red-500" data-act="delete" title="Delete">${icon('trash', 'h-3.5 w-3.5')}</button>`
       : '';
     return `<div class="group relative bubble-row${m.mine ? ' own' : ''}" data-msg="${m.id}" data-sender="${m.sender_id}" data-grouped="${grouped ? '1' : '0'}">
       ${avatarSlot}
@@ -487,9 +487,9 @@
         <div class="bubble">${reply}<div class="msg-body">${bodyHtml(m.body)}</div><div class="bubble-meta"><span>${timeHHMM(m.created_at)}</span>${m.edited ? '<span>(edited)</span>' : ''}</div></div>
         ${reacts}
       </div>
-      <div class="pointer-events-none absolute -top-3 ${m.mine ? 'left-3' : 'right-3'} z-10 flex translate-y-1 items-center gap-0.5 rounded-xl border line panel px-1 py-0.5 opacity-0 shadow-soft transition-all group-hover:pointer-events-auto group-hover:translate-y-0 group-hover:opacity-100">
-        <button class="btn btn-ghost btn-icon !h-7 !w-7 !rounded-lg" data-act="reply" title="Reply">${icon('reply', 'h-3.5 w-3.5')}</button>
-        <button class="btn btn-ghost btn-icon !h-7 !w-7 !rounded-lg" data-act="react" title="React">${icon('smile', 'h-3.5 w-3.5')}</button>
+      <div class="pointer-events-none absolute -top-3 ${m.mine ? 'left-3' : 'right-3'} z-10 flex translate-y-1 items-center gap-0.5 rounded-[2px] border line panel px-1 py-0.5 opacity-0 shadow-pop transition-all group-hover:pointer-events-auto group-hover:translate-y-0 group-hover:opacity-100">
+        <button class="btn btn-ghost btn-icon !h-7 !w-7 !rounded-[2px]" data-act="reply" title="Reply">${icon('reply', 'h-3.5 w-3.5')}</button>
+        <button class="btn btn-ghost btn-icon !h-7 !w-7 !rounded-[2px]" data-act="react" title="React">${icon('smile', 'h-3.5 w-3.5')}</button>
         ${mineActions}
       </div>
     </div>`;
@@ -602,9 +602,9 @@
   function openEmojiPicker(anchor) {
     const EMOJIS = ['👍', '❤️', '😂', '😮', '😢', '🙏', '🎉', '🔥', '✅', '👀', '💯', '🤝'];
     const pop = document.createElement('div');
-    pop.className = 'panel absolute bottom-12 right-0 z-50 grid grid-cols-6 gap-1 rounded-xl p-2 shadow-pop';
+    pop.className = 'panel absolute bottom-12 right-0 z-50 grid grid-cols-6 gap-1 rounded-[3px] p-2 shadow-pop';
     pop.style.position = 'absolute';
-    pop.innerHTML = EMOJIS.map((e) => `<button class="grid h-9 w-9 place-items-center rounded-lg text-lg hover:bg-[var(--color-panel2)]" data-em="${e}">${e}</button>`).join('');
+    pop.innerHTML = EMOJIS.map((e) => `<button class="grid h-9 w-9 place-items-center rounded-[2px] text-lg hover:bg-[var(--color-panel2)]" data-em="${e}">${e}</button>`).join('');
     const wrap = anchor.parentElement;
     wrap.style.position = 'relative';
     wrap.appendChild(pop);
@@ -691,8 +691,8 @@
             rows.push(`<a class="navlink" href="/files?select=${f.id}">${icon('file', 'h-4 w-4')}<span class="min-w-0 flex-1 truncate">${esc(f.name)}</span><span class="text-[10.5px] ink3">file</span></a>`);
           });
           panel.innerHTML = rows.length
-            ? `<div class="panel flex max-h-72 flex-col gap-0.5 overflow-y-auto rounded-xl p-1 shadow-pop">${rows.join('')}</div>`
-            : `<div class="panel rounded-xl px-3 py-2 text-[12px] ink3 shadow-pop">No matches for “${esc(q)}”</div>`;
+            ? `<div class="panel flex max-h-72 flex-col gap-0.5 overflow-y-auto rounded-[3px] p-1 shadow-pop">${rows.join('')}</div>`
+            : `<div class="panel rounded-[3px] px-3 py-2 text-[12px] ink3 shadow-pop">No matches for “${esc(q)}”</div>`;
           panel.classList.remove('hidden');
         } catch (e) {
           panel.classList.add('hidden');
@@ -893,7 +893,7 @@
       { act: 'delete', label: 'Move to trash', ic: 'trash', danger: true },
     ].filter(Boolean);
     const pop = document.createElement('div');
-    pop.className = 'panel fixed z-[70] w-44 rounded-xl p-1 shadow-pop';
+    pop.className = 'panel fixed z-[70] w-44 rounded-[3px] p-1 shadow-pop';
     pop.innerHTML = items.map((i) => `<button class="navlink ${i.danger ? 'hover:!text-red-500' : ''}" data-menu="${i.act}">${icon(i.ic, 'h-4 w-4')}<span>${i.label}</span></button>`).join('');
     const r = anchor.getBoundingClientRect();
     pop.style.top = Math.min(r.bottom + 4, window.innerHeight - 240) + 'px';
@@ -1027,10 +1027,10 @@
           <div id="call-stage" data-call="${callId}" class="grid grid-cols-2 min-h-0 flex-1 gap-2 overflow-y-auto p-2">${tiles.map(tileHtml).join('')}</div>
         </div>
         <div class="flex items-center justify-center gap-2 border-t line px-3 py-3">
-          <button id="ctl-mic" class="btn btn-soft btn-icon !h-11 !w-11 !rounded-full">${icon('mic', 'h-5 w-5')}</button>
-          <button id="ctl-cam" class="btn btn-soft btn-icon !h-11 !w-11 !rounded-full">${icon('video', 'h-5 w-5')}</button>
-          <button id="ctl-share" class="btn btn-soft btn-icon !h-11 !w-11 !rounded-full">${icon('share', 'h-5 w-5')}</button>
-          <button id="ctl-leave" class="btn btn-icon !h-11 !w-11 !rounded-full" style="background:#ef4444;color:#fff">${icon('phone-off', 'h-5 w-5')}</button>
+          <button id="ctl-mic" class="btn btn-soft btn-icon !h-11 !w-11 !rounded-[2px]">${icon('mic', 'h-5 w-5')}</button>
+          <button id="ctl-cam" class="btn btn-soft btn-icon !h-11 !w-11 !rounded-[2px]">${icon('video', 'h-5 w-5')}</button>
+          <button id="ctl-share" class="btn btn-soft btn-icon !h-11 !w-11 !rounded-[2px]">${icon('share', 'h-5 w-5')}</button>
+          <button id="ctl-leave" class="btn btn-icon !h-11 !w-11 !rounded-[2px]" style="background:#ef4444;color:#fff">${icon('phone-off', 'h-5 w-5')}</button>
         </div>`;
       $('#maincol').innerHTML = stage;
       bindCallControls();
@@ -1049,7 +1049,7 @@
       : `<div class="absolute inset-0 grid place-items-center rounded-2xl" style="background:var(--color-panel3)">${avatarHtml({ id: t.user_id, name: t.name, initials: t.initials, color: t.color, presence: '' }, 'h-16 w-16 text-lg', false)}</div>`;
     return `<div class="relative min-h-[180px] overflow-hidden rounded-2xl border line" style="background:var(--color-panel)">
       ${video}${badge}
-      <div class="absolute bottom-2 left-2 flex items-center gap-1.5 rounded-full px-2 py-1 text-[11px] font-semibold text-white" style="background:rgb(0 0 0 / .5)"><span>${esc(t.name)}</span></div>
+      <div class="absolute bottom-2 left-2 flex items-center gap-1.5 rounded-[2px] px-2 py-1 text-[11px] font-semibold text-white" style="background:rgb(0 0 0 / .5)"><span>${esc(t.name)}</span></div>
     </div>`;
   }
 
@@ -1185,7 +1185,7 @@
     el.className = 'toast pointer-events-auto fixed left-1/2 top-4 z-[95] -translate-x-1/2';
     el.setAttribute('data-incoming', '');
     el.innerHTML = `<div class="flex items-center gap-3 rounded-2xl border line panel px-4 py-3 shadow-pop">
-      <span class="grid h-9 w-9 place-items-center rounded-full" style="background:color-mix(in srgb,#10b981 15%,transparent);color:#059669">${icon('phone', 'h-4 w-4')}</span>
+      <span class="grid h-9 w-9 place-items-center rounded-[2px]" style="background:color-mix(in srgb,#10b981 15%,transparent);color:#059669">${icon('phone', 'h-4 w-4')}</span>
       <div class="text-[13px]"><div class="font-bold">${esc(msg.from || 'Someone')} is calling</div><div class="text-[11px] ink3">${msg.kind === 'audio' ? 'Audio call' : 'Video call'}</div></div>
       <button class="btn btn-brand btn-xs" data-answer>Join</button>
       <button class="btn btn-ghost btn-xs" data-dismiss>Dismiss</button></div>`;
@@ -1451,8 +1451,8 @@
   function openReactionPicker(anchor, id) {
     const EMOJIS = ['👍', '❤️', '😂', '😮', '😢', '🙏', '🎉', '🔥'];
     const pop = document.createElement('div');
-    pop.className = 'panel fixed z-[80] flex gap-1 rounded-xl p-1.5 shadow-pop';
-    pop.innerHTML = EMOJIS.map((em) => `<button class="grid h-8 w-8 place-items-center rounded-lg text-base hover:bg-[var(--color-panel2)]" data-em="${em}">${em}</button>`).join('');
+    pop.className = 'panel fixed z-[80] flex gap-1 rounded-[3px] p-1.5 shadow-pop';
+    pop.innerHTML = EMOJIS.map((em) => `<button class="grid h-8 w-8 place-items-center rounded-[2px] text-base hover:bg-[var(--color-panel2)]" data-em="${em}">${em}</button>`).join('');
     const r = anchor.getBoundingClientRect();
     pop.style.top = Math.min(r.bottom + 6, window.innerHeight - 60) + 'px';
     pop.style.left = Math.max(8, r.left) + 'px';

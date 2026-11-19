@@ -19,7 +19,7 @@ pub fn list_column(boot: &Boot, tab: &str, pending: i64) -> String {
         let active = if *key == tab { " active" } else { "" };
         let badge = if *key == "requests" && pending > 0 {
             format!(
-                "<span class=\"ml-auto grid h-[18px] min-w-[18px] place-items-center rounded-full px-1 text-[9px] font-bold text-white\" style=\"background:#ef4444\">{}</span>",
+                "<span class=\"ml-auto grid h-[18px] min-w-[18px] place-items-center rounded-[2px] px-1 text-[10px] font-bold text-white\" style=\"background:#ef4444\">{}</span>",
                 pending
             )
         } else {
@@ -80,8 +80,8 @@ pub fn overview(
     let body = format!(
         "{cards}\
 <div class=\"grid gap-3 px-4 pb-4 lg:grid-cols-2\">\
-<div class=\"tile p-4\"><div class=\"mb-3 flex items-center gap-2 text-[13px] font-bold\">{} Server status</div>{status}</div>\
-<div class=\"tile p-4\"><div class=\"mb-3 flex items-center gap-2 text-[13px] font-bold\">{} Recent activity</div><div class=\"flex flex-col\">{activity}</div></div>\
+<div class=\"tile p-4\"><div class=\"mb-3 flex items-center gap-2 text-[14px] font-bold\">{} Server status</div>{status}</div>\
+<div class=\"tile p-4\"><div class=\"mb-3 flex items-center gap-2 text-[14px] font-bold\">{} Recent activity</div><div class=\"flex flex-col\">{activity}</div></div>\
 </div>",
         icon("server", "h-4 w-4"),
         icon("activity", "h-4 w-4")
@@ -113,7 +113,7 @@ fn server_status(info: ServerInfo, boot: &Boot) -> String {
     let mut out = String::new();
     for (k, v) in rows {
         out.push_str(&format!(
-            "<div class=\"flex items-center justify-between border-b line py-2 text-[12.5px]\"><span class=\"ink3\">{}</span><span class=\"font-semibold\">{}</span></div>",
+            "<div class=\"flex items-center justify-between border-b line py-2 text-[12px]\"><span class=\"ink3\">{}</span><span class=\"font-semibold\">{}</span></div>",
             esc(&k),
             esc(&v)
         ));
@@ -145,9 +145,9 @@ fn audit_row(a: &AuditDto) -> String {
     };
     format!(
         "<div class=\"flex items-center gap-3 border-b line py-2 last:border-0\">\
-<span class=\"grid h-8 w-8 shrink-0 place-items-center rounded-lg\" style=\"color:{color};background:color-mix(in srgb, {color} 12%, transparent)\">{}</span>\
-<div class=\"min-w-0 flex-1\"><div class=\"truncate text-[12.5px] font-medium\">{}</div><div class=\"truncate text-[11px] ink3\">{} · {}</div></div>\
-<span class=\"shrink-0 text-[10.5px] ink3\">{time}</span></div>",
+<span class=\"grid h-8 w-8 shrink-0 place-items-center rounded-[3px]\" style=\"color:{color};background:color-mix(in srgb, {color} 12%, transparent)\">{}</span>\
+<div class=\"min-w-0 flex-1\"><div class=\"truncate text-[12px] font-medium\">{}</div><div class=\"truncate text-[11px] ink3\">{} · {}</div></div>\
+<span class=\"shrink-0 text-[11px] ink3\">{time}</span></div>",
         icon(ic, "h-4 w-4"),
         esc(&a.detail),
         esc(&a.actor_name),
@@ -165,7 +165,7 @@ pub fn requests(boot: &Boot, pending: &[DeviceDto]) -> String {
     );
     let mode_card = format!(
         "<div class=\"px-4 pt-4\"><div class=\"tile p-4\">\
-<div class=\"flex items-start gap-3\"><div class=\"min-w-0 flex-1\"><div class=\"text-[13px] font-bold\">{title}</div>\
+<div class=\"flex items-start gap-3\"><div class=\"min-w-0 flex-1\"><div class=\"text-[14px] font-bold\">{title}</div>\
 <div class=\"mt-0.5 text-[12px] leading-relaxed ink2\">{hint}</div></div>\
 <button class=\"btn btn-xs shrink-0\" id=\"open-toggle\" data-open=\"{target}\" type=\"button\">{action}</button></div>\
 </div></div>",
@@ -198,7 +198,7 @@ pub fn requests(boot: &Boot, pending: &[DeviceDto]) -> String {
         for d in pending {
             out.push_str(&format!(
                 "<div class=\"tile p-3.5\">\
-<div class=\"flex items-center gap-3\">{}<div class=\"min-w-0 flex-1\"><div class=\"truncate text-[13.5px] font-semibold\">{}</div><div class=\"truncate text-[11.5px] ink3\">{} · {} · {} · requested {}</div></div></div>\
+<div class=\"flex items-center gap-3\">{}<div class=\"min-w-0 flex-1\"><div class=\"truncate text-[14px] font-semibold\">{}</div><div class=\"truncate text-[11px] ink3\">{} · {} · {} · requested {}</div></div></div>\
 <div class=\"mt-3 flex gap-2\">\
 <button class=\"btn btn-brand btn-xs\" data-approve=\"{}\" type=\"button\">{} Approve</button>\
 <button class=\"btn btn-danger btn-xs\" data-reject=\"{}\" type=\"button\">{} Reject</button>\
@@ -237,7 +237,7 @@ pub fn devices(boot: &Boot) -> String {
         };
         rows.push_str(&format!(
             "<div class=\"tile flex items-center gap-3 p-3\">\
-{}<div class=\"min-w-0 flex-1\"><div class=\"flex items-center gap-2\"><span class=\"truncate text-[13px] font-semibold\">{}</span>{}{}</div>\
+{}<div class=\"min-w-0 flex-1\"><div class=\"flex items-center gap-2\"><span class=\"truncate text-[14px] font-semibold\">{}</span>{}{}</div>\
 <div class=\"truncate text-[11px] ink3\">{} · {} · last seen {}</div></div>\
 <button class=\"btn btn-ghost btn-xs hover:!text-red-500\" data-revoke=\"{}\" type=\"button\">{}</button></div>",
             icon("monitor", "h-5 w-5"),
@@ -290,7 +290,7 @@ pub fn users(boot: &Boot, me: i64) -> String {
             )
         };
         rows.push_str(&format!(
-            "<div class=\"tile flex items-center gap-3 p-3\">{}<div class=\"min-w-0 flex-1\"><div class=\"truncate text-[13px] font-semibold\">{}</div><div class=\"truncate text-[11px] ink3\">@\"{}\" · joined {}</div></div>{}{}</div>",
+            "<div class=\"tile flex items-center gap-3 p-3\">{}<div class=\"min-w-0 flex-1\"><div class=\"truncate text-[14px] font-semibold\">{}</div><div class=\"truncate text-[11px] ink3\">@\"{}\" · joined {}</div></div>{}{}</div>",
             avatar(u, "h-9 w-9 text-xs", true),
             esc(&u.name),
             esc(&u.handle),
@@ -311,8 +311,8 @@ pub fn audit(boot: &Boot, entries: &[AuditDto]) -> String {
     for a in entries {
         rows.push_str(&format!(
             "<div class=\"tile flex items-center gap-3 p-3\">\
-<div class=\"min-w-0 flex-1\"><div class=\"flex flex-wrap items-center gap-2\"><span class=\"text-[12.5px] font-semibold\">{}</span><span class=\"chip\">{}</span><span class=\"text-[11px] ink3\">{}</span></div><div class=\"mt-0.5 truncate text-[11.5px] ink2\">{}</div></div>\
-<span class=\"shrink-0 text-[10.5px] ink3\">{}</span></div>",
+<div class=\"min-w-0 flex-1\"><div class=\"flex flex-wrap items-center gap-2\"><span class=\"text-[12px] font-semibold\">{}</span><span class=\"chip\">{}</span><span class=\"text-[11px] ink3\">{}</span></div><div class=\"mt-0.5 truncate text-[11px] ink2\">{}</div></div>\
+<span class=\"shrink-0 text-[11px] ink3\">{}</span></div>",
             esc(&a.actor_name),
             esc(&a.action),
             esc(&a.entity),
@@ -337,7 +337,7 @@ pub fn backups(view: &BackupsView) -> String {
     let mut rows = String::new();
     for b in &view.items {
         rows.push_str(&format!(
-            "<div class=\"tile flex items-center gap-3 p-3\">{}<div class=\"min-w-0 flex-1\"><div class=\"truncate text-[13px] font-semibold\">{}</div><div class=\"text-[11px] ink3\">{} · {}</div></div>\
+            "<div class=\"tile flex items-center gap-3 p-3\">{}<div class=\"min-w-0 flex-1\"><div class=\"truncate text-[14px] font-semibold\">{}</div><div class=\"text-[11px] ink3\">{} · {}</div></div>\
 <button class=\"btn btn-ghost btn-xs hover:!text-red-500\" data-backup-delete=\"{}\" type=\"button\">{}</button></div>",
             icon("archive", "h-5 w-5"),
             esc(&b.name),
@@ -373,7 +373,7 @@ pub fn config(boot: &Boot, msg: &str) -> String {
         String::new()
     } else {
         format!(
-            "<div class=\"rounded-xl border p-3 text-[12.5px] font-medium\" style=\"border-color:color-mix(in srgb,#10b981 40%,transparent);background:color-mix(in srgb,#10b981 8%,transparent);color:#059669\">{}</div>",
+            "<div class=\"rounded-[3px] border p-3 text-[12px] font-medium\" style=\"border-color:color-mix(in srgb,#10b981 40%,transparent);background:color-mix(in srgb,#10b981 8%,transparent);color:#059669\">{}</div>",
             esc(msg)
         )
     };
@@ -418,7 +418,7 @@ pub fn config(boot: &Boot, msg: &str) -> String {
     let f5 = super::field(
         "Who can join",
         &format!(
-            "<div class=\"space-y-2\"><label class=\"flex cursor-pointer items-start gap-2.5 rounded-xl border line p-3\"><input class=\"mt-0.5\" type=\"radio\" name=\"open\" value=\"1\" {}><span class=\"text-[12.5px] leading-relaxed\"><span class=\"block font-semibold ink\">Anyone on this network</span><span class=\"ink2\">Open server. People who can reach this address join instantly, with no approval. You can still revoke a device.</span></span></label><label class=\"flex cursor-pointer items-start gap-2.5 rounded-xl border line p-3\"><input class=\"mt-0.5\" type=\"radio\" name=\"open\" value=\"0\" {}><span class=\"text-[12.5px] leading-relaxed\"><span class=\"block font-semibold ink\">Only devices I approve</span><span class=\"ink2\">Private server. Each new device waits in the requests queue until you approve it.</span></span></label></div>",
+            "<div class=\"space-y-2\"><label class=\"flex cursor-pointer items-start gap-2.5 rounded-[3px] border line p-3\"><input class=\"mt-0.5\" type=\"radio\" name=\"open\" value=\"1\" {}><span class=\"text-[12px] leading-relaxed\"><span class=\"block font-semibold ink\">Anyone on this network</span><span class=\"ink2\">Open server. People who can reach this address join instantly, with no approval. You can still revoke a device.</span></span></label><label class=\"flex cursor-pointer items-start gap-2.5 rounded-[3px] border line p-3\"><input class=\"mt-0.5\" type=\"radio\" name=\"open\" value=\"0\" {}><span class=\"text-[12px] leading-relaxed\"><span class=\"block font-semibold ink\">Only devices I approve</span><span class=\"ink2\">Private server. Each new device waits in the requests queue until you approve it.</span></span></label></div>",
             if is_open { "checked" } else { "" },
             if is_open { "" } else { "checked" }
         ),
@@ -427,12 +427,12 @@ pub fn config(boot: &Boot, msg: &str) -> String {
     let body = format!(
         "<div class=\"grid gap-3 p-4\">{notice}\
 <form class=\"tile space-y-4 p-5\" id=\"config-form\" method=\"dialog\">\
-<div class=\"text-[13px] font-bold\">General</div>\
+<div class=\"text-[14px] font-bold\">General</div>\
 <div class=\"grid gap-3 sm:grid-cols-2\">{f1} {f2}</div>\
-<div class=\"text-[13px] font-bold pt-1\">Access</div>\n<div>{f5}</div>\n<div class=\"text-[13px] font-bold pt-1\">Limits</div>\
+<div class=\"text-[14px] font-bold pt-1\">Access</div>\n<div>{f5}</div>\n<div class=\"text-[14px] font-bold pt-1\">Limits</div>\
 <div class=\"grid gap-3 sm:grid-cols-2\">{f3} {f4}</div>\
 <div class=\"flex items-center justify-between gap-3 border-t line pt-4\">\
-<div class=\"text-[11.5px] ink3\">Settings are stored in the local database and apply immediately.</div>\
+<div class=\"text-[11px] ink3\">Settings are stored in the local database and apply immediately.</div>\
 <button class=\"btn btn-brand\" type=\"submit\">Save changes</button></div></form></div>",
         notice = notice,
         f1 = f1,
