@@ -16,6 +16,12 @@ pub struct Config {
     /// Open server: anyone who can reach ROOM joins without waiting for
     /// approval. The host can still revoke a device afterwards.
     pub open: bool,
+    /// Whether ROOM_OPEN was actually set in the environment. An operator who
+    /// exports it has stated a policy and it must beat the stored value; if it
+    /// is absent the stored value is the only opinion there is. Without this
+    /// distinction `ROOM_OPEN=1` silently did nothing on a server that had
+    /// already written `open = 0` on its first start.
+    pub open_pinned: bool,
 }
 
 impl Config {
@@ -40,7 +46,9 @@ impl Config {
             .unwrap_or(60);
         let lan_ssid_hint = env::var("ROOM_NETWORK_NAME").unwrap_or_default();
         let setup_code = env::var("ROOM_SETUP_CODE").unwrap_or_default().trim().to_string();
-        let open = env::var("ROOM_OPEN")
+        let open_env = env::var("ROOM_OPEN").ok();
+        let open_pinned = open_env.is_some();
+        let open = open_env
             .map(|v| matches!(v.trim().to_ascii_lowercase().as_str(), "1" | "true" | "yes" | "on"))
             .unwrap_or(false);
         Config {
@@ -53,6 +61,7 @@ impl Config {
             lan_ssid_hint,
             setup_code,
             open,
+            open_pinned,
         }
     }
 

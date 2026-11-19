@@ -39,6 +39,42 @@ SERVER = None
 # var; against an external server it must match that server's configuration.
 SETUP_CODE = "SMOKE-TEST"
 WORKDIR = None
+OPEN_PORT = 8124
+
+
+def start_open_server(data_dir, files_dir):
+    """Second server on the same data, started with ROOM_OPEN=1.
+
+    Used to prove the env var is honoured on a database that already recorded
+    `open = 0` on an earlier start. That exact case used to be silently
+    ignored, so the host's server kept asking for approval they had turned off.
+    """
+    import subprocess
+
+    root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+    env = dict(os.environ)
+    env.update(
+        ROOM_BIND=f"127.0.0.1:{OPEN_PORT}",
+        ROOM_DATA_DIR=data_dir,
+        ROOM_FILES_DIR=files_dir,
+        ROOM_OPEN="1",
+        ROOM_SETUP_CODE=SETUP_CODE,
+    )
+    proc = subprocess.Popen(
+        [os.path.join(root, "dist", "room")],
+        env=env,
+        stdout=subprocess.DEVNULL,
+        stderr=subprocess.DEVNULL,
+    )
+    for _ in range(100):
+        try:
+            with urllib.request.urlopen(f"http://127.0.0.1:{OPEN_PORT}/api/health", timeout=1) as r:
+                if r.status == 200:
+                    return proc
+        except Exception:
+            time.sleep(0.1)
+    proc.terminate()
+    sys.exit("the ROOM_OPEN server never became healthy")
 
 
 def start_server():
@@ -105,15 +141,17 @@ class _NoRedirect(urllib.request.HTTPRedirectHandler):
 class Client:
     """Tiny cookie-preserving HTTP client that never follows redirects."""
 
-    def __init__(self, name):
+    def __init__(self, name, base=None):
         self.name = name
+        # Defaults to the main server; pass a base to talk to a second one.
+        self.base = base or BASE
         self.jar = http.cookiejar.CookieJar()
         self.opener = urllib.request.build_opener(
             urllib.request.HTTPCookieProcessor(self.jar), _NoRedirect()
         )
 
     def raw(self, method, path, body=None, headers=None, ctype=None):
-        url = BASE + path
+        url = self.base + path
         data = None
         hdrs = dict(headers or {})
         if body is not None:
@@ -364,6 +402,35 @@ def main():
     check("revoked device is turned away even when open", st in (301, 302, 303), st)
     st, _ = admin_open("0")
     check("server restored to closed for the rest of the run", st == 200, st)
+
+    # The regression that made the host ask "why is it still asking for
+    # approval?": a database that stored `open = 0` on its first start used to
+    # ignore ROOM_OPEN=1 forever after, because the stored value silently won.
+    proc = start_open_server(
+        os.path.join(WORKDIR, "data"), os.path.join(WORKDIR, "files")
+    )
+    try:
+        obase = f"http://127.0.0.1:{OPEN_PORT}"
+        oclient = Client("openenv", base=f"http://127.0.0.1:{OPEN_PORT}")
+        ost, opage, _ = oclient.get("/gate")
+        ogate = opage.decode(errors="replace")
+        check("ROOM_OPEN beats a stored closed setting", "Join ROOM" in ogate, ost)
+        check("open gate drops the approval wording", "Request access" not in ogate)
+        check("gate tab title matches the heading", "<title>Join ROOM" in ogate)
+        ost, _, ohdrs = oclient.form(
+            "/api/request-access", {"name": "OpenEnv", "device": "openenv-pad"}
+        )
+        check(
+            "ROOM_OPEN admits without a queue",
+            ohdrs.get("location") == "/",
+            (ost, ohdrs.get("location")),
+        )
+    finally:
+        proc.terminate()
+        try:
+            proc.wait(timeout=10)
+        except Exception:
+            proc.kill()
 
     section("lockout recovery")
     # Simulate the owner losing every approved device.

@@ -1214,6 +1214,16 @@
 
   function initAdmin() {
     if (state.section !== 'admin') return;
+    const openToggle = $('#open-toggle');
+    if (openToggle) openToggle.addEventListener('click', async () => {
+      const next = openToggle.dataset.open === '1';
+      busy(openToggle, true);
+      try {
+        await api('/api/admin/config', { method: 'POST', body: { open: next ? '1' : '0' } });
+        toast(next ? 'Server is open to the network' : 'Server now requires approval', 'ok');
+        setTimeout(() => location.reload(), 600);
+      } catch (e) { toast(e.message, 'error'); busy(openToggle, false); }
+    });
     $$('[data-approve]').forEach((b) => b.addEventListener('click', async () => {
       busy(b, true);
       try { await api(`/api/admin/requests/${b.dataset.approve}/approve`, { method: 'POST' }); location.reload(); }
