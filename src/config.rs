@@ -13,6 +13,9 @@ pub struct Config {
     /// Host-issued code that lets the first device in, or gets the owner back in
     /// after losing every approved device. Empty = feature off.
     pub setup_code: String,
+    /// Open server: anyone who can reach ROOM joins without waiting for
+    /// approval. The host can still revoke a device afterwards.
+    pub open: bool,
 }
 
 impl Config {
@@ -37,6 +40,9 @@ impl Config {
             .unwrap_or(60);
         let lan_ssid_hint = env::var("ROOM_NETWORK_NAME").unwrap_or_default();
         let setup_code = env::var("ROOM_SETUP_CODE").unwrap_or_default().trim().to_string();
+        let open = env::var("ROOM_OPEN")
+            .map(|v| matches!(v.trim().to_ascii_lowercase().as_str(), "1" | "true" | "yes" | "on"))
+            .unwrap_or(false);
         Config {
             bind,
             data_dir,
@@ -46,6 +52,7 @@ impl Config {
             page_size,
             lan_ssid_hint,
             setup_code,
+            open,
         }
     }
 

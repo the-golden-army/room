@@ -70,6 +70,7 @@ pub async fn gate_page(state: &AppState, error: Option<&str>) -> String {
     } else {
         None
     };
+    let is_open = state.is_open();
     let who_approves = match &owner {
         Some(o) => format!(
             "This ROOM server is private. Enter your name to ask {} for access — they approve new devices from ROOM's admin console on their own device.",
@@ -77,7 +78,15 @@ pub async fn gate_page(state: &AppState, error: Option<&str>) -> String {
         ),
         None => "This ROOM server is private. Enter your name to ask the host for access.".to_string(),
     };
-    let (heading, intro, submit, footnote, code_field) = if !claims {
+    let (heading, intro, submit, footnote, code_field) = if is_open && claims {
+        (
+            "Join ROOM",
+            "This ROOM server is open to anyone on the network. Enter your name to join — no approval needed.",
+            "Join",
+            "Anyone who can reach this address joins straight away. The host can revoke a device later from the admin console.",
+            String::new(),
+        )
+    } else if !claims {
         (
             "Set up ROOM",
             "You are the first device here, so this account becomes the host. Pick a name and you are in — you can approve everyone else afterwards.",

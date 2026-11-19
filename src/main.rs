@@ -77,7 +77,7 @@ async fn main() -> std::io::Result<()> {
     let mut cfg = config::Config::from_env();
     let pool = db::connect(&cfg).await.expect("database init failed");
     db::migrate(&pool).await.expect("migration failed");
-    seed(&pool).await;
+    seed(&pool, cfg.open).await;
 
     // Resolve the host's setup code before anything can serve a request.
     // Priority: explicit ROOM_SETUP_CODE, then the code stored from first run,
@@ -91,6 +91,10 @@ async fn main() -> std::io::Result<()> {
     };
 
     let hub = realtime::Hub::new().start();
+    // The stored setting wins over ROOM_OPEN: it is what the host last chose.
+    if let Some(v) = db::setting(&pool, "open").await {
+        cfg.open = matches!(v.trim(), "1" | "true" | "yes" | "on");
+    }
     let state = web::Data::new(AppState::new(pool, hub, cfg));
     let bind = state.cfg.bind.clone();
 
@@ -214,7 +218,7 @@ async fn main() -> std::io::Result<()> {
 
 /// Create the first owner account when the server is brand new so the host can
 /// sign in and start approving devices.
-async fn seed(pool: &sqlx::SqlitePool) {
+async fn seed(pool: &sqlx::SqlitePool, cfg_open: bool) {
     let owner = store::owner_count(pool).await.unwrap_or(0);
     if owner == 0 {
         // No owner yet: nothing to create. The first connection request becomes
@@ -230,5 +234,11 @@ async fn seed(pool: &sqlx::SqlitePool) {
     }
     if db::setting(pool, "max_upload_mb").await.is_none() {
         let _ = db::set_setting(pool, "max_upload_mb", "2048").await;
+    }
+    // "Open server" is a stored preference. ROOM_OPEN seeds it on first start;
+    // after that the admin toggle owns it, so a restart does not undo a choice
+    // made in the UI.
+    if db::setting(pool, "open").await.is_none() {
+        let _ = db::set_setting(pool, "open", if cfg_open { "1" } else { "0" }).await;
     }
 }

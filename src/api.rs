@@ -1171,6 +1171,8 @@ pub struct ConfigForm {
     pub network_name: Option<String>,
     pub max_upload_mb: Option<String>,
     pub theme: Option<String>,
+    /// "1" = anyone on the network may join without approval.
+    pub open: Option<String>,
 }
 
 pub async fn admin_config(
@@ -1196,6 +1198,20 @@ pub async fn admin_config(
                 crate::db::set_setting(&state.pool, "max_upload_mb", &n.to_string()).await?;
             }
         }
+    }
+    if let Some(v) = f.open {
+        let on = matches!(v.trim(), "1" | "true" | "yes" | "on");
+        crate::db::set_setting(&state.pool, "open", if on { "1" } else { "0" }).await?;
+        state.open.store(on, std::sync::atomic::Ordering::Relaxed);
+        if on {
+            // Anyone already waiting should not be left in a queue that is no
+            // longer being used.
+            let _ = sqlx::query("UPDATE devices SET approved = 1, approved_at = ? WHERE approved = 0 AND revoked = 0")
+                .bind(crate::util::now_ms())
+                .execute(&state.pool)
+                .await;
+        }
+        state.broadcast(json!({"t":"requests:changed"}));
     }
     if let Some(v) = f.theme {
         if ["light", "dark", "system"].contains(&v.as_str()) {
