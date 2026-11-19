@@ -47,6 +47,7 @@ Environment variables:
 | `ROOM_MAX_UPLOAD_MB` | `2048`         | Per-file upload limit                    |
 | `ROOM_NETWORK_NAME`  | –              | Wi-Fi name hint on the sign-in screen    |
 | `ROOM_SETUP_CODE`    | generated      | Recovery code; see *First run* below     |
+| `ROOM_OPEN`          | `0`            | `1` = anyone on the network may join     |
 
 ## First run
 
@@ -55,6 +56,23 @@ approval — before an owner exists there is nobody who could approve anyone, so
 "Set up ROOM" instead of asking for permission. Every later device must be approved from the
 host console (`/admin?tab=requests`). Approvals persist across restarts; revoking a device
 invalidates its credential immediately.
+
+### Open or invite-only
+
+By default ROOM is **invite-only**: each new device waits in the requests queue until the host
+approves it from `/admin?tab=requests`. That is right for a server shared with a known group.
+
+To let anyone on the Wi-Fi walk straight in, tick **Anyone on this network** under
+*Admin → Configuration → Who can join*, or start with:
+
+```bash
+ROOM_OPEN=1 ./room
+```
+
+In open mode the gate reads *"Join ROOM — no approval needed"*, new devices are admitted on
+arrival, and anyone already sitting in the queue is approved immediately. Revoking still works:
+open means no queue, not no door. The choice is stored in the database, so a restart does not
+undo it; `ROOM_OPEN` only seeds the value on a fresh install.
 
 ### Setup code (lockout recovery)
 
