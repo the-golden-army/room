@@ -141,15 +141,17 @@ class _NoRedirect(urllib.request.HTTPRedirectHandler):
 class Client:
     """Tiny cookie-preserving HTTP client that never follows redirects."""
 
-    def __init__(self, name):
+    def __init__(self, name, base=None):
         self.name = name
+        # Defaults to the main server; pass a base to talk to a second one.
+        self.base = base or BASE
         self.jar = http.cookiejar.CookieJar()
         self.opener = urllib.request.build_opener(
             urllib.request.HTTPCookieProcessor(self.jar), _NoRedirect()
         )
 
     def raw(self, method, path, body=None, headers=None, ctype=None):
-        url = BASE + path
+        url = self.base + path
         data = None
         hdrs = dict(headers or {})
         if body is not None:
@@ -409,7 +411,7 @@ def main():
     )
     try:
         obase = f"http://127.0.0.1:{OPEN_PORT}"
-        oclient = Client("openenv")
+        oclient = Client("openenv", base=f"http://127.0.0.1:{OPEN_PORT}")
         ost, opage, _ = oclient.get("/gate")
         ogate = opage.decode(errors="replace")
         check("ROOM_OPEN beats a stored closed setting", "Join ROOM" in ogate, ost)
