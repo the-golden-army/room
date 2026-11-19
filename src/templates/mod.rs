@@ -395,7 +395,7 @@ pub fn topbar(back: &str, title: &str, subtitle: &str, actions: &str) -> String 
     };
     format!(
         "<header class=\"flex items-center gap-2 border-b line px-3 py-2.5 md:px-4\">{back}\
-<div class=\"min-w-0 flex-1\"><div class=\"truncate text-[17px] font-bold leading-tight\">{title}</div>{sub}</div>\
+<div class=\"min-w-0 flex-1\"><div class=\"truncate font-display text-[17px] font-medium leading-tight tracking-tight\">{title}</div>{sub}</div>\
 <div class=\"flex items-center gap-1.5\">{actions}</div></header>",
         back = back_btn,
         title = esc(title),

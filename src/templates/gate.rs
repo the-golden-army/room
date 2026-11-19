@@ -109,7 +109,7 @@ pub async fn gate_page(state: &AppState, error: Option<&str>) -> String {
     };
     let body = format!(
         r#"<div class="panel rounded-[3px] p-5">
-  <h1 class="text-[17px] font-bold">{heading}</h1>
+  <h1 class="text-[24px] font-medium leading-tight">{heading}</h1>
   <p class="mt-1 text-[14px] leading-relaxed ink2">{intro}</p>
   {err}
   <form method="post" action="/api/request-access" class="mt-4 space-y-3">
@@ -167,7 +167,7 @@ pub async fn waiting_page(state: &AppState, user: &User, device: &str) -> String
     let body = format!(
         r#"<div class="panel rounded-[3px] p-5">
   <div class="mx-auto mb-3 grid h-12 w-12 place-items-center rounded-[3px] panel2 ink3">{icon}</div>
-  <h1 class="text-center text-[17px] font-bold">Waiting for approval</h1>
+  <h1 class="text-center text-[24px] font-medium leading-tight">Waiting for approval</h1>
   <p class="mt-1.5 text-center text-[14px] leading-relaxed ink2">Hi {name}, this device is not approved yet. Keep this page open — it checks again every few seconds and takes you in as soon as you are approved.</p>
   <div class="mt-4 rounded-[3px] panel2 px-3.5 py-3 text-[14px] leading-relaxed ink2">{who}</div>
   <div class="mt-3 flex items-center justify-center gap-2 text-xs ink3">{spin}<span>Waiting for approval…</span></div>
@@ -208,7 +208,7 @@ pub fn suspended_page(state: &AppState) -> String {
     let body = format!(
         r#"<div class="panel rounded-[3px] p-5 text-center">
   <div class="mx-auto mb-3 grid h-12 w-12 place-items-center rounded-[3px] bg-red-50 text-red-500 dark:bg-red-950/50">{icon}</div>
-  <h1 class="text-[17px] font-bold">Account suspended</h1>
+  <h1 class="text-[24px] font-medium leading-tight">Account suspended</h1>
   <p class="mt-1.5 text-[14px] leading-relaxed ink2">Your account has been suspended by the host. Ask the administrator to restore it, then reload this page.</p>
   <a href="/gate" class="btn btn-ghost mt-4 w-full">Back to sign in</a>
 </div>"#,

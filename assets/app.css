@@ -336,6 +336,26 @@ html.dark {
 
   /* Tabular numerals, exposed as a utility. */
   .tnum { font-variant-numeric: tabular-nums; }
+
+  /* ---------------------------------------------------------------
+     SKELETONS — a loading state must occupy the same box the real
+     content will, so nothing jumps. A scanning line, not a shimmer
+     gradient: this is a switch panel, not a fashion site.
+     --------------------------------------------------------------- */
+  .skel {
+    position: relative; overflow: hidden; background: var(--color-panel2);
+    border-radius: 2px;
+  }
+  .skel::after {
+    content: ""; position: absolute; inset: 0;
+    background: linear-gradient(90deg, transparent, color-mix(in srgb, var(--color-ink) 6%, transparent), transparent);
+    animation: skel-scan 1.15s ease-in-out infinite;
+  }
+  @keyframes skel-scan { from { transform: translateX(-100%); } to { transform: translateX(100%); } }
+  .skel-row { display: flex; align-items: center; gap: .6rem; padding: .6rem .7rem; border-bottom: 1px solid var(--color-line); }
+  .skel-line { height: .5rem; border-radius: 1px; }
+  @media (prefers-reduced-motion: reduce) { .skel::after { animation: none; } }
+  html.no-motion .skel::after { animation: none; }
 }
 
 /* Craft detail the skill asks for: don't look broken when printed. */

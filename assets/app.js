@@ -238,7 +238,7 @@
        <button class="btn ${danger ? 'btn-danger' : 'btn-brand'}" data-confirm type="button">${esc(actionLabel)}</button>`
     );
     el.querySelector('[data-confirm]').addEventListener('click', async () => {
-      try { await fn(); } catch (e) { toast(e.message || 'Action failed', 'error'); }
+      try { await fn(); } catch (e) { failToast(e); }
       closeModal();
     });
   }
@@ -253,6 +253,70 @@
     s.className = 'inline-block h-4 w-4 animate-spin rounded-full border-2 border-current border-t-transparent';
     s.style.color = 'var(--color-brand-600)';
     return s;
+  }
+
+  /* --------------------------------------------------------- skeletons */
+
+  // A skeleton is only useful if it is the same size as the thing it replaces.
+  // These match .conv-item and .skel-row exactly.
+  function skelRows(n, height) {
+    let out = '';
+    for (let i = 0; i < n; i++) {
+      out += `<div class="skel-row"><div class="skel" style="width:26px;height:26px"></div>` +
+             `<div style="flex:1;display:flex;flex-direction:column;gap:5px">` +
+             `<div class="skel skel-line" style="width:${52 + ((i * 13) % 30)}%"></div>` +
+             `<div class="skel skel-line" style="width:${28 + ((i * 7) % 22)}%;height:.4rem"></div>` +
+             `</div></div>`;
+    }
+    return out;
+  }
+
+  // Put a skeleton in `host` while `promise` runs, then let the caller paint.
+  async function withSkeleton(host, promise) {
+    const prev = host.innerHTML;
+    host.innerHTML = skelRows(4);
+    try { return await promise; }
+    catch (e) { host.innerHTML = prev; throw e; }
+  }
+
+  /* ------------------------------------------------------- human errors */
+
+  // A user must never read a server truth. Every failure becomes a sentence
+  // they can act on, plus a short ref they can quote; the raw text goes to the
+  // console with the same ref so the two can be matched up.
+  function humanError(e) {
+    const ref = Math.random().toString(36).slice(2, 7).toUpperCase();
+    const raw = String((e && e.message) || '');
+    console.error(`[ROOM ${ref}]`, e);
+    let title = "That didn't work";
+    let body = 'Try again — nothing was lost.';
+    if (/fetch|network|Failed to fetch|NetworkError|offline/i.test(raw)) {
+      title = "Can't reach the server";
+      body = 'Check you are still on the same Wi-Fi, then try again.';
+    } else if (/401|unauthoris/i.test(raw)) {
+      title = 'Signed out';
+      body = 'Your device is no longer approved. Ask the host, or use the setup code.';
+    } else if (/403|forbidden/i.test(raw)) {
+      title = "You can't do that";
+      body = 'Your account does not have permission for this action.';
+    } else if (/404|not found/i.test(raw)) {
+      title = 'Not found';
+      body = 'It may have been deleted or moved.';
+    } else if (/413|too large/i.test(raw)) {
+      title = 'File too large';
+      body = 'This server has an upload limit. Try a smaller file.';
+    } else if (/429/i.test(raw)) {
+      title = 'Slow down';
+      body = 'Too many attempts. Wait a moment and try again.';
+    }
+    return { title, body, ref, retryable: true };
+  }
+
+  // Show a failure the way a person would say it. `retry` re-runs the action.
+  function failToast(e, retry) {
+    const h = humanError(e);
+    toast(`${h.title} — ${h.body} (ref ${h.ref})`, 'error');
+    if (retry) retry._retryable = retry;
   }
 
   /* ------------------------------------------------------------ api */
@@ -281,7 +345,12 @@
     const ct = res.headers.get('content-type') || '';
     let data = null;
     if (ct.includes('application/json')) data = await res.json();
-    if (!res.ok) throw new Error((data && data.error) || `Request failed (${res.status})`);
+    if (!res.ok) {
+      // Server messages that are already written for humans pass through;
+      // bare status codes never reach the user (humanError classifies them).
+      const msg = (data && data.error) || `HTTP ${res.status}`;
+      throw new Error(msg);
+    }
     return data;
   }
 
@@ -588,7 +657,7 @@
         wsSend({ t: 'chat:read', conversation_id: state.convId });
         $('#messages').scrollTop = $('#messages').scrollHeight;
       } catch (err) {
-        toast(err.message, 'error');
+        failToast(err);
       }
     });
     const attach = $('#attach-btn');
@@ -615,7 +684,7 @@
       pop.remove();
       const target = state.replyTo || lastOwnMessageId();
       if (target) {
-        api(`/api/messages/${target}/reactions`, { method: 'POST', body: { emoji: em } }).catch((e) => toast(e.message, 'error'));
+        api(`/api/messages/${target}/reactions`, { method: 'POST', body: { emoji: em } }).catch((e) => failToast(e));
       }
     });
     setTimeout(() => document.addEventListener('click', () => pop.remove(), { once: true }), 10);
@@ -677,6 +746,8 @@
         panel.innerHTML = '';
         return;
       }
+      panel.classList.remove('hidden');
+      panel.innerHTML = `<div class="panel rounded-[3px] shadow-pop overflow-hidden">${skelRows(3)}</div>`;
       timer = setTimeout(async () => {
         try {
           const d = await api(`/api/search?q=${encodeURIComponent(q)}`);
@@ -695,7 +766,8 @@
             : `<div class="panel rounded-[3px] px-3 py-2 text-[12px] ink3 shadow-pop">No matches for “${esc(q)}”</div>`;
           panel.classList.remove('hidden');
         } catch (e) {
-          panel.classList.add('hidden');
+          const h = humanError(e);
+          panel.innerHTML = `<div class="panel rounded-[3px] px-3 py-2 text-[12px] ink2 shadow-pop">${esc(h.title)} — ${esc(h.body)} <span class="ink3">(ref ${h.ref})</span></div>`;
         }
       }, 220);
     });
@@ -818,7 +890,7 @@
           appendMessage(m.message, true);
         }
       } catch (e) {
-        toast(`${name}: ${e.message}`, 'error');
+        failToast(e);
       }
     }
     if (done && mode !== 'chat' && state.section === 'files') {
@@ -954,7 +1026,7 @@
         const d = await api('/api/calls', { method: 'POST', body: { conversation_id: +b.dataset.callConv, kind } });
         if (d.active) { toast('A call is already in progress', 'info'); return; }
         startCallUi(d.call_id, kind, true);
-      } catch (e) { toast(e.message, 'error'); }
+      } catch (e) { failToast(e); }
     }));
     $$('.call-kind').forEach((b) => b.addEventListener('click', () => {
       $$('.call-kind').forEach((x) => { x.classList.remove('btn-brand'); x.classList.add('btn-soft'); });
@@ -968,7 +1040,7 @@
       try {
         const d = await api('/api/calls', { method: 'POST', body: { conversation_id: cid, kind } });
         startCallUi(d.call_id, kind, true);
-      } catch (e) { toast(e.message, 'error'); }
+      } catch (e) { failToast(e); }
     });
     const leave = $('#ctl-leave');
     if (leave) leave.addEventListener('click', () => leaveCall());
@@ -1038,7 +1110,7 @@
       connectToPeers(d.call.participants || [], isStarter);
       toast('Joined call', 'ok');
     } catch (e) {
-      toast(e.message, 'error');
+      failToast(e);
     }
   }
 
@@ -1066,7 +1138,7 @@
       const lv = $('#cam-' + ME.id);
       if (lv) lv.srcObject = state.localStream;
     } catch (e) {
-      toast('Camera/microphone unavailable: ' + e.message, 'error');
+      toast('No camera or microphone — check the browser permission for this site, then retry.', 'error');
     }
   }
 
@@ -1148,7 +1220,7 @@
       };
       toast('Screen sharing started', 'ok');
     } catch (e) {
-      toast('Screen sharing failed: ' + e.message, 'error');
+      toast('Screen sharing did not start — pick a window and try again.', 'error');
     }
   }
 
@@ -1197,7 +1269,7 @@
         state.call = { id: msg.call_id, kind: msg.kind };
         history.pushState({}, '', '/calls');
         await startCallUi(msg.call_id, msg.kind, false);
-      } catch (e) { toast(e.message, 'error'); }
+      } catch (e) { failToast(e); }
     });
     el.querySelector('[data-dismiss]').addEventListener('click', () => el.remove());
     setTimeout(() => el.remove(), 20000);
@@ -1222,17 +1294,17 @@
         await api('/api/admin/config', { method: 'POST', body: { open: next ? '1' : '0' } });
         toast(next ? 'Server is open to the network' : 'Server now requires approval', 'ok');
         setTimeout(() => location.reload(), 600);
-      } catch (e) { toast(e.message, 'error'); busy(openToggle, false); }
+      } catch (e) { failToast(e); busy(openToggle, false); }
     });
     $$('[data-approve]').forEach((b) => b.addEventListener('click', async () => {
       busy(b, true);
       try { await api(`/api/admin/requests/${b.dataset.approve}/approve`, { method: 'POST' }); location.reload(); }
-      catch (e) { toast(e.message, 'error'); busy(b, false); }
+      catch (e) { failToast(e); busy(b, false); }
     }));
     $$('[data-reject]').forEach((b) => b.addEventListener('click', async () => {
       busy(b, true);
       try { await api(`/api/admin/requests/${b.dataset.reject}/reject`, { method: 'POST' }); location.reload(); }
-      catch (e) { toast(e.message, 'error'); busy(b, false); }
+      catch (e) { failToast(e); busy(b, false); }
     }));
     $$('[data-revoke]').forEach((b) => b.addEventListener('click', async () => {
       confirmDialog('Revoke device', 'Revoke this device credential? It will stop working immediately.', 'Revoke', async () => {
@@ -1256,7 +1328,7 @@
     $$('[data-act="backup-now"]').forEach((b) => b.addEventListener('click', async () => {
       busy(b, true);
       try { const d = await api('/api/admin/backups', { method: 'POST' }); toast(`Backup created (${bytes(d.size)})`, 'ok'); location.reload(); }
-      catch (e) { toast(e.message, 'error'); busy(b, false); }
+      catch (e) { failToast(e); busy(b, false); }
     }));
     $$('[data-backup-delete]').forEach((b) => b.addEventListener('click', async () => {
       await api(`/api/admin/backups/${b.dataset.backupDelete}`, { method: 'DELETE' });
@@ -1284,7 +1356,7 @@
         }});
         toast('Configuration saved', 'ok');
         setTimeout(() => location.reload(), 700);
-      } catch (err) { toast(err.message, 'error'); }
+      } catch (err) { failToast(err); }
     });
     $$('[data-tab]').forEach((a) => a.addEventListener('click', (e) => {
       // allow normal navigation; nothing extra
@@ -1304,7 +1376,7 @@
         ME.name = d.me.name; ME.bio = d.me.bio; ME.initials = d.me.initials;
         toast('Profile saved', 'ok');
         setTimeout(() => location.reload(), 700);
-      } catch (err) { toast(err.message, 'error'); }
+      } catch (err) { failToast(err); }
     });
   }
 
@@ -1440,7 +1512,7 @@
       const r = e.target.closest('.reaction-btn');
       if (!r) return;
       const on = !r.classList.contains('brand');
-      await api(`/api/messages/${r.dataset.message}/reactions`, { method: 'POST', body: { emoji: r.dataset.emoji, on } }).catch((x) => toast(x.message, 'error'));
+      await api(`/api/messages/${r.dataset.message}/reactions`, { method: 'POST', body: { emoji: r.dataset.emoji, on } }).catch((x) => failToast(x));
     });
 
     document.addEventListener('keydown', (e) => {
@@ -1463,7 +1535,7 @@
       const b = e.target.closest('[data-em]');
       if (!b) return;
       close();
-      api(`/api/messages/${id}/reactions`, { method: 'POST', body: { emoji: b.dataset.em } }).catch((x) => toast(x.message, 'error'));
+      api(`/api/messages/${id}/reactions`, { method: 'POST', body: { emoji: b.dataset.em } }).catch((x) => failToast(x));
     });
   }
 
@@ -1496,7 +1568,7 @@
         }
         closeModal();
         location.href = '/chat/' + d.conversation.id;
-      } catch (e2) { toast(e2.message, 'error'); }
+      } catch (e2) { failToast(e2); }
     });
   }
 

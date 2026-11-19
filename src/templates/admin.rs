@@ -110,14 +110,15 @@ fn server_status(info: ServerInfo, boot: &Boot) -> String {
         ("Pending approvals".to_string(), boot.pending_requests.to_string()),
         ("Audit entries".to_string(), boot.devices.len().to_string()),
     ]);
-    let mut out = String::new();
+    let mut out = String::from("<dl class=\"m-0\">");
     for (k, v) in rows {
         out.push_str(&format!(
-            "<div class=\"flex items-center justify-between border-b line py-2 text-[12px]\"><span class=\"ink3\">{}</span><span class=\"font-semibold\">{}</span></div>",
+            "<div class=\"specrow\"><dt>{}</dt><dd>{}</dd></div>",
             esc(&k),
             esc(&v)
         ));
     }
+    out.push_str("</dl>");
     out.push_str(&format!(
         "<div class=\"mt-3 flex flex-wrap gap-2\">\
 <button class=\"btn btn-ghost btn-xs\" data-act=\"backup-now\" type=\"button\">{} Create backup</button>\
@@ -136,7 +137,7 @@ fn audit_row(a: &AuditDto) -> String {
         "device.approve" | "device.resume" => ("check", "#10b981"),
         "device.request" => ("bell", "#f59e0b"),
         "device.revoke" | "device.signout" => ("logout", "#ef4444"),
-        "message.send" => ("chat", "#5333f4"),
+        "message.send" => ("chat", "#0f7a4a"),
         "file.upload" => ("upload", "#0ea5e9"),
         "file.delete" => ("trash", "#ef4444"),
         "call.start" => ("phone", "#8b5cf6"),
